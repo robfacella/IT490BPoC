@@ -1,0 +1,2 @@
+Notes for getting these servers setup if one crashes:
+
