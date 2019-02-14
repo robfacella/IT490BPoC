@@ -1,2 +1,75 @@
 Notes for getting these servers setup if one crashes:
 
+    2  apt-get update
+    3  apt-get upgrade
+    4  apt-get dist-upgrade
+    6  shutdown -t 0
+
+    8  apt-get install git -y
+    9  ps aux | grep -i apt #apt locked up, patience
+   11  apt-get install rabbitmq-server -y
+   12  apt-get install php -y
+
+   15  mkdir DJExample
+   16  cd DJExample/
+   17  git clone https://github.com/engineerOfLies/rabbitmqphp_example.git
+   18  cd rabbitmqphp_example/
+   21  apt-get install php-amqp
+   23  apt-get install amqp-tools 
+ 
+   27  apt-get install amqp
+   28  apt-cache search amqp
+   29  cd /etc/php/7.0/cli/conf.d/
+   31  ln -s /etc/php/mods-available/amqp.ini 
+   #######################^^^^^^^^^
+   #Lines 29 & 31 are KEY#|||||||||  
+   #######################
+
+   34  cd /root/DJExample/
+   39  cd rabbitmqphp_example/
+
+   42  cat testRabbitMQServer.conf 
+   46  ./testRabbitMQServer.php 
+   47  cat rabbitMQLib.inc 
+   48  ls
+   49  nano testRabbitMQServer.conf 
+
+   55  cd /root/DJExample/rabbitmqphp_example/
+   56  ls
+   57  rabbitmq-plugins enable rabbitmq_management
+   58  exit
+
+   60  cd DJExample/rabbitmqphp_example/
+   63  ls
+   64  ./testRabbitMQServer.php 
+   65  nano testRabbitMQServer.php 
+   66  exit
+
+   74  history
+
+###################################################
+Non-Sudo History
+    8  cd Desktop/
+    9  mkdir BPoC
+   10  cd BPoC/
+
+   12  git clone https://github.com/robfacella/IT490BPoC.git
+
+   16  cd IT490BPoC/
+   18  mkdir EnvSetup
+   19  nano EnvSetup/notes.txt
+
+   20  git add --A
+   21  git add -A
+   22  git commit
+   ####Need to Configure git first time ######################
+   24  git config --global user.email "rob.facella@gmail.com"
+   25  git config --global user.name "Robert Facella"
+   26  git commit -m #forgot note
+   ###########################################################
+   27  git commit -m EnvSetup
+   28  git push
+   29  ls
+   30  nano EnvSetup/notes.txt
+   31  history 
+
