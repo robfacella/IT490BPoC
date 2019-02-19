@@ -46,6 +46,7 @@ Notes for getting these servers setup if one crashes:
    66  exit
 
    74  history
+   75  apt-get install php-amqplib
 
 ###################################################
 Non-Sudo History
