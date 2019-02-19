@@ -17,8 +17,6 @@ Notes for getting these servers setup if one crashes:
    21  apt-get install php-amqp
    23  apt-get install amqp-tools 
  
-   27  apt-get install amqp
-   28  apt-cache search amqp
    29  cd /etc/php/7.0/cli/conf.d/
    31  ln -s /etc/php/mods-available/amqp.ini 
    #######################^^^^^^^^^
