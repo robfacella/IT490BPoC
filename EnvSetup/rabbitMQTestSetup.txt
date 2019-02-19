@@ -1,7 +1,8 @@
-#From command line#
+#From command line# <https://www.rabbitmq.com/rabbitmqctl.8.html>
     rabbitmqctl add_user test test
     rabbitmqctl set_user_tags test administrator
     rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
 ##
 
+    rabitmqctl add_vhost test
 
