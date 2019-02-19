@@ -6,3 +6,4 @@
 
     rabitmqctl add_vhost test
 
+#DON'T CLUSTER RABBITMQ. Yea, we're a cluster, but no we won't need to construct one of such a scale. K.I.S.S.
