@@ -9,5 +9,25 @@ sudo apt-get install mysql-server
 mysql -u username -p password
 
 
-#################################
+##Class Notes###############################
+create database testdb; 
+create user ‘testuser’@’localhost’ identified by ‘password’; 
+grant all privileges on testdb.* to ‘testuser’@’localhost’; 
+flush privileges;
+############################################
+
+##Class Notes (Part 2)######################
+Use testdb;
+Create table testtable (
+	userid int not null primary key auto_increment,
+	username varchar(255) not null,
+	email varchar(255) not null,
+	password varchar(255) not null;
+)
+show columns from testtable;
+
+quit
+############################################
+
+apt-get install php-mysql
 
