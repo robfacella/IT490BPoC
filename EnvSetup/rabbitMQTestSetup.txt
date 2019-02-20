@@ -1,3 +1,9 @@
+#cd /etc/php/7.0/cli/conf.d/
+#ln -s /etc/php/mods-available/amqp.ini 
+
+#Enable Management Plugins:
+rabbitmq-plugins enable rabbitmq_management
+
 #From command line# <https://www.rabbitmq.com/rabbitmqctl.8.html>
     rabbitmqctl add_user test test
     rabbitmqctl set_user_tags test administrator
@@ -7,3 +13,9 @@
     rabitmqctl add_vhost test
 
 #DON'T CLUSTER RABBITMQ. Yea, we're a cluster, but no we won't need to construct one of such a scale. K.I.S.S.
+
+#Web Browser Interface for Rabbitmq ()
+#http://localhost:15672/
+#Default User: guest
+#Default Pass: guest
+
