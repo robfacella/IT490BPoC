@@ -1,0 +1,72 @@
+git config --global user.name "YourUsername"
+git config --global user.email "YourUsername@email.com"
+git config --list
+
+
+git help <command>
+
+#git init #creates .git directory and begins tracking rest of repo.
+#rm -rf .git  #Remove .git and thus stop tracking project.
+
+git status #show changes since last commit.
+#touch .gitignore
+#.gitignore is text file to list files for git to ignore. (Personal Information) .gitignore will be committed unless set to ignore self.
+
+git add -A #add all files to be committed
+git add <filename> #stage one file at a time.
+
+git reset <filename> #removing file from staging area #If no file specified removes all from staging.
+
+git commit -m "message"
+
+git log #show commit history
+
+git push #push commits to github, enter credentials
+
+###
+git clone <url>
+
+git remote -v
+git branch -a #branches of repo
+
+#Now create entropy.
+
+git diff #show changes
+git status #show changed file(s)
+
+git add -A
+git commit -m "message for commit"
+
+git pull origin <branch name> #pulls changes (made by others) since the last time you pulled from repo.
+git push origin <branch name>
+
+####
+git branch <branchname> #create branch
+git branch #without branch name specified lists local branches. #Shows current working branch w/ * prefix.
+
+git checkout <branchname> #switch to working on branchname (From whichever you were in.)
+
+Commits affect current working branch.
+
+To push to a specific branch:
+git push -u origin <branch> #-u first time associates with remote branch name, later should just be able to pull and push.
+
+git branch -a #again show local followed by remote branches
+
+########################
+#Merging back to Master#
+########################
+git checkout master
+git pull origin master
+
+git branch --merged #show already merged branches
+
+git merge <branchname>
+
+git push origin master
+
+
+#####
+Can then cleanup by deleting the merged branch. Don't think DJ wants that though so we won't... unless he says to.
+#####
+
