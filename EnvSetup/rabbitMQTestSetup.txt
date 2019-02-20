@@ -19,3 +19,5 @@ rabbitmq-plugins enable rabbitmq_management
 #Default User: guest
 #Default Pass: guest
 
+###!!!!####
+RabbitMQ users, vhosts, exchanges etc are ALL CASE-SensitIVE!!!!
