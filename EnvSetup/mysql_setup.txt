@@ -1,0 +1,13 @@
+sudo apt-get install mysql-server
+
+#Going to ask you to choose a root password or leave blank. I don't think DJ wants us working on the database as root (everything through rabbitmq and all) so I just set mine to: root
+#For secured installation do:
+###systemctl restart mysql
+###mysql_secure_installation
+#Not sure what that affects but making a note of it.
+
+mysql -u username -p password
+
+
+#################################
+
