@@ -21,3 +21,8 @@ rabbitmq-plugins enable rabbitmq_management
 
 ###!!!!####
 RabbitMQ users, vhosts, exchanges etc are ALL CASE-SensitIVE!!!!
+
+## My "working" Fork of DJ's  ####################################
+#git clone https://github.com/robfacella/rabbitmqphp_example.git #
+##################################################################
+
