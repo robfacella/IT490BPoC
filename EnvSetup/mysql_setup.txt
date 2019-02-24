@@ -7,6 +7,8 @@ sudo apt-get install mysql-server
 #Not sure what that affects but making a note of it.
 
 mysql -u username -p password
+defaults: mysql -u root -proot
+
 
 
 ##Class Notes###############################
