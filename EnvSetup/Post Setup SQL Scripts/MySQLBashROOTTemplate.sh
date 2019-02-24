@@ -3,10 +3,10 @@
 mysql -u root -proot <<EOF
 
 #USE databaseName
-USE mysql
+USE testdb;
 
 #Queries
-SHOW tables
+SHOW tables;
 
 #EndOfFile
 EOF
