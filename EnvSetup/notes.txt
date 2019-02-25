@@ -46,6 +46,7 @@ Notes for getting these servers setup if one crashes:
    74  history
    75  apt-get install php-amqplib
 
+   76 apt-get install apache2
 ###################################################
 Non-Sudo History
     8  cd Desktop/
