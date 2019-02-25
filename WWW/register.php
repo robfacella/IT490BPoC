@@ -1,11 +1,10 @@
 <html>
 <head>
-//Think that we can combine the HTML into the PHP and save a file in the directory...
 	<meta charset="utf-8">
 	<title>Registration</title>
 </head>
 <script>
-//CTest for matching password fields.//Verify Password == confirmed password
+//Test for matching password fields.//Verify Password == confirmed password
 </script>
 <body>
 	<div class="container">
@@ -13,7 +12,7 @@
 	<form action="" method="POST">
 		<p>Choose your Username: </p> <input type="text" name="user" id="user" required="required" placeholder="enter username">
 
-		<p>Enter a Password: </p> <input type="password" name="pass" id="pass" required="required" placeholder="Passwd">
+		<p>Enter a Password: </p> <input type="password" name="passwd" id="passwd" required="required" placeholder="Passwd">
 		<p>Conf Passwd: </p> <input type="password" name="confPass" id="confPass" required="required" placeholder="Confirm Pass">
 
 		<p>eMail: </p> <input type="text" name="email" id="email" required="required" placeholder="enter email">
@@ -23,20 +22,21 @@
 	</div>
 <?php
 
+	if(isset($_POST["submit"])){
+		$user=$_POST["user"];
+		$email=$_POST["email"];
+		$pass=$_POST["passwd"];
+	//	$confPass;
 
-	$user;
-	$email;
-	$pass;
-	$confPass;
+		//echo $user;
+		//Connect to db
+		//echo $pass;
+		//On reg button click
+		//Check fields are set
+		//echo $email;
+		//
 
-	//Connect to db
-	
-	//On reg button click
-	//Check fields are set
-	
-	//if{
-
-	//}
+	}
 
 	//hash password before storing
 
