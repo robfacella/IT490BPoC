@@ -1,13 +1,14 @@
 #!/bin/bash
 
-apt-get install apache2 -y
-apt-get install libapache2-mod-php7.0 -y
+#Uncomment to install apache2 and some dependencies...
+#apt-get install apache2 -y
+#apt-get install libapache2-mod-php7.0 -y
+
 #php7.0-curl && ...-json   ??Maybe??
 
-wordir=$(pwd) 
 ##echo "use: nano /etc/apache2/sites-available/000-default.conf"
-
-echo "Copying files fromthis repository's WWW/html directory to /var/www/html"
+echo "Going to need sudo for this script." #I could set up conditionals to enforce but the fail to copy should be reminder enough..
+echo "Copying files from this repository's WWW/html directory to /var/www/html"
 cp -r WWW/html/. /var/www/html
 echo "Copied..."
 
