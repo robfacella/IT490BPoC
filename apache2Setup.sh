@@ -8,6 +8,9 @@
 
 ##echo "use: nano /etc/apache2/sites-available/000-default.conf"
 echo "Going to need sudo for this script." #I could set up conditionals to enforce but the fail to copy should be reminder enough..
+echo "Clearing local /var/www/html"
+rm -r /var/www/html/*
+
 echo "Copying files from this repository's WWW/html directory to /var/www/html"
 cp -r WWW/html/. /var/www/html
 echo "Copied..."
