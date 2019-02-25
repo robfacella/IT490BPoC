@@ -29,10 +29,6 @@
 	//	$confPass;
 
 		//echo $user;
-		//Connect to db
-		//echo $pass;
-		//On reg button click
-		//Check fields are set
 		//echo $email;
 		//
 
