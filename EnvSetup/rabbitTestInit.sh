@@ -10,5 +10,6 @@ rabbitmqctl add_vhost TESTHOST
 rabbitmqctl set_permissions -p TESTHOST test ".*" ".*" ".*"
 
 #ToDO
+#install rabbitmqadmin
 #add exchange: "TESTEXCHANGE" {Topic Durable No No}
 #add queue: "TESTQUEUE" {Durable No} {Bindings: [FROM: TESTEXCHANGE, RKey: *]}
