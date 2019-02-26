@@ -1,0 +1,24 @@
+Copied from <https://github.com/robfacella/rabbitmqphp_example> on 2/24/2019
+which is a modified fork of <https://github.com/engineerOfLies/rabbitmqphp_example>
+
+There is probably a better way to incorporate the git repo into this one but for now this will have to do. Please correct me if you know a better way that doesn't require switching to working directly off of the fork and setting up all collaborator permissions again.
+
+
+'/home/rob01/Desktop/rabbitmqphp_example/rpc' 
+	'/home/rob01/Desktop/rabbitmqphp_example/rpc/local.ini' 
+	'/home/rob01/Desktop/rabbitmqphp_example/rpc/loginRequest.php' 
+	'/home/rob01/Desktop/rabbitmqphp_example/rpc/path.inc' 
+'/home/rob01/Desktop/rabbitmqphp_example/composer.json' 
+'/home/rob01/Desktop/rabbitmqphp_example/get_host_info.inc' 
+'/home/rob01/Desktop/rabbitmqphp_example/host.ini' 
+'/home/rob01/Desktop/rabbitmqphp_example/local.ini' 
+'/home/rob01/Desktop/rabbitmqphp_example/mongoClient.php' 
+'/home/rob01/Desktop/rabbitmqphp_example/path.inc' 
+'/home/rob01/Desktop/rabbitmqphp_example/rabbitMQLib.inc' 
+'/home/rob01/Desktop/rabbitmqphp_example/soccerData.php' 
+'/home/rob01/Desktop/rabbitmqphp_example/testphp.php' 
+'/home/rob01/Desktop/rabbitmqphp_example/testRabbitMQ.ini' 
+'/home/rob01/Desktop/rabbitmqphp_example/testRabbitMQClient.php' 
+'/home/rob01/Desktop/rabbitmqphp_example/testRabbitMQServer.conf' 
+'/home/rob01/Desktop/rabbitmqphp_example/testRabbitMQServer.monit' 
+'/home/rob01/Desktop/rabbitmqphp_example/testRabbitMQServer.php' 

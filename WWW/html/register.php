@@ -35,11 +35,16 @@
 	</form>
 	</div>
 <?php
+include("dbAccount.php");
+require_once('path.inc');
+require_once('get_host_info.inc');
+require_once('rabbitMQLib.inc');
+$conSQL = mysqli_connect($hostname, $username, $password, "users") or die (mysqli_error());
 
 	if(isset($_POST["submit"])){
-		$user=$_POST["user"];
-		$email=$_POST["email"];
-		$pass=$_POST["passwd"];
+		$user=mysqli_real_escape_string($con, $_POST["user"]);
+		$email=mysqli_real_escape_string($con, $_POST["email"]);
+		$pass=mysqli_real_escape_string($con, $_POST["passwd"]);
 	//	$confPass;
 
 		//echo $user;
