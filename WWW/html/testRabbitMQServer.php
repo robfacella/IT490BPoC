@@ -12,6 +12,7 @@ function doLogin($username,$password)
     //return false if not valid
 }
 
+//Switch statement which processes request "type".
 function requestProcessor($request)
 {
   echo "received request".PHP_EOL;
