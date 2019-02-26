@@ -39,7 +39,7 @@ include("dbAccount.php");
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-$conSQL = mysqli_connect($hostname, $username, $password, "users") or die (mysqli_error());
+$conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
 
 	if(isset($_POST["submit"])){
 		$user=mysqli_real_escape_string($con, $_POST["user"]);
@@ -65,10 +65,11 @@ $conSQL = mysqli_connect($hostname, $username, $password, "users") or die (mysql
 		$request['message'] = $msg;
 		$response = $client->send_request($request);
 		//$response = $client->publish($request);
-		if($response == true){
+		//if($response == true){
 
 		  //If username does NOT exist in users table:
 		  $query=mysqli_query($con,"SELECT * FROM users where name='".$user."'");
+		  echo "$query";
 		  $nRows=mysqli_num_rows($query);
 		  if($nRows==0){
 		  //try to add to table
@@ -82,9 +83,9 @@ $conSQL = mysqli_connect($hostname, $username, $password, "users") or die (mysql
 		  }//else {   //Throw an ERROR
 		  //
 		  //}
-		}
-		else{
-	  	   echo "Caged Bunnies which run the server ran away while you were at summer camp.";}
+		//}
+		//else{
+	  	//   echo "Caged Bunnies which run the server ran away while you were at summer camp.";}
 	}
 
 	//Should hash password before storing
