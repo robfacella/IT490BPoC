@@ -4,19 +4,20 @@
 	<title>Registration</title>
 </head>
 <script>
+//Not working. Revise later.
+//var pword = document.getElementById("passwd");
+//var cpswd = document.getElementById("confPass");
 //Test for matching password fields.//Verify Password == confirmed password
-function checkPasses(){
-	var pword = document.getElementById("passwd");
-	var cpswd = document.getElementById("confPass");
-	if(pword.value != cpswd.value){
-		document.getElementById("nonConf").style.display="block";
-		cpswd.value="";
-	}
-	if(pword.value == cpswd.value){
-		document.getElementById("nonConf").style.display="none";
-	}
-	
-}
+//function checkPasses(){
+
+//	if(pword.value != cpswd.value){
+//		cpswd.setCustomValidity("Passwords Don't Match! :(");
+//	}else{
+//		cpswd.setCustomValidity('');
+//	}	
+//}
+//pword.onchange = checkPasses;
+//cpswd.onkeyup = checkPasses;
 </script>
 <body>
 	<div class="container">
