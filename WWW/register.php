@@ -45,12 +45,35 @@ $conSQL = mysqli_connect($hostname, $username, $password, "users") or die (mysql
 		$user=mysqli_real_escape_string($con, $_POST["user"]);
 		$email=mysqli_real_escape_string($con, $_POST["email"]);
 		$pass=mysqli_real_escape_string($con, $_POST["passwd"]);
-	//	$confPass;
 
-		//echo $user;
-		//echo $email;
+		//Rabbit of Caerbannog
+		$client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+		if (isset($argv[1]))
+		{
+		  $msg = $argv[1];
+		}
+		else
+		{
+		  $msg = "register_php testing";
+		}
+
+		$request = array();
+		$request['type'] = "Register";
+		$request['username'] = $user;
+		$request['password'] = $pass;
+		$request['email'] = $email;
+		$request['message'] = $msg;
+		$response = $client->send_request($request);
+		//$response = $client->publish($request);
+		//$response = $client->send_request($request);
+
+		//If username does NOT exist in users table:
+		//if(sql logic name not in table)
+		//try to add to table
+		//If username DOES already exist in users table:
+		//else {   //Throw an ERROR
 		//
-
+		//}
 	}
 
 	//hash password before storing
