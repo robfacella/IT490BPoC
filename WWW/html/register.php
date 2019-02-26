@@ -4,7 +4,7 @@
 	<title>Registration</title>
 </head>
 <script>
-//Not working. Revise later.
+//Not working, is js installedand enabled? Revise later.
 //var pword = document.getElementById("passwd");
 //var cpswd = document.getElementById("confPass");
 //Test for matching password fields.//Verify Password == confirmed password
