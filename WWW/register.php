@@ -5,6 +5,18 @@
 </head>
 <script>
 //Test for matching password fields.//Verify Password == confirmed password
+function checkPasses(){
+	var pword = getElementById("passwd");
+	var cpswd = getElementById("confPass");
+	if(pword.value != cpswd.value){
+		document.getElementById("nonConf").style.display="block";
+		cpswd.value="";
+	}
+	if(pword.value == cpswd.value){
+		document.getElementById("nonConf").style.display="none";
+	}
+	
+}
 </script>
 <body>
 	<div class="container">
@@ -14,6 +26,7 @@
 
 		<p>Enter a Password: </p> <input type="password" name="passwd" id="passwd" required="required" placeholder="Passwd">
 		<p>Conf Passwd: </p> <input type="password" name="confPass" id="confPass" required="required" placeholder="Confirm Pass">
+		<span id="nonConf">Passwords do not match :( </span>
 
 		<p>eMail: </p> <input type="text" name="email" id="email" required="required" placeholder="enter email">
 		<input type="submit" name="submit" value="Regi">
