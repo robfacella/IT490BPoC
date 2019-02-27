@@ -12,6 +12,6 @@ rabbitmqctl set_permissions -p TESTHOST test ".*" ".*" ".*"
 #ToDO
 #install rabbitmqadmin
 ###add exchange: "TESTEXCHANGE" {Topic Durable No No}
-#rabbitmqadmin declare exchange name=TESTEXCHANGE #type=fanout
+./rabbitmqadmin declare exchange name=TESTEXCHANGE type=topic [durable=false]
 ###add queue: "TESTQUEUE" {Durable No} {Bindings: [FROM: TESTEXCHANGE, RKey: *]}
-#rabbitmqadmin declare queue name=TESTQUEUE durable=false
+./rabbitmqadmin declare queue name=TESTQUEUE [durable=false]
