@@ -1,3 +1,26 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<title>Login</title>
+</head>
+
+<body>
+	<div class="container">
+	<h1>BPoC Sign-In<h1><br>
+	<form method="post" action="login.php">
+		<p>Username</p>
+		<input type ="text" name="user" id="user" placeholder="Username...">
+
+		<p>Pass</p>
+		<input type = "password" name="password" id="password" placeholder="Enter Pass...">
+		<br><button type="button">Login</button>
+
+		<br><br><p>Register</p>
+		
+	</form>
+	</div>
+
 <?php
 
 //login with provide credentials if in the db
@@ -17,3 +40,6 @@ else{
 }
 
 ?>
+</body>
+
+</html>
