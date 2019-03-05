@@ -69,7 +69,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		//if($response == true){
 
 		  //If username does NOT exist in users table:
-		  $query=mysqli_query($conSQL,"SELECT * FROM users where name='".$user."'");
+		  $query=mysqli_query($conSQL,"SELECT * FROM users where username=$user");
 		  echo "$query";
 		  $nRows=mysqli_num_rows($query);
 		  if($nRows==0){
@@ -77,13 +77,13 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		    $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
 		    $attempt=mysqli_query($conSQL, $query2);
 		    if($attempt){
-		        echo "SUCCess!!";
+		        echo "Registered user: $user ...";
 		    }else{
 		        echo "How you even get here?!";}
 		  //If username DOES already exist in users table:
-		  }//else {   //Throw an ERROR
-		  //
-		  //}
+		  }else {   //Throw an ERROR
+		  	echo "Sorry, that username is already registered.";
+		  }
 		//}
 		//else{
 	  	//   echo "Caged Bunnies which run the server ran away while you were at summer camp.";}
