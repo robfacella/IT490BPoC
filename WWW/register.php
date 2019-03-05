@@ -4,20 +4,20 @@
 	<title>Registration</title>
 </head>
 <script>
-//Not working. Revise later.
-//var pword = document.getElementById("passwd");
-//var cpswd = document.getElementById("confPass");
+var pword = document.getElementById("passwd");
+var cpswd = document.getElementById("confPass");
 //Test for matching password fields.//Verify Password == confirmed password
-//function checkPasses(){
+function checkPasses(){
 
-//	if(pword.value != cpswd.value){
-//		cpswd.setCustomValidity("Passwords Don't Match! :(");
-//	}else{
-//		cpswd.setCustomValidity('');
-//	}	
-//}
-//pword.onchange = checkPasses;
-//cpswd.onkeyup = checkPasses;
+	if(pword.value != cpswd.value){
+		document.getElementById("nonConf").style.display="block";
+		cpswd.value="";
+	}if(pword.value == cpswd.value){
+		document.getElementById("nonConf").style.display="none";
+	}	
+}
+pword.onchange = checkPasses;
+cpswd.onkeyup = checkPasses;
 </script>
 <body>
 	<div class="container">
@@ -41,10 +41,11 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
 
+
 	if(isset($_POST["submit"])){
-		$user=mysqli_real_escape_string($con, $_POST["user"]);
-		$email=mysqli_real_escape_string($con, $_POST["email"]);
-		$pass=mysqli_real_escape_string($con, $_POST["passwd"]);
+		$user=mysqli_real_escape_string($conSQL, $_POST["user"]);
+		$email=mysqli_real_escape_string($conSQL, $_POST["email"]);
+		$pass=mysqli_real_escape_string($conSQL, $_POST["passwd"]);
 
 		//Rabbit of Caerbannog
 		$client = new rabbitMQClient("testRabbitMQ.ini","testServer");
@@ -63,18 +64,18 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		$request['password'] = $pass;
 		$request['email'] = $email;
 		$request['message'] = $msg;
-		$response = $client->send_request($request);
+		//$response = $client->send_request($request);
 		//$response = $client->publish($request);
 		//if($response == true){
 
 		  //If username does NOT exist in users table:
-		  $query=mysqli_query($con,"SELECT * FROM users where name='".$user."'");
+		  $query=mysqli_query($conSQL,"SELECT * FROM users where name='".$user."'");
 		  echo "$query";
 		  $nRows=mysqli_num_rows($query);
 		  if($nRows==0){
 		  //try to add to table
 		    $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
-		    $attempt=mysqli_query($con, $query2);
+		    $attempt=mysqli_query($conSQL, $query2);
 		    if($attempt){
 		        echo "SUCCess!!";
 		    }else{
