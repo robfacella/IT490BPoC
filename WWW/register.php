@@ -48,7 +48,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		$pass=mysqli_real_escape_string($conSQL, $_POST["passwd"]);
 
 		//Rabbit of Caerbannog
-		$client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+		$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
 		if (isset($argv[1]))
 		{
 		  $msg = $argv[1];
@@ -58,15 +58,16 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		  $msg = "register_php testing";
 		}
 
+		
 		$request = array();
 		$request['type'] = "Register";
 		$request['username'] = $user;
 		$request['password'] = $pass;
 		$request['email'] = $email;
 		$request['message'] = $msg;
-		//$response = $client->send_request($request);
+		$response = $client->send_request($request);
 		//$response = $client->publish($request);
-		//if($response == true){
+		if($response == true){
 
 		  //If username does NOT exist in users table:
 		  $query=mysqli_query($conSQL,"SELECT * FROM users where username=$user");
@@ -84,7 +85,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		  }else {   
 		  	echo "Sorry, that username is already registered.";
 		  }
-		//}
+		}
 		//else{
 	  	//   echo "Caged Bunnies which run the server ran away while you were at summer camp.";}
 	}
