@@ -22,7 +22,8 @@
 	</div>
 
 <?php
-
+include("dbAccount.php");
+$conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
 //login with provide credentials if in the db
 
 //$username = $_POST['user'];
@@ -44,11 +45,11 @@ $password = sanitize('pass');
 //connect to database server and select Accounts table
 
 //Query DB for user and log them in if credentials are correct
-if
-
-else{
-	echo "Login ERROR: Invalid Credentials."
-}
+//if
+//
+//else{
+//	echo "Login ERROR: Invalid Credentials."
+//}
 
 ?>
 </body>
