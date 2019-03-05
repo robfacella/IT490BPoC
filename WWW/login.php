@@ -25,10 +25,21 @@
 
 //login with provide credentials if in the db
 
-$username = $_POST['user'];
-$password = $_POST['pass];
+//$username = $_POST['user'];
+//$password = $_POST['pass'];
 
 //Sanitize data to prevent SQLInjection
+function sanitize($var){
+    global $db;
+    $temp = $_GET [ $var ] ;
+    $temp = trim ( $temp ) ;
+    $temp = mysqli_real_escape_string($db, $temp);
+    return $temp; 
+}
+
+$username = sanitize('user');
+$password = sanitize('pass');
+
 
 //connect to database server and select Accounts table
 
