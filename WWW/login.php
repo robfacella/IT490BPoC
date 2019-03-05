@@ -38,8 +38,25 @@ function sanitize($var){
     return $temp; 
 }
 
+function auth($user, $pass){
+    global $db;
+    $s = "select * from A where user = '$user' and pass = '$pass'"; //change to use the database name
+    echo "$s <br> <br>";
+    ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
+    $num =mysqli_num_rows($t);
+    if ($num==0){ return false;}
+		return true;
+}
+
 $username = sanitize('user');
 $password = sanitize('pass');
+
+
+if (!auth ($username,$password)){
+	$message = "Wrong login credentials, please try again.";
+	exit();
+}
+
 
 
 //connect to database server and select Accounts table
