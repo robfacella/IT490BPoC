@@ -74,13 +74,15 @@ ini_set( 'display_errors' , 1 );
 
 		  //If username does NOT exist in users table:
 		  $squee = "select * from users where username = '$user'";
-		  ($query=mysqli_query($conSQL, $squee))  or die (mysqli_error($conSQL));
-		  echo "$query";
+		  echo $squee;
+		  ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
+		  //echo $query;// <-- Do NOT try this!
 		
 		  $nRows=mysqli_num_rows($query);
 		  if($nRows==0){
 		  //try to add to table
 		    $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
+		    echo $query2;
 		    $attempt=mysqli_query($conSQL, $query2);
 		    if($attempt){
 		        echo "Registered user: $user ...";
