@@ -51,15 +51,15 @@ ini_set( 'display_errors' , 1 );
 		$pass=mysqli_real_escape_string($conSQL, $_POST["passwd"]);
 
 		//Rabbit of Caerbannog
-		$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
-		if (isset($argv[1]))
-		{
-		  $msg = $argv[1];
-		}
-		else
-		{
-		  $msg = "register_php testing";
-		}
+		//$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+		//if (isset($argv[1]))
+		//{
+		//  $msg = $argv[1];
+		//}
+		//else
+		//{
+		//  $msg = "register_php testing";
+		//}
 
 		
 		$request = array();
@@ -67,7 +67,7 @@ ini_set( 'display_errors' , 1 );
 		$request['username'] = $user;
 		$request['password'] = $pass;
 		$request['email'] = $email;
-		$request['message'] = $msg;
+		//$request['message'] = $msg;
 		//$response = $client->send_request($request);
 		//$response = $client->publish($request);
 		//if($response == true){
