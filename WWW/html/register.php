@@ -40,6 +40,9 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
+//error reporting
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+ini_set( 'display_errors' , 1 );
 
 
 	if(isset($_POST["submit"])){
@@ -70,7 +73,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		//if($response == true){
 
 		  //If username does NOT exist in users table:
-		  $sqee = "select * from users where username = '$user'";
+		  $squee = "select * from users where username = '$user'";
 		  ($query=mysqli_query($conSQL, $squee))  or die (mysqli_error($conSQL));
 		  echo "$query";
 		
