@@ -24,7 +24,7 @@
 <?php
 include("dbAccount.php");
 //boiler plate text for connecting to mysqli
-$db = mysqli_connect($hostname, 'root','', $database); //needs to be variables that reference the dbaccount file $username replaces "root" and $password replaces " "
+$db = mysqli_connect($hostname, $username,$password, $database); //needs to be variables that reference the dbaccount file $username replaces "root" and $password replaces " "
 if (mysqli_connect_errno())
   {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -40,9 +40,9 @@ ini_set( 'display_errors' , 1 );
 //login with provide credentials if in the db
 if(isset($_REQUEST['submit_btn']))
     {
-		$username = sanitize('user');
-		$password = sanitize('password'); 
-		if (!auth ($username,$password)){
+		$uname = sanitize('user');
+		$pword = sanitize('password'); 
+		if (!auth ($uname,$pword)){
 			echo "Wrong login credentials, please try again.";
 			exit(); 
 		} 
@@ -58,9 +58,9 @@ function sanitize($var){
 }
 
 //auth function
-function auth($username, $password){
+function auth($user, $pass){
     global $db;
-    $s = "select * from accounts where username = '$username' and password = '$password'"; //change to use the database name
+    $s = "select * from accounts where username = '$user' and password = '$pass'"; //change to use the database name
     echo "$s <br> <br>";
     ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
     $num =mysqli_num_rows($t);
