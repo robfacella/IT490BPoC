@@ -73,7 +73,7 @@ ini_set( 'display_errors' , 1 );
 		//if($response == true){
 
 		  //If username does NOT exist in users table:
-		  $sqee = "select * from users where username = '$user'";
+		  $squee = "select * from users where username = '$user'";
 		  ($query=mysqli_query($conSQL, $squee))  or die (mysqli_error($conSQL));
 		  echo "$query";
 		
