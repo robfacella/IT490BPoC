@@ -30,7 +30,7 @@ function requestProcessor($request)
     case "test":
           echo "Reached 'test' case.".PHP_EOL;
           echo ("Was sent user:".$request['username'].PHP_EOL);
-          return true;
+          return "This might be what the client sees when a msg is processed.";
           
     case "login":
       return doLogin($request['username'],$request['password']);
