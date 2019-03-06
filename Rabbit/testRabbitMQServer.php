@@ -29,7 +29,7 @@ function requestProcessor($request)
   {
     case "test":
           echo "Reached 'test' case.".PHP_EOL;
-          echo ("Was sent user:".$request['username']);
+          echo ("Was sent user:".$request['username'].PHP_EOL);
           return true;
           
     case "login":
