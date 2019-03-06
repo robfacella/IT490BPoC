@@ -59,13 +59,13 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		}
 
 		$request = array();
-		$request['type'] = "Register";
+		$request['type'] = "register";
 		$request['username'] = $user;
 		$request['password'] = $pass;
 		$request['email'] = $email;
 		$request['message'] = $msg;
-		//$response = $client->send_request($request);
-		//$response = $client->publish($request);
+		//$response = $client->send_request($request); //Requires Rabbit Server connectivity.
+		//$response = $client->publish($request); //Requires Rabbit Server connectivity.
 		//if($response == true){
 
 		  //If username does NOT exist in users table:
