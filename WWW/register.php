@@ -65,9 +65,9 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		$request['password'] = $pass;
 		$request['email'] = $email;
 		$request['message'] = $msg;
-		$response = $client->send_request($request);
+		//$response = $client->send_request($request);
 		//$response = $client->publish($request);
-		if($response == true){
+		//if($response == true){
 
 		  //If username does NOT exist in users table:
 		  $sqee = "select * from users where username = '$user'";
@@ -87,7 +87,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		  }else {   
 		  	echo "Sorry, that username is already registered.";
 		  }
-		}
+		//}
 		//else{
 	  	//   echo "Caged Bunnies which run the server ran away while you were at summer camp.";}
 	}
