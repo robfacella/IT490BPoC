@@ -70,7 +70,8 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		if($response == true){
 
 		  //If username does NOT exist in users table:
-		  ($query=mysqli_query($conSQL,"select * from users where username = '$user'"))  or die (mysqli_error($conSQL));
+		  $sqee = "select * from users where username = '$user'";
+		  ($query=mysqli_query($conSQL, $squee))  or die (mysqli_error($conSQL));
 		  echo "$query";
 		
 		  $nRows=mysqli_num_rows($query);
