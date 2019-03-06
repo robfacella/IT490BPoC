@@ -23,7 +23,22 @@
 
 <?php
 include("dbAccount.php");
-$conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
+//$conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
+
+//boiler plate text for connecting to mysqli
+$db = mysqli_connect($hostname, 'root','', $database); //needs to be variables that reference the dbaccount file
+if (mysqli_connect_errno())
+  {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  exit();
+  }
+print "Successfully connected to MySQL.<br><br>";
+mysqli_select_db($db, $database ); 
+
+//error reporting
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+ini_set( 'display_errors' , 1 );
+
 //login with provide credentials if in the db
 
 //$username = $_POST['user'];
@@ -38,9 +53,12 @@ function sanitize($var){
     return $temp; 
 }
 
-function auth($user, $pass){
+$username = sanitize('user');
+$password = sanitize('pass');
+
+function auth($username, $password){
     global $db;
-    $s = "select * from A where user = '$user' and pass = '$pass'"; //change to use the database name
+    $s = "select * from accounts where username = '$username' and password = '$password'"; //change to use the database name
     echo "$s <br> <br>";
     ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
     $num =mysqli_num_rows($t);
@@ -48,8 +66,7 @@ function auth($user, $pass){
 		return true;
 }
 
-$username = sanitize('user');
-$password = sanitize('pass');
+
 
 
 if (!auth ($username,$password)){
