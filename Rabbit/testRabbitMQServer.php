@@ -27,6 +27,11 @@ function requestProcessor($request)
   }
   switch ($request['type'])
   {
+    case "test":
+          echo "Reached 'test' case.".PHP_EOL;
+          echo ("Was sent user:".$request['username']);
+          return true;
+          
     case "login":
       return doLogin($request['username'],$request['password']);
     case "validate_session":
