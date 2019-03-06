@@ -48,7 +48,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		$pass=mysqli_real_escape_string($conSQL, $_POST["passwd"]);
 
 		//Rabbit of Caerbannog
-		$client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+		$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
 		if (isset($argv[1]))
 		{
 		  $msg = $argv[1];
@@ -58,19 +58,22 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		  $msg = "register_php testing";
 		}
 
+		
 		$request = array();
-		$request['type'] = "register";
+		$request['type'] = "Register";
 		$request['username'] = $user;
 		$request['password'] = $pass;
 		$request['email'] = $email;
 		$request['message'] = $msg;
-		//$response = $client->send_request($request); //Requires Rabbit Server connectivity.
-		//$response = $client->publish($request); //Requires Rabbit Server connectivity.
+		//$response = $client->send_request($request);
+		//$response = $client->publish($request);
 		//if($response == true){
 
 		  //If username does NOT exist in users table:
-		  $query=mysqli_query($conSQL,"SELECT * FROM users where username=$user");
+		  $sqee = "select * from users where username = '$user'";
+		  ($query=mysqli_query($conSQL, $squee))  or die (mysqli_error($conSQL));
 		  echo "$query";
+		
 		  $nRows=mysqli_num_rows($query);
 		  if($nRows==0){
 		  //try to add to table
@@ -81,7 +84,7 @@ $conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mys
 		    }else{
 		        echo "How you even get here?!";}
 		  //If username DOES already exist in users table:
-		  }else {   //Throw an ERROR
+		  }else {   
 		  	echo "Sorry, that username is already registered.";
 		  }
 		//}
