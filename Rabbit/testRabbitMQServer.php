@@ -25,7 +25,7 @@ function requestProcessor($request)
   {
     return "ERROR: unsupported message type";
   }
-  switch ($request['type']) //Log as it's own case or logging within each case? Or both?
+  switch ($request['type'])
   {
     case "test":
           echo "Reached 'test' case.".PHP_EOL;
