@@ -8,13 +8,13 @@
 <body>
 	<div class="container">
 	<h1>BPoC Sign-In<h1><br>
-	<form method="post" action="login.php">
+	<form method="post" action="">
 		<p>Username</p>
 		<input type ="text" name="user" id="user" placeholder="Username...">
 
 		<p>Pass</p>
 		<input type = "password" name="password" id="password" placeholder="Enter Pass...">
-		<br><button type="button">Login</button>
+		<input type="submit" value="submit" name="submit_btn">
 
 		<br><br><p>Register</p>
 		
@@ -23,8 +23,6 @@
 
 <?php
 include("dbAccount.php");
-//$conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
-
 //boiler plate text for connecting to mysqli
 $db = mysqli_connect($hostname, 'root','', $database); //needs to be variables that reference the dbaccount file
 if (mysqli_connect_errno())
@@ -40,22 +38,26 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set( 'display_errors' , 1 );
 
 //login with provide credentials if in the db
-
-//$username = $_POST['user'];
-//$password = $_POST['pass'];
-
+if(isset($_REQUEST['submit_btn']))
+    {
+		$username = sanitize('user');
+		$password = sanitize('password'); 
+		if (!auth ($username,$password)){
+			echo "Wrong login credentials, please try again.";
+			exit(); 
+		} 
+		// add what happens if user is logged in here 
+	}
 //Sanitize data to prevent SQLInjection
 function sanitize($var){
     global $db;
-    $temp = $_GET [ $var ] ;
+    $temp = $_POST[$var];
     $temp = trim ( $temp ) ;
     $temp = mysqli_real_escape_string($db, $temp);
     return $temp; 
 }
 
-$username = sanitize('user');
-$password = sanitize('pass');
-
+//auth function
 function auth($username, $password){
     global $db;
     $s = "select * from accounts where username = '$username' and password = '$password'"; //change to use the database name
@@ -65,25 +67,6 @@ function auth($username, $password){
     if ($num==0){ return false;}
 		return true;
 }
-
-
-
-
-if (!auth ($username,$password)){
-	$message = "Wrong login credentials, please try again.";
-	exit();
-}
-
-
-
-//connect to database server and select Accounts table
-
-//Query DB for user and log them in if credentials are correct
-//if
-//
-//else{
-//	echo "Login ERROR: Invalid Credentials."
-//}
 
 ?>
 </body>
