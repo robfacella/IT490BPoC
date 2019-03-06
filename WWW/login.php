@@ -24,7 +24,7 @@
 <?php
 include("dbAccount.php");
 //boiler plate text for connecting to mysqli
-$db = mysqli_connect($hostname, 'root','', $database); //needs to be variables that reference the dbaccount file
+$db = mysqli_connect($hostname, 'root','', $database); //needs to be variables that reference the dbaccount file $username replaces "root" and $password replaces " "
 if (mysqli_connect_errno())
   {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
