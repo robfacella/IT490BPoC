@@ -20,7 +20,7 @@ $request['username'] = "test";
 $request['password'] = "test";
 $request['message'] = $msg;
 $response = $client->send_request($request); //(Response)
-$response = $client->publish($request); //One-Way (NO response).
+//$response = $client->publish($request); //One-Way (NO response).
 
 echo "client received response: ".PHP_EOL;
 print_r($response);
