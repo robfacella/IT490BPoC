@@ -46,7 +46,8 @@ if(isset($_REQUEST['submit_btn']))
 			echo "Wrong login credentials, please try again.";
 			exit(); 
 		} 
-		// add what happens if user is logged in here 
+		// add what happens if user is logged in here
+		//Session Cookies Login 
 	}
 //Sanitize data to prevent SQLInjection
 function sanitize($var){
@@ -60,7 +61,7 @@ function sanitize($var){
 //auth function
 function auth($user, $pass){
     global $db;
-    $s = "select * from accounts where username = '$user' and password = '$pass'"; //change to use the database name
+    $s = "select * from users where username = '$user' and password = '$pass'"; //change to use the database name
     echo "$s <br> <br>";
     ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
     $num =mysqli_num_rows($t);
