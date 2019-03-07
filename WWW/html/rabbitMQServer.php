@@ -3,7 +3,9 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-include("dbAccount.php");//Getting undefined variables?
+include("dbAccount.php");
+//$db = mysqli_connect($dbhostname, $dbuser,$dbpass, $dbdatabase); //Doesn't like this either..
+$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
@@ -16,13 +18,58 @@ function doLogout($username)
     return true;
     //return false if not valid
 }
+//Auth Function from Pabianm's login.php
+function auth($user, $pass){
+    global $db;
+    $s = "select * from users where username = '$user' and password = '$pass'"; //change to use the database name
+    echo "$s <br> <br>";
+    ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
+    $num =mysqli_num_rows($t);
+    if ($num==0){ return false;}
+		return true;
+}
+//Sanitize data to prevent SQLInjection from Pabianm's login.php
+function sanitize($var){
+    global $db;
+    $temp = $_POST[$var];
+    $temp = trim ( $temp ) ;
+    $temp = mysqli_real_escape_string($db, $temp);
+    return $temp; 
+}  
 function doLogin($username,$password)
 {
-    // lookup username in database
-    // check password
-    return true;
-    //return false if not valid
+  // lookup username in database
+  // check password
+  $authe = array();
+  $authe['allow'] = false;
+  if (mysqli_connect_errno())
+  {
+     $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
+     return $authe;
+  }
+  //print "Successfully connected to MySQL.<br><br>";
+  mysqli_select_db($db, $dbdatabase ); 
+
+  //error reporting
+  error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+  ini_set( 'display_errors' , 1 );
+
+  //login with provide credentials if in the db
+  $uname = sanitize($username);
+  $pword = sanitize($password); 
+  if (!auth ($uname,$pword)){
+     $authe['msg'] = "Wrong login credentials, please try again.";
+     return $authe; 
+  } 
+  //return false by default if not valid  
+  $authe['allow'] = true;
+  $authe['msg'] = "Logging In.";  
+  $authe['uname'] = $uname;
+  return $authe;
+    
 }
+
+
 function doRegister($user,$pass,$email)
 {
     
