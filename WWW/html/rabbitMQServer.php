@@ -65,6 +65,7 @@ function doLogin($username,$password)
   $authe['allow'] = true;
   $authe['msg'] = "Logging In.";  
   $authe['uname'] = $uname;
+  $authe['pwo'] = $pword;
   return $authe;
     
 }
