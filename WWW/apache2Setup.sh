@@ -12,7 +12,7 @@ echo "Clearing local /var/www/html"
 rm -r /var/www/html/*
 
 echo "Copying files from this repository's WWW/html directory to /var/www/html"
-cp -r WWW/html/. /var/www/html
+cp -r html/. /var/www/html
 echo "Copied..."
 
 echo "Restarting apache2 server..."
