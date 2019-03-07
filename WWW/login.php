@@ -46,7 +46,11 @@ if(isset($_REQUEST['submit_btn']))
 			echo "Wrong login credentials, please try again.";
 			exit(); 
 		} 
-		// add what happens if user is logged in here 
+		// add what happens if user is logged in here
+	        session_start();
+	        echo "Tried to start Session..";
+		$_SESSION['uname'] = $uname;
+		echo "<script>location.href='loggedIn.php'</script>";
 	}
 //Sanitize data to prevent SQLInjection
 function sanitize($var){
