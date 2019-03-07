@@ -47,6 +47,7 @@ if(isset($_REQUEST['submit_btn']))
 			exit(); 
 		} 
 		// add what happens if user is logged in here
+		// Session Start Placeholder..
 	        session_start();
 	        echo "Tried to start Session..";
 		$_SESSION['uname'] = $uname;
@@ -64,7 +65,7 @@ function sanitize($var){
 //auth function
 function auth($user, $pass){
     global $db;
-    $s = "select * from accounts where username = '$user' and password = '$pass'"; //change to use the database name
+    $s = "select * from users where username = '$user' and password = '$pass'"; //change to use the database name
     echo "$s <br> <br>";
     ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
     $num =mysqli_num_rows($t);
