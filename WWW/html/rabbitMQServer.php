@@ -7,8 +7,19 @@ include("dbAccount.php");//Getting undefined variables?
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
+function doValidate(){
+   //I think this is like McHugh's "gatekeeper" 
+   return true;
+}
+function doLogout($username)
+{
+    return true;
+    //return false if not valid
+}
 function doLogin($username,$password)
 {
+    // lookup username in database
+    // check password
     return true;
     //return false if not valid
 }
@@ -20,8 +31,7 @@ function doRegister($user,$pass,$email)
     $email=mysqli_real_escape_string($conSQL, $email);
     $pass=mysqli_real_escape_string($conSQL, $pass);
 
-    // lookup username in database //But it JUST returns true currently...
-    // check password
+    // lookup username in database
     //If username does NOT exist in users table:
     $squee = "select * from users where username = '$user'";
     echo $squee;
@@ -65,6 +75,8 @@ function requestProcessor($request)
       return doValidate($request['sessionId']); //doValidate method seems to be undefined.
     case "register":
           return doRegister($request['username'],$request['password'],$request['email']);
+    case "logout":
+	  return doLogout($request['username']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
