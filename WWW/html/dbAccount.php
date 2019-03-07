@@ -2,8 +2,8 @@
 #Debugging
 
 $hostname = "localhost";
-$username = "testuser";
-$password = "password";
+$dbuser = "testuser";
+$dbpass = "password";
 $database = "testdb";
 
 ?>

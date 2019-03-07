@@ -35,69 +35,39 @@ cpswd.onkeyup = checkPasses;
 	</form>
 	</div>
 <?php
-include("dbAccount.php");
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-$conSQL = mysqli_connect($hostname, $username, $password, $database) or die (mysqli_error());
 //error reporting
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set( 'display_errors' , 1 );
 
 
 	if(isset($_POST["submit"])){
-		$user=mysqli_real_escape_string($conSQL, $_POST["user"]);
-		$email=mysqli_real_escape_string($conSQL, $_POST["email"]);
-		$pass=mysqli_real_escape_string($conSQL, $_POST["passwd"]);
-
+		
 		//Rabbit of Caerbannog
-		//$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
-		//if (isset($argv[1]))
-		//{
-		//  $msg = $argv[1];
-		//}
-		//else
-		//{
-		//  $msg = "register_php testing";
-		//}
+		$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+		if (isset($argv[1]))
+		{
+		  $msg = $argv[1];
+		}
+		else
+		{
+		  $msg = "register.php testing";
+		}
 
 		
 		$request = array();
-		$request['type'] = "Register";
-		$request['username'] = $user;
-		$request['password'] = $pass;
-		$request['email'] = $email;
-		//$request['message'] = $msg;
-		//$response = $client->send_request($request);
+		$request['type'] = "register";
+		$request['username'] = $_POST["user"];
+		$request['password'] = $_POST["passwd"];
+		$request['email'] = $_POST["email"];
+		$request['message'] = $msg;
+		$response = $client->send_request($request);
 		//$response = $client->publish($request);
-		//if($response == true){
+		echo $response;
 
-		  //If username does NOT exist in users table:
-		  $squee = "select * from users where username = '$user'";
-		  echo $squee;
-		  ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
-		  //echo $query;// <-- Do NOT try this!
-		
-		  $nRows=mysqli_num_rows($query);
-		  if($nRows==0){
-		  //try to add to table
-		    $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
-		    echo $query2;
-		    $attempt=mysqli_query($conSQL, $query2);
-		    if($attempt){
-		        echo "Registered user: $user ...";
-		    }else{
-		        echo "How you even get here?!";}
-		  //If username DOES already exist in users table:
-		  }else {   
-		  	echo "Sorry, that username is already registered.";
-		  }
-		//}
-		//else{
-	  	//   echo "Caged Bunnies which run the server ran away while you were at summer camp.";}
 	}
-
-	//Should hash password before storing
 
 
 ?>
