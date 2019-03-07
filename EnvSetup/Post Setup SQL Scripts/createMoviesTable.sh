@@ -16,7 +16,7 @@ Create table movies (
 	released int not null,
   	genre varchar(255) not null,
  	actors varchar(255) not null,
-  	poster varchar(255) not null,
+  	poster varchar(255) not null
 );
 show columns from movies;
 EOF
