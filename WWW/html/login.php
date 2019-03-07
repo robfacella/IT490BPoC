@@ -47,7 +47,11 @@ if(isset($_REQUEST['submit_btn']))
 			exit(); 
 		} 
 		// add what happens if user is logged in here
-		//Session Cookies Login 
+		// Session Start Placeholder..
+	        session_start();
+	        echo "Tried to start Session..";
+		$_SESSION['uname'] = $uname;
+		echo "<script>location.href='loggedIn.php'</script>";
 	}
 //Sanitize data to prevent SQLInjection
 function sanitize($var){
