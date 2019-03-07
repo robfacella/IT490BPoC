@@ -1,9 +1,9 @@
 <?php
 #Debugging
 
-$hostname = "localhost";
+$dbhostname = "localhost";
 $dbuser = "testuser";
 $dbpass = "password";
-$database = "testdb";
+$dbdatabase = "testdb";
 
 ?>

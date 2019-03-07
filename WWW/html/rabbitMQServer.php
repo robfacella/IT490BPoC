@@ -3,7 +3,7 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-include("dbAccount.php");
+include("dbAccount.php");//Getting undefined variables?
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
@@ -14,7 +14,8 @@ function doLogin($username,$password)
 }
 function doRegister($user,$pass,$email)
 {
-    $conSQL = mysqli_connect($hostname, $dbuser, $dbpass, $database) or die (mysqli_error());
+    
+    $conSQL = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
     $user=mysqli_real_escape_string($conSQL, $user);     
     $email=mysqli_real_escape_string($conSQL, $email);
     $pass=mysqli_real_escape_string($conSQL, $pass);
