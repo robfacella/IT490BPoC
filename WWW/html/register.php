@@ -63,7 +63,7 @@ ini_set( 'display_errors' , 1 );
 		$request['password'] = $_POST["passwd"];
 		$request['email'] = $_POST["email"];
 		$request['message'] = $msg;
-		$response = $client->send_request($request);
+		$response = $client->send_request($request); //Need a running rabbitMQServer.php
 		//$response = $client->publish($request);
 		echo $response;
 
