@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(isset($_SESSSION['uname']))
+  if(isset($_SESSION['uname']))
   {
   //Welcome the User
     echo "<h1>Welcome ".$_SESSION['uname']." to BPoC</h1>";
