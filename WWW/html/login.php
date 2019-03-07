@@ -48,7 +48,7 @@ if(isset($_REQUEST['submit_btn']))
 		$request['password'] = $_POST["passwd"];
 		$request['message'] = $msg;
 		$response = $client->send_request($request); //Need a running rabbitMQServer.php
-		echo $response['$msg'];
+		echo $response['msg'];
                 if ($response['allow'] == false){
 		//Login Failed
 		  exit();

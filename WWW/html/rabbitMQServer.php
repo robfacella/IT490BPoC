@@ -31,14 +31,14 @@ function auth($user, $pass){
 //Sanitize data to prevent SQLInjection from Pabianm's login.php
 function sanitize($var){
     global $db;
-    $temp = $_POST[$var];
-    $temp = trim ( $temp ) ;
+    $temp = trim ( $var ) ;
     $temp = mysqli_real_escape_string($db, $temp);
     return $temp; 
 }  
 function doLogin($username,$password)
 {
   // lookup username in database
+  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
   // check password
   $authe = array();
   $authe['allow'] = false;
@@ -48,7 +48,7 @@ function doLogin($username,$password)
      return $authe;
   }
   //print "Successfully connected to MySQL.<br><br>";
-  mysqli_select_db($db, $dbdatabase ); 
+  mysqli_select_db($db, "testdb"); 
 
   //error reporting
   error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
