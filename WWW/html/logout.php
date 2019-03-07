@@ -35,7 +35,7 @@ else{
   $request['password'] = "No Session Password"];
 }
 $request['message'] = $msg;
-echo "Sending Msg..."
+echo "Sending Msg...";
 $response = $client->send_request($request); //Need a running rabbitMQServer.php
 
 echo $response['msg']; 
