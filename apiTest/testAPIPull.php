@@ -17,7 +17,9 @@ if($movieInfo["Response"] == "True"){
     print("This is a movie and we can proceed".PHP_EOL);
     print($movieInfo["Year"]);
     $serverInfo = mysqli_connect("128.235.159.32", "testuser", "password", "testdb");
-    INSERT INTO Movies (Title, Year, Rated, Released, Genre, Director, Actors, Poster) VALUES ($movieInfo["Title"], $movieInfo["Year"], $movieInfo["Rated"], $movieInfo["Released"], $movieInfo["Genre"], $movieInfo["Director"], $movieInfo["Actors"], $movieInfo["Poster"])
+    $SQLquery = "INSERT INTO Movies (Title, Year, Rated, Released, Genre, Director, Actors, Poster) VALUES (".$movieInfo["Title"].", ".$movieInfo["Year"].", ".$movieInfo["Rated"].", ".$movieInfo["Released"].", ".$movieInfo["Genre"].", ".$movieInfo["Director"].", ".$movieInfo["Actors"].", ".$movieInfo["Poster"].")";
+    mysql_query($SQLquery);
+    $serverInfo->close;
   }
 }
 
