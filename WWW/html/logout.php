@@ -40,7 +40,7 @@ $response = $client->send_request($request); //Need a running rabbitMQServer.php
 
 echo $response['msg']; 
 
-if(isset($_SESSION['uname'])||$_SESSION['pwo']))
+if(isset($_SESSION['uname'])||isset($_SESSION['pwo']))
 {
   //Destroy Session & Redirect to Login
   session_destroy();    
