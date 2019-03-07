@@ -10,7 +10,7 @@ USE testdb;
 #DROP TABLE movies;
 Create table movies (
 	movieid int not null primary key auto_increment,
-	title varchar(255), not null,
+	title varchar(255) not null,
 	year int not null,
 	rated varchar(255) not null,
 	released int not null,
