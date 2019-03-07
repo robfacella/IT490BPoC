@@ -15,10 +15,13 @@ function doValidate(){
 }
 function doLogout($username, $pwo)
 {
-    session_start();
-    session_destroy();
+    //session_start();
+//PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/get_host_info.inc:28) in /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/rabbitMQServer.php on line 18
+//PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/get_host_info.inc:28) in /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/rabbitMQServer.php on line 18
+
+    //session_destroy();
     $lout = array();
-    $lout['msg']="Logged out '$username'.";
+    $lout['message']="Logged out '$username'.";
     return $lout;
     //return false if not valid
 }

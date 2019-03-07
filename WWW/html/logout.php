@@ -25,14 +25,14 @@ if(isset($_SESSION['uname']))
   $request['username'] = $_SESSION['uname'];
 }
 else{
-  $request['username'] = "No Session User"];
+  $request['username'] = "No Session User";
 }
 if(isset($_SESSION['pwo']))
 {
   $request['password'] = $_SESSION['pwo'];
 }
 else{
-  $request['password'] = "No Session Password"];
+  $request['password'] = "No Session Password";
 }
 $request['message'] = $msg;
 echo "Sending Msg...";
@@ -40,12 +40,12 @@ $response = $client->send_request($request); //Need a running rabbitMQServer.php
 
 echo $response['msg']; 
 
-//if(isset($_SESSION['uname']))
-//{
-//Destroy Session & Redirect to Login
-//  session_destroy();    
-//  echo "<script>location.href='login.php'</script>";
-//}
+if(isset($_SESSION['uname'])||$_SESSION['pwo']))
+{
+  //Destroy Session & Redirect to Login
+  session_destroy();    
+  echo "<script>location.href='login.php'</script>";
+}
 //else{
 //Redirect to login page anyway?
 echo "<script>location.href='login.php'</script>";
