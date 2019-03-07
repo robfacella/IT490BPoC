@@ -13,9 +13,13 @@ function doValidate(){
    //I think this is like McHugh's "gatekeeper" 
    return true;
 }
-function doLogout($username)
+function doLogout($username, $pwo)
 {
-    return true;
+    session_start();
+    session_destroy();
+    $lout = array();
+    $lout['msg']="Logged out '$username'.";
+    return $lout;
     //return false if not valid
 }
 //Auth Function from Pabianm's login.php
@@ -124,7 +128,7 @@ function requestProcessor($request)
     case "register":
           return doRegister($request['username'],$request['password'],$request['email']);
     case "logout":
-	  return doLogout($request['username']);
+	  return doLogout($request['username'],$request['password']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
