@@ -67,6 +67,7 @@ ini_set( 'display_errors' , 1 );
 		//$response = $client->publish($request);
 		echo $response;
 
+		//Add: If successful -> Redirect to Login Page. 
 	}
 
 
