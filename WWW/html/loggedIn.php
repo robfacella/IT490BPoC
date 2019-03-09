@@ -1,5 +1,6 @@
 <?php
   session_start();
+  //Need to work on Validation through rabbitMQ
   if(isset($_SESSION['uname']))
   {
   //Welcome the User
