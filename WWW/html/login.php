@@ -27,6 +27,7 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 //boiler plate text for connecting to mysqli
 //$db = mysqli_connect($dbhostname, $dbuser,$dbpass, $dbdatabase); //needs to be variables that reference the dbaccount file $username replaces "root" and $password replaces " "
+//What if they were already logged in with a valid session?
 if(isset($_REQUEST['submit_btn']))
 {
 		
