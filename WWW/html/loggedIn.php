@@ -23,8 +23,8 @@ require_once('rabbitMQLib.inc');
   }    
   $request = array();
   $request['type'] = "validate_session";
-  $request['username'] = $_POST["user"];
-  $request['password'] = $_POST["passwd"];
+  $request['username'] = $_SESSION['uname'];
+  $request['password'] = $_SESSION['pwo'];
   $request['message'] = $msg;
   $response = $client->send_request($request); //Need a running rabbitMQServer.php
   echo $response['msg'];
