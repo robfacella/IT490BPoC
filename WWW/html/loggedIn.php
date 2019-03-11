@@ -22,7 +22,7 @@ require_once('rabbitMQLib.inc');
      $msg = "logout.php testing";	
   }    
   $request = array();
-  $request['type'] = "login";
+  $request['type'] = "validate_session";
   $request['username'] = $_POST["user"];
   $request['password'] = $_POST["passwd"];
   $request['message'] = $msg;
