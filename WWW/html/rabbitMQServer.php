@@ -128,7 +128,7 @@ function doRegister($user,$pass,$email)
     //try to add to table
     //Should hash password before storing
     $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
-    echo $query2;
+    echo $query2.PHP_EOL;
     $attempt=mysqli_query($conSQL, $query2);
       if($attempt){
 	$msg = "Registered user: $user ...";
