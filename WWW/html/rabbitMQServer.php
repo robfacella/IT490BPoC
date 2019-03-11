@@ -139,7 +139,9 @@ function doRegister($user,$pass,$email)
 	echo $msg.PHP_EOL;
         return $msg;
      //If username DOES already exist in users table:
-    }else {
+      }
+    }
+    else {
 	$msg = "Sorry, that $user is already a registered username.";
 	echo $msg.PHP_EOL;
         return $msg;
