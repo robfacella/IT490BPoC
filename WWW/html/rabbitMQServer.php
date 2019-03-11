@@ -18,14 +18,14 @@ function doLogout($username, $pwo)
     //session_destroy();
     $lout = array();
     $lout['message']="Logged out '$username'.";
+    echo $lout['message'].PHP_EOL;
     return $lout;
-    //return false if not valid
 }
 //Auth Function from Pabianm's login.php
 function auth($user, $pass){
     global $db;
     $s = "select * from users where username = '$user' and password = '$pass'"; //change to use the database name
-    echo "$s <br> <br>";
+    //echo "$s <br>".PHP_EOL;
     ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
     $num =mysqli_num_rows($t);
     if ($num==0){ return false;}
@@ -48,6 +48,7 @@ function doValidate($username,$password){
   if (mysqli_connect_errno())
   {
      $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
+     echo $authe['msg'].PHP_EOL;
      return $authe;
   }
   mysqli_select_db($db, "testdb"); 
@@ -58,6 +59,7 @@ function doValidate($username,$password){
   $pword = sanitize($password); 
   if (!auth ($uname,$pword)){
      $authe['msg'] = "Invalid session credentials, please Login again.";
+     echo $authe['msg'].PHP_EOL;
      return $authe; 
   } 
   //Return false by default if not valid.  (Declared earlier in function.)
@@ -66,6 +68,7 @@ function doValidate($username,$password){
   $authe['uname'] = $uname;
   $authe['pwo'] = $pword;
   //$authe['sessionId'] =;//From OG doValidate case, track valid session with this instead of user&pass combo???
+  echo $authe['msg'].PHP_EOL;
   return $authe;
 }
 function doLogin($username,$password)
@@ -78,6 +81,7 @@ function doLogin($username,$password)
   if (mysqli_connect_errno())
   {
      $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
+     echo $authe['msg'].PHP_EOL;
      return $authe;
   }
   //print "Successfully connected to MySQL.<br><br>";
@@ -92,6 +96,7 @@ function doLogin($username,$password)
   $pword = sanitize($password); 
   if (!auth ($uname,$pword)){
      $authe['msg'] = "Wrong login credentials, please try again.";
+     echo $authe['msg'].PHP_EOL;//Change to tried to login with
      return $authe; 
   } 
   //return false by default if not valid  
@@ -99,6 +104,7 @@ function doLogin($username,$password)
   $authe['msg'] = "Logging In.";  
   $authe['uname'] = $uname;
   $authe['pwo'] = $pword;
+  echo $authe['msg'].PHP_EOL;
   return $authe;
     
 }
@@ -115,7 +121,7 @@ function doRegister($user,$pass,$email)
     // lookup username in database
     //If username does NOT exist in users table:
     $squee = "select * from users where username = '$user'";
-    echo $squee;
+    //echo $squee;
     ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
     $nRows=mysqli_num_rows($query);
     if($nRows==0){
@@ -124,15 +130,20 @@ function doRegister($user,$pass,$email)
     $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
     echo $query2;
     $attempt=mysqli_query($conSQL, $query2);
-    if($attempt){
-        return "Registered user: $user ...";
-    }else{
-        return "How you even get here?!";}
-    //If username DOES already exist in users table:
-    }else {   
-  	return "Sorry, that username is already registered.";
+      if($attempt){
+	$msg = "Registered user: $user ...";
+	echo $msg.PHP_EOL;
+        return $msg;
+      }else{
+	$msg = "ERROR Running query, try again later...";
+	echo $msg.PHP_EOL;
+        return $msg;
+     //If username DOES already exist in users table:
+    }else {
+	$msg = "Sorry, that $user is already a registered username.";
+	echo $msg.PHP_EOL;
+        return $msg;
     }
-    return false;
 }
     
 function requestProcessor($request)
@@ -141,7 +152,9 @@ function requestProcessor($request)
   var_dump($request);
   if(!isset($request['type']))
   {
-    return "ERROR: unsupported message type";
+    $msg = "ERROR: unsupported message type";
+    echo $msg.PHP_EOL;
+    return $msg;
   }
   switch ($request['type']) //Log as it's own case or logging within each case? Or both?
   {
