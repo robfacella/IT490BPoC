@@ -1,7 +1,7 @@
 #!/bin/bash
 #Should only be run once; sets up testdb and table as per in-class example.
 
-mysql -u root -proot <<EOF
+sudo mysql -u root -proot <<EOF
 
 #Create TestDB & TestUser
 create database testdb;

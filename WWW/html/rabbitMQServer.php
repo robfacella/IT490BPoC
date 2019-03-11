@@ -9,10 +9,6 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
-function doValidate(){
-   //I think this is like McHugh's "gatekeeper" 
-   return true;
-}
 function doLogout($username, $pwo)
 {
     //session_start();
@@ -41,7 +37,37 @@ function sanitize($var){
     $temp = trim ( $var ) ;
     $temp = mysqli_real_escape_string($db, $temp);
     return $temp; 
-}  
+}
+function doValidate($username,$password){
+  //I think this is like McHugh's "gatekeeper" 
+  // lookup 'Logged-In' Account in database
+  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+  // check password
+  $authe = array();
+  $authe['isValid'] = false;
+  if (mysqli_connect_errno())
+  {
+     $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
+     return $authe;
+  }
+  mysqli_select_db($db, "testdb"); 
+  error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+  ini_set( 'display_errors' , 1 );
+  //Validate Login from session provided credentials if they are in the db
+  $uname = sanitize($username);
+  $pword = sanitize($password); 
+  if (!auth ($uname,$pword)){
+     $authe['msg'] = "Invalid session credentials, please Login again.";
+     return $authe; 
+  } 
+  //Return false by default if not valid.  (Declared earlier in function.)
+  $authe['isValid'] = true;
+  $authe['msg'] = "Session Validated.";  
+  $authe['uname'] = $uname;
+  $authe['pwo'] = $pword;
+  //$authe['sessionId'] =;//From OG doValidate case, track valid session with this instead of user&pass combo???
+  return $authe;
+}
 function doLogin($username,$password)
 {
   // lookup username in database
@@ -127,7 +153,8 @@ function requestProcessor($request)
     case "login":
       return doLogin($request['username'],$request['password']);
     case "validate_session":
-      return doValidate($request['sessionId']); //doValidate method seems to be undefined.
+      //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
+          return doValidate($request['username'],$request['password']);
     case "register":
           return doRegister($request['username'],$request['password'],$request['email']);
     case "logout":
