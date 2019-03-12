@@ -5,7 +5,7 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include("dbAccount.php");
 //Change references of mysqli_connect($dbhostname to the IP Add of the database.
-$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+$db = mysqli_connect("192.168.8.235", "testuser", "password", "testdb") or die (mysqli_error());
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
@@ -41,7 +41,7 @@ function sanitize($var){
 function doValidate($username,$password){
   //I think this is like McHugh's "gatekeeper" 
   // lookup 'Logged-In' Account in database
-  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+  $db = mysqli_connect("192.168.8.235", "testuser", "password", "testdb") or die (mysqli_error());
   // check password
   $authe = array();
   $authe['isValid'] = false;
@@ -74,7 +74,7 @@ function doValidate($username,$password){
 function doLogin($username,$password)
 {
   // lookup username in database
-  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+  $db = mysqli_connect("192.168.8.235", "testuser", "password", "testdb") or die (mysqli_error());
   // check password
   $authe = array();
   $authe['allow'] = false;
@@ -113,7 +113,7 @@ function doLogin($username,$password)
 function doRegister($user,$pass,$email)
 {
     
-    $conSQL = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+    $conSQL = mysqli_connect("192.168.8.235", "testuser", "password", "testdb") or die (mysqli_error());
     $user=mysqli_real_escape_string($conSQL, $user);     
     $email=mysqli_real_escape_string($conSQL, $email);
     $pass=mysqli_real_escape_string($conSQL, $pass);
