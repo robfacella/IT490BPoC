@@ -1,9 +1,15 @@
 <?php
 #Debugging
-
-$dbhostname = "localhost";
-$dbuser = "testuser";
-$dbpass = "password";
-$dbdatabase = "testdb";
-
+class dbAccount
+{
+  public $dbhostname = "localhost";
+  public $dbuser = "testuser";
+  public $dbpass = "password";
+  public $dbdatabase = "testdb";
+  
+  function getHostname()
+  {
+    return $dbhostname;
+  }
+}
 ?>
