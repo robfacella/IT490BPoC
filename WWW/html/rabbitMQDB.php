@@ -4,13 +4,18 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include("dbAccount.php");
-//RabbitMQ Broker (and will be central logger)
+//RabbitMQ Server Run by the Database Server which will take in requests from the Broker.
 $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
 function doLogout($username, $pwo)
 {
+    //session_start();
+//PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/get_host_info.inc:28) in /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/rabbitMQServer.php on line 18
+//PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/get_host_info.inc:28) in /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/rabbitMQServer.php on line 18
+
+    //session_destroy();
     $lout = array();
     $lout['message']="Logged out '$username'.";
     echo $lout['message'].PHP_EOL;
