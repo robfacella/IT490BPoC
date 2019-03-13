@@ -114,6 +114,8 @@ function doRegister($user,$pass,$email)
     $request['password'] = $pass;
     $request['email'] = $email;
     $request['message'] = "Sending request to register user: $user to the remote database...";
+    $msg = "Sending Message to DB...";
+    echo $msg.PHP_EOL;
     $response = $client->send_request($request);
     if($response['attempt']){
 	$msg = $response['msg'];
@@ -125,12 +127,6 @@ function doRegister($user,$pass,$email)
         return $msg;
      //If username DOES already exist in users table:
       }
-    }
-    else {
-	$msg = "Sorry, that $user is already a registered username.";
-	echo $msg.PHP_EOL;
-        return $msg;
-    }
 }
     
 function requestProcessor($request)
