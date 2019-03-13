@@ -11,11 +11,6 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //extension=amqp.so
 function doLogout($username, $pwo)
 {
-    //session_start();
-//PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/get_host_info.inc:28) in /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/rabbitMQServer.php on line 18
-//PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/get_host_info.inc:28) in /home/rob01/Desktop/BPoC/IT490BPoC/WWW/html/rabbitMQServer.php on line 18
-
-    //session_destroy();
     $lout = array();
     $lout['message']="Logged out '$username'.";
     echo $lout['message'].PHP_EOL;
@@ -117,34 +112,35 @@ function doRegister($user,$pass,$email)
     $user=mysqli_real_escape_string($conSQL, $user);     
     $email=mysqli_real_escape_string($conSQL, $email);
     $pass=mysqli_real_escape_string($conSQL, $pass);
-
-    // lookup username in database
+    $response = array();
     //If username does NOT exist in users table:
     $squee = "select * from users where username = '$user'";
-    //echo $squee;
     ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
     $nRows=mysqli_num_rows($query);
     if($nRows==0){
-    //try to add to table
+    //Try to add to table
     //Should hash password before storing
     $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
     echo $query2.PHP_EOL;
-    $attempt=mysqli_query($conSQL, $query2);
-      if($attempt){
+    $response['attempt']=mysqli_query($conSQL, $query2);
+      if($response['attempt']){
 	$msg = "Registered user: $user ...";
+        $response['msg']=$msg;
 	echo $msg.PHP_EOL;
-        return $msg;
+        return $response;
       }else{
 	$msg = "ERROR Running query, try again later...";
+        $response['msg']=$msg;
 	echo $msg.PHP_EOL;
-        return $msg;
+        return $response;
      //If username DOES already exist in users table:
       }
     }
     else {
 	$msg = "Sorry, that $user is already a registered username.";
+        $response['msg']=$msg;
 	echo $msg.PHP_EOL;
-        return $msg;
+        return $response;
     }
 }
     
@@ -178,11 +174,11 @@ function requestProcessor($request)
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
 
-$server = new rabbitMQServer("testRabbitMQ.ini","testServer");
+$server = new rabbitMQServer("dbRabbitMQ.ini","testServer");
 
-echo "testRabbitMQServer BEGIN".PHP_EOL;
+echo "dbRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
-echo "testRabbitMQServer END".PHP_EOL;
+echo "dbRabbitMQServer END".PHP_EOL;
 exit();
 ?>
 

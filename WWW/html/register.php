@@ -46,7 +46,7 @@ ini_set( 'display_errors' , 1 );
 	if(isset($_POST["submit"])){
 		
 		//Rabbit of Caerbannog
-		$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+		$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
 		if (isset($argv[1]))
 		{
 		  $msg = $argv[1];

@@ -107,29 +107,19 @@ function doLogin($username,$password)
 
 function doRegister($user,$pass,$email)
 {
-    
-    $conSQL = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-    $user=mysqli_real_escape_string($conSQL, $user);     
-    $email=mysqli_real_escape_string($conSQL, $email);
-    $pass=mysqli_real_escape_string($conSQL, $pass);
-
-    // lookup username in database
-    //If username does NOT exist in users table:
-    $squee = "select * from users where username = '$user'";
-    //echo $squee;
-    ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
-    $nRows=mysqli_num_rows($query);
-    if($nRows==0){
-    //try to add to table
-    //Should hash password before storing
-    $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
-    echo $query2.PHP_EOL;
-    $attempt=mysqli_query($conSQL, $query2);
-      if($attempt){
-	$msg = "Registered user: $user ...";
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "register";
+    $request['username'] = $user;
+    $request['password'] = $pass;
+    $request['email'] = $email;
+    $request['message'] = "Sending request to register user: $user to the remote database...";
+    $response = $client->send_request($request);
+    if($response['attempt']){
+	$msg = $response['msg'];
 	echo $msg.PHP_EOL;
         return $msg;
-      }else{
+    }else{
 	$msg = "ERROR Running query, try again later...";
 	echo $msg.PHP_EOL;
         return $msg;
@@ -173,11 +163,11 @@ function requestProcessor($request)
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
 
-$server = new rabbitMQServer("testRabbitMQ.ini","testServer");
+$server = new rabbitMQServer("brokerRabbitMQ.ini","testServer");
 
-echo "testRabbitMQServer BEGIN".PHP_EOL;
+echo "brokerRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
-echo "testRabbitMQServer END".PHP_EOL;
+echo "brokerRabbitMQServer END".PHP_EOL;
 exit();
 ?>
 
