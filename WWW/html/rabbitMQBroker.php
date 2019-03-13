@@ -68,40 +68,20 @@ function doValidate($username,$password){
 }
 function doLogin($username,$password)
 {
-  // lookup username in database
-  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-  // check password
-  $authe = array();
-  $authe['allow'] = false;
-  if (mysqli_connect_errno())
-  {
-     $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
-     echo $authe['msg'].PHP_EOL;
-     return $authe;
-  }
-  //print "Successfully connected to MySQL.<br><br>";
-  mysqli_select_db($db, "testdb"); 
-
-  //error reporting
-  error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-  ini_set( 'display_errors' , 1 );
-
-  //login with provide credentials if in the db
-  $uname = sanitize($username);
-  $pword = sanitize($password); 
-  if (!auth ($uname,$pword)){
-     $authe['msg'] = "Wrong login credentials, please try again.";
-     echo $authe['msg'].PHP_EOL;//Change to tried to login with
-     return $authe; 
-  } 
-  //return false by default if not valid  
-  $authe['allow'] = true;
-  $authe['msg'] = "Logging In.";  
-  $authe['uname'] = $uname;
-  $authe['pwo'] = $pword;
-  echo $authe['msg'].PHP_EOL;
-  return $authe;
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "login";
+    $request['username'] = $username;
+    $request['password'] = $password;
+    $request['message'] = "Sending request to login user: $user to the remote database...";
+    $msg = $request['message']." Sending Message to DB...";
+    echo $msg.PHP_EOL;
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    echo $msg.PHP_EOL;
+    echo $response['msg'].PHP_EOL;
     
+    return $response;
 }
 
 

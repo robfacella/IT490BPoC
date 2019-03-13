@@ -26,13 +26,12 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 //boiler plate text for connecting to mysqli
-//$db = mysqli_connect($dbhostname, $dbuser,$dbpass, $dbdatabase); //needs to be variables that reference the dbaccount file $username replaces "root" and $password replaces " "
 //What if they were already logged in with a valid session?
 if(isset($_REQUEST['submit_btn']))
 {
 		
 		//Rabbit of Caerbannog
-		$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+		$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
 		if (isset($argv[1]))
 		{
 		  $msg = $argv[1];
@@ -48,7 +47,7 @@ if(isset($_REQUEST['submit_btn']))
 		$request['username'] = $_POST["user"];
 		$request['password'] = $_POST["passwd"];
 		$request['message'] = $msg;
-		$response = $client->send_request($request); //Need a running rabbitMQServer.php
+		$response = $client->send_request($request); //Need a running rabbitMQBroker.php
 		echo $response['msg'];
                 if ($response['allow'] == false){
 		//Login Failed

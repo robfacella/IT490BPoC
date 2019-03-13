@@ -96,7 +96,7 @@ function doLogin($username,$password)
   } 
   //return false by default if not valid  
   $authe['allow'] = true;
-  $authe['msg'] = "Logging In.";  
+  $authe['msg'] = "Logging In: $uname ";  
   $authe['uname'] = $uname;
   $authe['pwo'] = $pword;
   echo $authe['msg'].PHP_EOL;
