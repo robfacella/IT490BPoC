@@ -117,6 +117,8 @@ function doRegister($user,$pass,$email)
     $msg = "Sending Message to DB...";
     echo $msg.PHP_EOL;
     $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    echo $msg.PHP_EOL;
     if($response['attempt']){
 	$msg = $response['msg'];
 	echo $msg.PHP_EOL;
