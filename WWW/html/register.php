@@ -1,7 +1,17 @@
 <html>
 <head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
 	<meta charset="utf-8">
 	<title>Registration</title>
+<style type="text/css">
+h1{
+    font-family: 'Roboto Slab', serif;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+	background-color: #CCC;
+}
+</style>
 </head>
 <script>
 var pword = document.getElementById("passwd");
@@ -21,9 +31,10 @@ cpswd.onkeyup = checkPasses;
 </script>
 <body>
 	<div class="container">
+	<h1><img src="BPoC logo.png" width="227" height="135"></h1>
 	<h1>BPoC Registration</h1>
 	<form action="" method="POST">
-		<p>Choose your Username: </p> <input type="text" name="user" id="user" required="required" placeholder="enter username">
+	  <p>Choose your Username: </p> <input type="text" name="user" id="user" required="required" placeholder="enter username">
 
 		<p>Enter a Password: </p> <input type="password" name="passwd" id="passwd" required="required" placeholder="Passwd">
 		<p>Conf Passwd: </p> <input type="password" name="confPass" id="confPass" required="required" placeholder="Confirm Pass">
