@@ -12,7 +12,7 @@ require_once('rabbitMQLib.inc');
   }
   ///////
   //Check Session Validity
-  $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+  $client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
   if (isset($argv[1]))
   {
      $msg = $argv[1];
@@ -26,7 +26,7 @@ require_once('rabbitMQLib.inc');
   $request['username'] = $_SESSION['uname'];
   $request['password'] = $_SESSION['pwo'];
   $request['message'] = $msg;
-  $response = $client->send_request($request); //Need a running rabbitMQServer.php
+  $response = $client->send_request($request); //Need a running rabbitMQBroker.php
   echo $response['msg'];
   if ($response['isValid'] == false){
      //Validation Failed

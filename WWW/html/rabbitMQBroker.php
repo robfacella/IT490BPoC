@@ -34,37 +34,20 @@ function sanitize($var){
     return $temp; 
 }
 function doValidate($username,$password){
-  //I think this is like McHugh's "gatekeeper" 
-  // lookup 'Logged-In' Account in database
-  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-  // check password
-  $authe = array();
-  $authe['isValid'] = false;
-  if (mysqli_connect_errno())
-  {
-     $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
-     echo $authe['msg'].PHP_EOL;
-     return $authe;
-  }
-  mysqli_select_db($db, "testdb"); 
-  error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-  ini_set( 'display_errors' , 1 );
-  //Validate Login from session provided credentials if they are in the db
-  $uname = sanitize($username);
-  $pword = sanitize($password); 
-  if (!auth ($uname,$pword)){
-     $authe['msg'] = "Invalid session credentials, please Login again.";
-     echo $authe['msg'].PHP_EOL;
-     return $authe; 
-  } 
-  //Return false by default if not valid.  (Declared earlier in function.)
-  $authe['isValid'] = true;
-  $authe['msg'] = "Session Validated.";  
-  $authe['uname'] = $uname;
-  $authe['pwo'] = $pword;
-  //$authe['sessionId'] =;//From OG doValidate case, track valid session with this instead of user&pass combo???
-  echo $authe['msg'].PHP_EOL;
-  return $authe;
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "validate_session";
+    $request['username'] = $username;
+    $request['password'] = $password;
+    $request['message'] = "Checking validation of user: $user at the remote database...";
+    $msg = $request['message']." Sending Message to DB...";
+    echo $msg.PHP_EOL;
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    echo $msg.PHP_EOL;
+    echo $response['msg'].PHP_EOL;
+    
+    return $response;
 }
 function doLogin($username,$password)
 {
