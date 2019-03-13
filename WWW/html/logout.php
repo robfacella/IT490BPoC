@@ -7,7 +7,7 @@ require_once('rabbitMQLib.inc');
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set( 'display_errors' , 1 );
 
-$client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
 if (isset($argv[1]))
 {
   $msg = $argv[1];

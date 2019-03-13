@@ -11,10 +11,20 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //extension=amqp.so
 function doLogout($username, $pwo)
 {
-    $lout = array();
-    $lout['message']="Logged out '$username'.";
-    echo $lout['message'].PHP_EOL;
-    return $lout;
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "logout";
+    $request['username'] = $username;
+    $request['password'] = $password;
+    $request['message'] = "Checking validation of user: $username at the remote database...";
+    $msg = $request['message']." Sending Message to DB...";
+    echo $msg.PHP_EOL;
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    echo $msg.PHP_EOL;
+    echo $response['message'].PHP_EOL;
+    
+    return $response;
 }
 //Auth Function from Pabianm's login.php
 function auth($user, $pass){
@@ -39,7 +49,7 @@ function doValidate($username,$password){
     $request['type'] = "validate_session";
     $request['username'] = $username;
     $request['password'] = $password;
-    $request['message'] = "Checking validation of user: $user at the remote database...";
+    $request['message'] = "Checking validation of user: $username at the remote database...";
     $msg = $request['message']." Sending Message to DB...";
     echo $msg.PHP_EOL;
     $response = $client->send_request($request);
