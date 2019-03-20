@@ -8,8 +8,8 @@
   //check found user's movies for unseen movies
   //suggest movie closest to stats
   class userProfile {
-    public $weighedStats = array('Genre' =>  array(), 'Director' => array(), 'Year' => array(), 'Actors' => array());
-    public $unweighedStats = array('Genre' =>  array(), 'Director' => array(), 'Year' => array(), 'Actors' => array());
+    public $weighedStats = array('Genre' =>  array(), 'Director' => array(),/* 'Year' => array(),*/ 'Actors' => array());
+    public $unweighedStats = array('Genre' =>  array(), 'Director' => array(),/* 'Year' => array(),*/ 'Actors' => array());
     public $moviesWatched = 0;
     public $movieList = array();
 
