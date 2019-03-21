@@ -76,10 +76,11 @@
 
   //check if button pressed
   if(isset($_POST["addMovie"])){
+    echo 'Button Pressed'.PHP_EOL;
     $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $msg . "&apikey=f0530b1d"), true);
 
     //Outputs info on movie into console
-    print_r($movieInfo);
+    echo $movieInfo.PHP_EOL;
 
     //Checks movie info to be sure this is indeed a movie and not a TV show
     if($movieInfo["Response"] == "True"){
