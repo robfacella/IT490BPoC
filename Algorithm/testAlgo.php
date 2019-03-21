@@ -1,28 +1,11 @@
-<html>
-<body>
-<form id="form1" name="form1" method="post" action="">
-  <label for="movieInput">Movie Title</label>
-  <input type="text" name="movieInput" id="movieInput" />
-</form>
-<form action="testAlgo.php" method="post">
-    <input type="button" name="addMovie" value="Add Movie" />
-</form>
 <?php
   //Here is where we initalize our fake users
   //initalize user stats
   //get user input on movie
   //add to user stats
-  //it should automatically update movie suggestion but for now just loop until user is finished
   //check stats against stats of other users, find closest matching user
   //check found user's movies for unseen movies
   //suggest movie closest to stats
-
-  //use this to output info
-  function print_r2($val){
-          echo '<pre>';
-          print_r($val);
-          echo  '</pre>';
-  }
 
   class userProfile {
     public $statNames = array('Genre', 'Director', 'Actors');
@@ -83,23 +66,28 @@
 
   //create temp user for current session
   $currentUser = new userProfile();
-
+  $looper = True;
   //check if button pressed
-  if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addMovie'])){
-    echo 'Button Pressed'.PHP_EOL;
-    $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $msg . "&apikey=f0530b1d"), true);
+  while ($looper){
+    echo "Do you want to add another movie?".PHP_EOL;
+    $input = rtrim(fgets(STDIN));
+    if ($input = "y") {
+      echo 'OK! What movie would you like to add?'.PHP_EOL;
+      $input = rtrim(fgets(STDIN));
+      $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $input . "&apikey=f0530b1d"), true);
 
-    //Outputs info on movie into console
-    print_r2($movieInfo);
+      //Outputs info on movie into console
+      print_r($movieInfo);
 
-    //Checks movie info to be sure this is indeed a movie and not a TV show
-    if($movieInfo["Response"] == "True"){
-      if ($movieInfo["Type"] == "movie") {
-        $currentUser.addMovie($movieInfo, 1);
-        print_r2($currentUser->$weighedStats);
+      //Checks movie info to be sure this is indeed a movie and not a TV show
+      if($movieInfo["Response"] == "True"){
+        if ($movieInfo["Type"] == "movie") {
+          $currentUser.addMovie($movieInfo, 1);
+          print_r($currentUser->$weighedStats);
+        }
       }
     }
-  }
+}
 ?>
 </body>
 </html>
