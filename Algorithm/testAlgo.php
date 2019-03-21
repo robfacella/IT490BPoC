@@ -5,7 +5,7 @@
   <input type="text" name="movieInput" id="movieInput" />
 </form>
 <form action="testAlgo.php" method="post">
-    <input type="submit" name="addMovie" value="Add Movie" />
+    <input type="button" name="addMovie" value="Add Movie" />
 </form>
 <?php
   //Here is where we initalize our fake users
@@ -16,6 +16,14 @@
   //check stats against stats of other users, find closest matching user
   //check found user's movies for unseen movies
   //suggest movie closest to stats
+
+  //use this to output info
+  function print_r2($val){
+          echo '<pre>';
+          print_r($val);
+          echo  '</pre>';
+  }
+
   class userProfile {
     public $statNames = array('Genre', 'Director', 'Actors');
     public $weighedStats = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
@@ -82,13 +90,13 @@
     $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $msg . "&apikey=f0530b1d"), true);
 
     //Outputs info on movie into console
-    echo $movieInfo.PHP_EOL;
+    print_r2($movieInfo);
 
     //Checks movie info to be sure this is indeed a movie and not a TV show
     if($movieInfo["Response"] == "True"){
       if ($movieInfo["Type"] == "movie") {
         $currentUser.addMovie($movieInfo, 1);
-        echo $currentUser->$weighedStats;
+        print_r2($currentUser->$weighedStats);
       }
     }
   }
