@@ -4,7 +4,9 @@
   <label for="movieInput">Movie Title</label>
   <input type="text" name="movieInput" id="movieInput" />
 </form>
-<input name="addMovie" type="button" value="Add Movie"/>
+<form action="testAlgo.php" method="post">
+    <input type="submit" name="addMovie" value="Add Movie" />
+</form>
 <?php
   //Here is where we initalize our fake users
   //initalize user stats
@@ -75,7 +77,7 @@
   $currentUser = new userProfile();
 
   //check if button pressed
-  if(isset($_POST["addMovie"])){
+  if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addMovie'])){
     echo 'Button Pressed'.PHP_EOL;
     $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $msg . "&apikey=f0530b1d"), true);
 
