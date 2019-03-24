@@ -134,8 +134,10 @@ function doLogin($username,$password)
   echo $authe['msg'].PHP_EOL;
   $s = "select userid from users where username = '$uname'";
   ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
-  
-  $authe['uid'] = $t;
+  while ($row = $t->fetch_assoc())
+  {
+    $authe['uid'] = $row["uid"];     
+  }
   return $authe;
     
 }
