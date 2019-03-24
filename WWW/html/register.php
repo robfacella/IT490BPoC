@@ -76,9 +76,16 @@ ini_set( 'display_errors' , 1 );
 		$request['message'] = $msg;
 		$response = $client->send_request($request); //Need a running rabbitMQServer.php
 		//$response = $client->publish($request);
-		echo $response;
+		echo $response['msg'];
 
-		//Add: If successful -> Redirect to Login Page. 
+                if ($response['attempt'] == false){
+		//Registration Failed
+		  exit();
+		}
+		else{
+			echo "<script>location.href='login.php'</script>";
+			//Take em to the login.
+		}
 	}
 
 
