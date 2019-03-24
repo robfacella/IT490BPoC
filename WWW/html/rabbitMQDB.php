@@ -113,6 +113,7 @@ function doRegister($user,$pass,$email)
     $email=mysqli_real_escape_string($conSQL, $email);
     $pass=mysqli_real_escape_string($conSQL, $pass);
     $response = array();
+    $response['attempt']=false;
     //If username does NOT exist in users table:
     $squee = "select * from users where username = '$user'";
     ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
