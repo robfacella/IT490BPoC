@@ -106,12 +106,12 @@ function doRegister($user,$pass,$email)
     if($response['attempt']){
 	$msg = $response['msg'];
 	logger($msg);
-        return $msg;
+        return $response;
     }else{
 	$msg = "ERROR Running query, try again later...";
 	logger($msg);
-        return $msg;
-     //If username DOES already exist in users table:
+        return $response;
+        //If username did already exist in users table OR other error with DB..
       }
 }
     
