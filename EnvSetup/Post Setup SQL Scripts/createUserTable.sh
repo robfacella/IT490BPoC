@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS relationship (
   user_two_id INT(10) UNSIGNED NOT NULL,
   status TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
   action_user_id INT(10) UNSIGNED NOT NULL,
-  FOREIGN KEY (`user_one_id`) REFERENCES users(`userid`),
-  FOREIGN KEY (`user_two_id`) REFERENCES users(`userid`),
-  FOREIGN KEY (`action_user_id`) REFERENCES users(`userid`)
+  FOREIGN KEY (user_one_id) REFERENCES users(userid),
+  FOREIGN KEY (user_two_id) REFERENCES users(userid),
+  FOREIGN KEY (action_user_id) REFERENCES users(`serid)
 ) 
 
 ALTER TABLE `relationship`
