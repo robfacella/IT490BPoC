@@ -1,0 +1,12 @@
+Webhost will need to install phpbb.
+It will use a database, probably want to create and use a separate one?
+Files might need to be chmod to 751 (I think...)
+
+Can set a remote DB Server/Hostname IF we get remote access to the DB itself working...
+Adjust Domain Name? to ipadd/phpbb???
+
+once installed delete or rename install directory..
+
+---------------------------------------------
+
+
