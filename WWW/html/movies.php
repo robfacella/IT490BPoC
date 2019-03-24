@@ -16,28 +16,12 @@ $request['movieID'] = $movieID;
 $request['message'] = "Sending Movie Page for < $movieID > Request to the Broker Host.";
 $response = $client->send_request($request);
 
-//this is set up to get data from a local database, needs to be changed to work with rabbit
-$db = mysqli_connect("localhost", "root","", "testdb"); 
-if (mysqli_connect_errno())
-  {
-	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	  exit();
-  }
-mysqli_select_db($db, "testdb" ); 
-//error reporting
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-ini_set( 'display_errors' , 1 );
+$title = $response['title'];
+$actors = $response['actors'];
+$year = $response['year'];
+$genre = $response['genre'];
+$rating = $response['rating'];
 
-//pull user data
-$s = "select * from movies where movieid = '$mID' " ;
-($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
-while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
-	$title = $r[ "title" ];
-	$year = $r[ "year" ];
-	$rating = $r[ "rated" ];
-	$genre = $r[ "genre" ];
-	$actors = $r[ "actors" ];
-}
 ?>
 <html>
 <head>
