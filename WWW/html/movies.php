@@ -5,6 +5,17 @@ if (is_numeric($mID)==false){
 	echo "Error: Movie ID must be an integer";
 	exit;
 }
+require_once('path.inc');
+require_once('get_host_info.inc');
+require_once('rabbitMQLib.inc');
+
+$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
+$request = array();
+$request['type'] = "moviePage";
+$request['movieID'] = $movieID;
+$request['message'] = "Sending Movie Page for < $movieID > Request to the Broker Host.";
+$response = $client->send_request($request);
+
 //this is set up to get data from a local database, needs to be changed to work with rabbit
 $db = mysqli_connect("localhost", "root","", "testdb"); 
 if (mysqli_connect_errno())
