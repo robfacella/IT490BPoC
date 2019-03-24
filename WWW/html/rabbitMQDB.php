@@ -5,13 +5,13 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include("dbAccount.php");
 //RabbitMQ Server Run by the Database Server which will take in requests from the Broker.
-$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
-function moviePage(){
+function moviePage($movieID){
    //this is set up to get data from a local database, needs to be changed to work with rabbit
-   $db = mysqli_connect("localhost", "root","", "testdb"); 
+   $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error()); 
    if (mysqli_connect_errno())
    {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -23,7 +23,7 @@ function moviePage(){
    ini_set( 'display_errors' , 1 );
 
    //pull user data
-   $s = "select * from movies where movieid = '$mID' " ;
+   $s = "select * from movies where movieid = '$movieID' " ;
    ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 
    $mPage = array(); 
