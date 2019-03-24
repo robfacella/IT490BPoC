@@ -21,6 +21,23 @@ function logger($msg){
   fclose($logfile);
 }
 
+function moviePage($movieID)
+{
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "moviePage";
+    $request['movieID'] = $movieID;
+    $request['message'] = "Fetching Movie's Page for < $movieID > from the remote database...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;
+}
+
 function doLogout($username, $pwo)
 {
     $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
@@ -136,6 +153,9 @@ function requestProcessor($request)
           
     case "login":
       return doLogin($request['username'],$request['password']);
+    case "moviePage":
+        //Fetch Data from OUR movie database..
+        return moviePage($request['movieID']);
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
           return doValidate($request['username'],$request['password']);
