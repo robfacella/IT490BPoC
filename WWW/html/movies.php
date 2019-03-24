@@ -1,5 +1,5 @@
 <?php
-//pulls the profile name from the url
+//pulls the movieid from the url
 $mID = $_GET["mID"];
 //this is set up to get data from a local database, needs to be changed to work with rabbit
 $db = mysqli_connect("localhost", "root","", "testdb"); 
@@ -28,7 +28,7 @@ while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 <head>
 	<meta charset="utf-8">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-	<title>Profile</title>
+	<title>Movie</title>
 </head>
 
 <body>
