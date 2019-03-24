@@ -12,7 +12,7 @@ USE testdb;
 #Uncomment if TableName already exists.
 #DROP TABLE users;
 
-Create table users (
+CREATE TABLE IF NOT EXISTS users (
 	userid int not null primary key auto_increment,
 	username varchar(255) not null,
 	email varchar(255) not null,
@@ -21,7 +21,7 @@ Create table users (
 
 #friends table
 #SQL commands and PHP found here https://www.codedodle.com/2014/12/social-network-friends-database.html
-CREATE TABLE IF NOT EXISTS `relationship` (
+CREATE TABLE IF NOT EXISTS relationship (
   user_one_id INT(10) UNSIGNED NOT NULL,
   user_two_id INT(10) UNSIGNED NOT NULL,
   status TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
