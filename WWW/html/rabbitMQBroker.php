@@ -11,7 +11,7 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //extension=amqp.so
 function logger($msg){
   $logfile = fopen("centralLog.txt", "a") or die("Unable to open Log!!");
-  if (!isset $msg){
+  if (!isset ($msg)){
 	$msg = "Public Service Announcement: This is only a test.\n";
   }
   #logMsg would be a timestamp + the message which the server is logging... should server or log itself generate the time stamp? may be a moot point.
