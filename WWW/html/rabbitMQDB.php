@@ -136,7 +136,7 @@ function doLogin($username,$password)
   ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
   while ($row = $t->fetch_assoc())
   {
-    $authe['uid'] = $row["uid"];     
+    $authe['uid'] = $row["userid"];     
   }
   return $authe;
     
