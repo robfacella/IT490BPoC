@@ -35,7 +35,7 @@ function moviePage(){
 	$mPage['genre'] = $r[ "genre" ];
 	$mPage['actors'] = $r[ "actors" ];
    }
-   if (isset $mPage['title']){	
+   if (isset ($mPage['title'])){	
       $mPage['message'] = "Fetched data on $mPage['title'] from the Database.";
    }else{$mPage['message'] = "Title not found for that Movie ID."}
    return $mPage;
