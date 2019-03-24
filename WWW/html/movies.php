@@ -1,6 +1,10 @@
 <?php
 //pulls the movieid from the url
 $mID = $_GET["mID"];
+if (is_numeric($mID)==false){
+	echo "Error: Movie ID must be an integer";
+	exit;
+}
 //this is set up to get data from a local database, needs to be changed to work with rabbit
 $db = mysqli_connect("localhost", "root","", "testdb"); 
 if (mysqli_connect_errno())
