@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #ROOT
-#mysql -u root -proot <<EOF
+sudo mysql -u root -proot <<EOF
 #TestUser
-mysql -u testuser -ppassword <<EOF
+#mysql -u testuser -ppassword <<EOF
 USE testdb;
 #SHOW tables;
 #Uncomment if TableName already exists.
