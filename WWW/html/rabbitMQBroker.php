@@ -30,11 +30,11 @@ function doLogout($username, $pwo)
     $request['password'] = $password;
     $request['message'] = "Checking validation of user: $username at the remote database...";
     $msg = $request['message']." Sending Message to DB...";
-    echo $msg.PHP_EOL;
+    logger($msg);
     $response = $client->send_request($request);
     $msg = "Sent Message to DB...";
-    echo $msg.PHP_EOL;
-    echo $response['message'].PHP_EOL;
+    logger($msg);
+    logger($response['message']);
     
     return $response;
 }
@@ -63,12 +63,11 @@ function doValidate($username,$password){
     $request['password'] = $password;
     $request['message'] = "Checking validation of user: $username at the remote database...";
     $msg = $request['message']." Sending Message to DB...";
-    echo $msg.PHP_EOL;
+    logger($msg);
     $response = $client->send_request($request);
     $msg = "Sent Message to DB...";
-    echo $msg.PHP_EOL;
-    echo $response['msg'].PHP_EOL;
-    
+    logger($msg);
+    logger($response['msg']);
     return $response;
 }
 function doLogin($username,$password)
@@ -80,11 +79,11 @@ function doLogin($username,$password)
     $request['password'] = $password;
     $request['message'] = "Sending request to login user: $user to the remote database...";
     $msg = $request['message']." Sending Message to DB...";
-    echo $msg.PHP_EOL;
+    logger($msg);
     $response = $client->send_request($request);
     $msg = "Sent Message to DB...";
-    echo $msg.PHP_EOL;
-    echo $response['msg'].PHP_EOL;
+    logger($msg);
+    logger($response['msg']);
     
     return $response;
 }
@@ -118,12 +117,14 @@ function doRegister($user,$pass,$email)
     
 function requestProcessor($request)
 {
-  echo "received request".PHP_EOL;
+  #echo "received request".PHP_EOL;
+  logger("received request");
   var_dump($request);
   if(!isset($request['type']))
   {
     $msg = "ERROR: unsupported message type";
-    echo $msg.PHP_EOL;
+    logger($msg);
+    #echo $msg.PHP_EOL;
     return $msg;
   }
   switch ($request['type']) //Log as it's own case or logging within each case? Or both?
@@ -148,9 +149,11 @@ function requestProcessor($request)
 
 $server = new rabbitMQServer("brokerRabbitMQ.ini","testServer");
 
-echo "brokerRabbitMQServer BEGIN".PHP_EOL;
+#echo "brokerRabbitMQServer BEGIN".PHP_EOL;
+logger("brokerRabbitMQServer BEGIN");
 $server->process_requests('requestProcessor');
-echo "brokerRabbitMQServer END".PHP_EOL;
+#echo "brokerRabbitMQServer END".PHP_EOL;
+logger("brokerRabbitMQServer END");
 exit();
 ?>
 
