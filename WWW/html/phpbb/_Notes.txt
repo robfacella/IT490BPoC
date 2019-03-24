@@ -18,10 +18,18 @@ sudo mysql -Bse "grant all privileges on \`phpBB\`.* to 'username'@'localhost';"
 sudo usermod -aG www-data username
 sudo chown -R www-data:www-data /var/www/html/
 
+rob01@rob-Desktop01:~/Desktop/BPoC/IT490BPoC/WWW$ whoami
+rob01
+rob01@rob-Desktop01:~/Desktop/BPoC/IT490BPoC/WWW$ sudo usermod -aG www-data rob01 
+rob01@rob-Desktop01:~/Desktop/BPoC/IT490BPoC/WWW$ sudo chown -R www-data:www-data /var/www/html/
+rob01@rob-Desktop01:~/Desktop/BPoC/IT490BPoC/WWW$ 
+
+
+
 sudo chmod 660 images/avatars/upload/ config.php
 sudo chmod 770 store/ cache/ files/
 
-http://your_server_ip/install
+http://your_server_ip/phpbb/install
 
 Database type: MySQL with MySQLi Extension
 Database server hostname or DSN: localhost
