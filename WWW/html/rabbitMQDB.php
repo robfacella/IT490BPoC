@@ -11,7 +11,7 @@ include("dbAccount.php");
 //extension=amqp.so
 function moviePage(){
    //this is set up to get data from a local database, needs to be changed to work with rabbit
-   $db = mysqli_connect("localhost", "root","", "testdb"); 
+   $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error()); 
    if (mysqli_connect_errno())
    {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
