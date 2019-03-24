@@ -3,7 +3,7 @@
 #ROOT
 #mysql -u root -proot <<EOF
 #TestUser
-mysql -u testuser -ppassword <<EOF
+mysql -u testuser -ppassword
 
 USE testdb;
 
@@ -13,7 +13,7 @@ USE testdb;
 #DROP TABLE users;
 
 CREATE TABLE IF NOT EXISTS users (
-	userid int not null primary key auto_increment,
+	userid int(10) not null primary key auto_increment,
 	username varchar(255) not null,
 	email varchar(255) not null,
 	password varchar(255) not null
@@ -28,11 +28,11 @@ CREATE TABLE IF NOT EXISTS relationship (
   action_user_id INT(10) UNSIGNED NOT NULL,
   FOREIGN KEY (user_one_id) REFERENCES users(userid),
   FOREIGN KEY (user_two_id) REFERENCES users(userid),
-  FOREIGN KEY (action_user_id) REFERENCES users(`serid)
-) 
+  FOREIGN KEY (action_user_id) REFERENCES users(userid)
+) ;
 
-ALTER TABLE `relationship`
-ADD UNIQUE KEY `unique_users_id` (`user_one_id`,`user_two_id`);
+ALTER TABLE relationship
+ADD UNIQUE KEY unique_users_id (user_one_id,user_two_id);
 
 show columns from users;
 show columns from relationship;
