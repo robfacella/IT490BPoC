@@ -9,6 +9,17 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
+function logger($msg){
+  $logfile = fopen("centralLog.txt", "a") or die("Unable to open Log!!");
+  if (!isset $msg){
+	$msg = "Public Service Announcement: This is only a test.\n";
+  }
+  #logMsg would be a timestamp + the message which the server is logging... should server or log itself generate the time stamp? may be a moot point.
+  $logMsg = 'Date['. date('Y-m-d') .'] Time['. date('H:i:s') .']: '."$msg"."\n";
+  fwrite($logfile, $logMsg);
+  fclose($logfile);
+}
+
 function doLogout($username, $pwo)
 {
     $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
