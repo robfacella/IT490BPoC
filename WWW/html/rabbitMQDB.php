@@ -9,7 +9,7 @@ include("dbAccount.php");
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
-function moviePage(){
+function moviePage($movieID){
    //this is set up to get data from a local database, needs to be changed to work with rabbit
    $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error()); 
    if (mysqli_connect_errno())
@@ -23,7 +23,7 @@ function moviePage(){
    ini_set( 'display_errors' , 1 );
 
    //pull user data
-   $s = "select * from movies where movieid = '$mID' " ;
+   $s = "select * from movies where movieid = '$movieID' " ;
    ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 
    $mPage = array(); 
