@@ -9,6 +9,37 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
+function moviePage(){
+   //this is set up to get data from a local database, needs to be changed to work with rabbit
+   $db = mysqli_connect("localhost", "root","", "testdb"); 
+   if (mysqli_connect_errno())
+   {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  exit();
+   }
+   mysqli_select_db($db, "testdb" ); 
+   //error reporting
+   error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+   ini_set( 'display_errors' , 1 );
+
+   //pull user data
+   $s = "select * from movies where movieid = '$mID' " ;
+   ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+
+   $mPage = array(); 
+	
+   while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	$mPage['title'] = $r[ "title" ];
+	$mPage['year'] = $r[ "year" ];
+	$mPage['rating'] = $r[ "rated" ];
+	$mPage['genre'] = $r[ "genre" ];
+	$mPage['actors'] = $r[ "actors" ];
+   }
+   if (isset $mPage['title']){	
+      $mPage['message'] = "Fetched data on $mPage['title'] from the Database.";
+   }else{$mPage['message'] = "Title not found for that Movie ID."}
+   return $mPage;
+}
 function doLogout($username, $pwo)
 {
     $lout = array();
@@ -164,6 +195,10 @@ function requestProcessor($request)
           
     case "login":
       return doLogin($request['username'],$request['password']);
+    case "moviePage":
+        //Fetch Data from OUR movie database..
+        return moviePage($request['movieID']);
+		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
           return doValidate($request['username'],$request['password']);
