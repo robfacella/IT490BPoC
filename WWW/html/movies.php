@@ -1,7 +1,7 @@
 <?php
 //pulls the movieid from the url
 $movieID = $_GET["mID"];
-if (is_numeric($mID)==false){
+if (is_numeric($movieID)==false){
 	echo "Error: Movie ID must be an integer";
 	exit;
 }
