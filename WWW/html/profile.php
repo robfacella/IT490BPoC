@@ -21,6 +21,7 @@ while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	$friends = $r[ "friends" ];
 }
 ?>
+
 <html>
 <head>
 	<meta charset="utf-8">
@@ -33,10 +34,37 @@ while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	<h1><?php echo $user; ?>'s Profile<h1><br>
 	<form method="post" action="">
 		Insert Profile jargon here <br>
-		<?php echo $user; ?>'s favorite movies are : <?php echo $movies; ?>		<br>
-		Friends list: <?php echo $friends; ?>
+		
+		<form method="post" action"">
+		Movie list: <?php echo $movies; ?> <br>
+		Add watched movies <input type="text" name="newMovie"> <br>
+		<input type="submit" value="submit" name="msubmit_btn"> <br> <br>
+		</form>
+		
+		<form method="post" action"">
+		Friends list: <?php echo $friends; ?> <br>
+		Add friends <input type="text" name="newFriend"> <br>
+		<input type="submit" value="submit" name="fsubmit_btn"> <br> <br>
+		</form>
+		
 	</form>
 	</div>
 </body>
 
 </html>
+<?php 
+if(isset($_REQUEST['msubmit_btn']))
+{
+	$newMovie =  $_POST["newMovie"];
+	$movies = $movies . ", " . $newMovie;
+	$s = "update accounts set movies = '$movies' where username = '$user' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+}
+if(isset($_REQUEST['fsubmit_btn']))
+{
+	$newFriend =  $_POST["newFriend"];
+	$friends = $friends . ", " . $newFriend;
+	$s = "update accounts set friends = '$friends' where username = '$user' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+}
+?>
