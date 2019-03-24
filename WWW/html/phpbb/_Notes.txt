@@ -9,4 +9,22 @@ once installed delete or rename install directory..
 
 ---------------------------------------------
 
+#https://www.digitalocean.com/community/tutorials/how-to-install-phpbb-on-ubuntu-14-04
 
+sudo mysqladmin create phpBB
+sudo mysql -Bse "create user 'username'@'localhost' identified by 'password';"
+sudo mysql -Bse "grant all privileges on \`phpBB\`.* to 'username'@'localhost';"
+
+sudo usermod -aG www-data username
+sudo chown -R www-data:www-data /var/www/html/
+
+sudo chmod 660 images/avatars/upload/ config.php
+sudo chmod 770 store/ cache/ files/
+
+http://your_server_ip/install
+
+Database type: MySQL with MySQLi Extension
+Database server hostname or DSN: localhost
+Database name: phpBB
+Database username: username
+Database password: password
