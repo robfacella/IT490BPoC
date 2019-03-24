@@ -15,6 +15,7 @@ function logger($msg){
 	$msg = "Public Service Announcement: This is only a test.\n";
   }
   #logMsg would be a timestamp + the message which the server is logging... should server or log itself generate the time stamp? may be a moot point.
+  echo "$msg".PHP_EOL;
   $logMsg = 'Date['. date('Y-m-d') .'] Time['. date('H:i:s') .']: '."$msg"."\n";
   fwrite($logfile, $logMsg);
   fclose($logfile);
