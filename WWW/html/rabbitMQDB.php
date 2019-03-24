@@ -124,13 +124,17 @@ function doLogin($username,$password)
      $authe['msg'] = "Wrong login credentials, please try again.";
      echo $authe['msg'].PHP_EOL;//Change to tried to login with
      return $authe; 
-  } 
+  }
+  
   //return false by default if not valid  
   $authe['allow'] = true;
   $authe['msg'] = "Logging In: $uname ";  
   $authe['uname'] = $uname;
   $authe['pwo'] = $pword;
   echo $authe['msg'].PHP_EOL;
+  $s = "select userid from users where username = '$uname' and password = '$pword'";
+  ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
+  $authe['uid'] = $t;
   return $authe;
     
 }

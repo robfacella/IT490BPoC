@@ -60,6 +60,7 @@ if(isset($_REQUEST['submit_btn']))
         echo "Tried to start Session..";
 	$_SESSION['uname'] = $response['uname'];
         $_SESSION['pwo'] = $response['pwo'];
+        $_SESSION['uid'] = $response['uid'];
         //Should session be handled even more by rabbit or is this fine?
 	echo "<script>location.href='loggedIn.php'</script>";
 }  
