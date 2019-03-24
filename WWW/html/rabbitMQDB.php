@@ -132,8 +132,9 @@ function doLogin($username,$password)
   $authe['uname'] = $uname;
   $authe['pwo'] = $pword;
   echo $authe['msg'].PHP_EOL;
-  $s = "select userid from users where username = '$uname' and password = '$pword'";
+  $s = "select userid from users where username = '$uname'";
   ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
+  
   $authe['uid'] = $t;
   return $authe;
     
