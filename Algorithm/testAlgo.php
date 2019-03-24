@@ -8,12 +8,22 @@
   //check found user's movies for unseen movies
   //suggest movie closest to stats
 
+  $currentUser = new userProfile();
+  userProfile.addMovie($movieInfo, $rating);
+
   class userProfile {
+    //int
     public $userID;
     public $statNames = array('Genre', 'Director', 'Actors');
+
+    //array of arrays with keys
+    //each internal array is [Name of Object, Numerical Value]
+    //For Example, [Sci-fi, .5]
     public $weighedStats = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
     public $unweighedStats = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
     public $movieCount = 0;
+
+    //Array of strings
     public $movieList = array();
 
     //functions to set info from database
@@ -30,6 +40,11 @@
       $movieCount = $userCount;
     }
 
+    //$newMovie is an array formatted like the API pulls
+    //[Genre, "Sci-fi, Fantasy, Etc."]
+    //The names of each key is in $statNames
+    //$rating is either -1, -0.5, 0, 0.5, or 1
+    //Aligns with the star value, with -1 being one star and 1 being five
     public function addMovie($newMovie, $rating){
       //iterate movie count for correct average
       $movieCount++;
@@ -69,6 +84,9 @@
     }
   }
 
+  //Both of these are arrays of userProfile classes
+  //the first is the users who are a part of the group watching
+  //the second is an array of all other users
   function recommendMovie($usersToWatch, $otherUsers){
     $statNames = array('Genre', 'Director', 'Actors');
     $groupStatsWeighed = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
