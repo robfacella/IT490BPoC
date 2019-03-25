@@ -18,3 +18,5 @@ echo "Copied..."
 echo "Restarting apache2 server..."
 service apache2 restart
 echo "DONE."
+
+sudo chown -R www-data:www-data /var/www/html/
