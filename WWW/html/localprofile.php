@@ -62,8 +62,9 @@ if(isset($_REQUEST['msubmit_btn']))
     if ($num==0){ 
 	//not in movies db
 	//api pull
-	//NOTE!!! change the newMovie to a new variable that replaces spaces with underscores
-	$movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $newMovie . "&apikey=f0530b1d"), true);
+	//changes the newMovie to a new variable that replaces spaces with underscores
+	$apimovie = str_replace(' ', '_', $newMovie);
+	$movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $apimovie . "&apikey=f0530b1d"), true);
 
 	//Outputs info on movie into console
 	print_r($movieInfo);
@@ -73,6 +74,7 @@ if(isset($_REQUEST['msubmit_btn']))
 		if ($movieInfo["Type"] == "movie") {
 			print("This is a movie and we can proceed".PHP_EOL);
 			//adds movie to db
+			$newMovie= $movieInfo["Title"];
 			$mt = $movieInfo["Title"];
 			$my = $movieInfo["Year"];
 			$mra = $movieInfo["Rated"];
