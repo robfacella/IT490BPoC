@@ -39,7 +39,8 @@ require_once('rabbitMQLib.inc');
   //Welcome the User
     echo "<h1>Welcome ".$_SESSION['uname']." to BPoC</h1>";
     echo "<br><h2>UserID: ".$_SESSION['uid']."</h2><br>";
-    echo "<br><p><a href="profile.php">Profile</a></p>";
+    $url = ("profile.php?user=" . $_SESSION['uname']);
+    echo "<br><p><a href=" . $url . ">".$_SESSION['uname']."\'s Profile</a></p>";
     echo "<br><a href='logout.php'><input type=button value=logout name=logout></a>";
     
   }
