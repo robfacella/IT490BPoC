@@ -21,6 +21,13 @@ function logger($msg){
   fclose($logfile);
 }
 
+function logCase($msg)
+{
+   #Literally JUST take the $request['message'] from a client & log it.
+   logger($msg);
+   return true;
+}
+
 function moviePage($movieID)
 {
     $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
@@ -163,6 +170,8 @@ function requestProcessor($request)
           return doRegister($request['username'],$request['password'],$request['email']);
     case "logout":
 	  return doLogout($request['username'],$request['password']);
+    case "logCase":
+		  return logCase($request['message']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
