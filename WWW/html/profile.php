@@ -40,25 +40,10 @@ $request['username'] = $user;
 $request['message'] = "Fetching ". $user . "'s Profile Page.";
 $response = $client->send_request($request);
 
-//this is set up to get data from a local database, needs to be changed to work with rabbit
-$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-if (mysqli_connect_errno())
-{
-	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	  exit();
-}
-mysqli_select_db($db, "testdb" ); 
-//error reporting
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-ini_set( 'display_errors' , 1 );
-
-//pull user data
-$s = "select * from users where username = '$user' " ;
-($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
-while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
-	$movies = $r[ "favmovies" ];
-	$friends = $r[ "friendslist" ];
-}
+$movies = $response['movies'];
+$friends = $response['friends'];
+	
+	
 ?>
 
 <html>
