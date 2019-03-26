@@ -34,6 +34,12 @@ if($movieInfo["Response"] == "True"){
     mysql_query($SQLquery);
     $serverInfo->close;*/
   }
+  else{
+    print("API did not return a movie. returned a type of: ".PHP_EOL);
+    print($movieInfo["Type"]);
+  }
+}else{
+  print("API did not respond, try again later. ".PHP_EOL);
 }
 
 ?>
