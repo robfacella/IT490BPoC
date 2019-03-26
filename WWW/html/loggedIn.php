@@ -19,7 +19,7 @@ require_once('rabbitMQLib.inc');
   }
   else
   {
-     $msg = "logout.php testing";	
+     $msg = "session validation check";	
   }    
   $request = array();
   $request['type'] = "validate_session";
