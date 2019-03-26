@@ -56,6 +56,43 @@ while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 if(isset($_REQUEST['msubmit_btn']))
 {
 	$newMovie =  $_POST["newMovie"];
+	$s = "select * from movies where title = '$newMovie' " ;
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	$num =mysqli_num_rows($t);
+    if ($num==0){ 
+	//not in movies db
+	//api pull
+	//NOTE!!! change the newMovie to a new variable that replaces spaces with underscores
+	$movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $newMovie . "&apikey=f0530b1d"), true);
+
+	//Outputs info on movie into console
+	print_r($movieInfo);
+
+	//Checks movie info to be sure this is indeed a movie and not a TV show
+	if($movieInfo["Response"] == "True"){
+		if ($movieInfo["Type"] == "movie") {
+			print("This is a movie and we can proceed".PHP_EOL);
+			//adds movie to db
+			$mt = $movieInfo["Title"];
+			$my = $movieInfo["Year"];
+			$mra = $movieInfo["Rated"];
+			$mre = $movieInfo["Released"];
+			$mg = $movieInfo["Genre"];
+			$ma = $movieInfo["Actors"];
+			$mp = $movieInfo["Poster"];
+		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster) 
+			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
+			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+		}
+	else{
+		print("API did not return a movie. returned a type of: ".PHP_EOL);
+		print($movieInfo["Type"]);
+	}
+	}else{
+		print("API did not respond, try again later. ".PHP_EOL);
+	}	
+		echo "false";
+	}
 	$movies = $movies . ", " . $newMovie;
 	$s = "update accounts set movies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
