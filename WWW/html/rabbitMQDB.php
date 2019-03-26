@@ -132,11 +132,11 @@ function doLogin($username,$password)
   $authe['uname'] = $uname;
   $authe['pwo'] = $pword;
   echo $authe['msg'].PHP_EOL;
-  $s = "select * from users where username = '$uname'";
-  ($t = mysqli_query($db,$s)) or die (mysqli_error( $db));
-
+  //pull user data (ID)
+  $s = "select * from users where username = '$uname' " ;
+  ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
   while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
-    $authe['uid'] = $r["userid"]; 
+	$authe['uid'] = $r[ "userid" ];
   }
   return $authe;
     
