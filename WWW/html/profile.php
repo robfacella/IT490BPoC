@@ -20,6 +20,7 @@ while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	$movies = $r[ "favmovies" ];
 	$friends = $r[ "friendslist" ];
 }
+echo "Top PHP Ran";
 ?>
 
 <html>
