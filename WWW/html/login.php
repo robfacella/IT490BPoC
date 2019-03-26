@@ -16,7 +16,7 @@
 		<input type = "password" name="passwd" id="passwd" placeholder="Enter Pass...">
 		<input type="submit" value="submit" name="submit_btn">
 
-		<br><br><p>Register</p>
+		<br><br><p><a href="register.php">Register</a></p>
 		
 	</form>
 	</div>
