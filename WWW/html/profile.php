@@ -34,6 +34,12 @@ if ($response['isValid'] == false){
 }
 echo "Session still valid at least...";
 
+$request = array();
+$request['type'] = "getUserProfile";
+$request['username'] = $user;
+$request['message'] = "Fetching ". $user . "'s Profile Page.";
+$response = $client->send_request($request);
+
 //this is set up to get data from a local database, needs to be changed to work with rabbit
 $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 if (mysqli_connect_errno())
