@@ -32,7 +32,7 @@ function getUserProfile($user){
     $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
     $request = array();
     $request['type'] = "getUserProfile";
-    $request['movieID'] = $user;
+    $request['username'] = $user;
     $request['message'] = "Fetching User Page for < $user > from the remote database...";
     $msg = $request['message']." - Sending Message to DB...";
     logger($msg);
