@@ -2,7 +2,7 @@
 //pulls the profile name from the url
 $user = $_GET["user"];
 //this is set up to get data from a local database, needs to be changed to work with rabbit
-$db = mysqli_connect("localhost", "root","", "testdb"); 
+$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 if (mysqli_connect_errno())
   {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -14,11 +14,11 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set( 'display_errors' , 1 );
 
 //pull user data
-$s = "select * from accounts where username = '$user' " ;
+$s = "select * from users where username = '$user' " ;
 ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
-	$movies = $r[ "movies" ];
-	$friends = $r[ "friends" ];
+	$movies = $r[ "favmovies" ];
+	$friends = $r[ "friendslist" ];
 }
 ?>
 
@@ -57,14 +57,14 @@ if(isset($_REQUEST['msubmit_btn']))
 {
 	$newMovie =  $_POST["newMovie"];
 	$movies = $movies . ", " . $newMovie;
-	$s = "update accounts set movies = '$movies' where username = '$user' ";
+	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 }
 if(isset($_REQUEST['fsubmit_btn']))
 {
 	$newFriend =  $_POST["newFriend"];
 	$friends = $friends . ", " . $newFriend;
-	$s = "update accounts set friends = '$friends' where username = '$user' ";
+	$s = "update users set friendslist = '$friends' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 }
 ?>
