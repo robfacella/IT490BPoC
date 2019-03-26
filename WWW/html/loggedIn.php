@@ -27,14 +27,13 @@ require_once('rabbitMQLib.inc');
   $request['password'] = $_SESSION['pwo'];
   $request['message'] = $msg;
   $response = $client->send_request($request); //Need a running rabbitMQBroker.php
-  echo $response['msg'];
+  //echo $response['msg'];//Was nice for debugging but not necessary anymore.
   if ($response['isValid'] == false){
      //Validation Failed
      session_destroy(); //Remove Session Data from Session discovered to be invalid.
      echo "<script>location.href='login.php'</script>";
      exit();
   }
-  ///////    
   if(isset($_SESSION['uname']))
   {
   //Welcome the User
@@ -42,5 +41,10 @@ require_once('rabbitMQLib.inc');
     echo "<br><h2>UserID: ".$_SESSION['uid']."</h2><br>";
     echo "<br><p><a href="profile.php">Profile</a></p>";
     echo "<br><a href='logout.php'><input type=button value=logout name=logout></a>";
+    
+  }
+  else{
+    echo "<h1>Welcome Wizard. </h1>";
+    echo "<br><h2>Return from whence ye came!</h2><br>";
   }
 ?>
