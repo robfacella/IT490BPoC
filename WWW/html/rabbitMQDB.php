@@ -9,6 +9,36 @@ include("dbAccount.php");
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
+function getUserProfile($user){
+   $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+   if (mysqli_connect_errno())
+   {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  exit();
+   }
+   mysqli_select_db($db, "testdb" ); 
+   //error reporting
+   error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+   ini_set( 'display_errors' , 1 );
+   //pull user data
+   $s = "select * from users where username = '$user' " ;
+   ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+   $num =mysqli_num_rows($t);
+   if ($num==0){ #If the User does not exist 
+	$response['movies'] = " ";
+	$response['friends'] = " ";
+	   
+        $response['message'] = "Looked up a user not in our table.";
+   }	
+   $response = array();
+   while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	$response['movies'] = $r[ "favmovies" ];
+	$response['friends'] = $r[ "friendslist" ];
+	   
+        $response['message'] = "Fetched Profile.";
+   }
+   return $response;
+}
 function moviePage($movieID){
    //this is set up to get data from a local database, needs to be changed to work with rabbit
    $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error()); 
