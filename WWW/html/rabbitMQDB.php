@@ -205,6 +205,9 @@ function requestProcessor($request)
     case "moviePage":
         //Fetch Data from OUR movie database..
         return moviePage($request['movieID']);
+    case "getUserProfile":
+        //Fetch User's Profile Page.
+        return getUserProfile($request['username']);
 		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
