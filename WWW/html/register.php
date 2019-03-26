@@ -42,6 +42,8 @@ cpswd.onkeyup = checkPasses;
 
 		<p>eMail: </p> <input type="text" name="email" id="email" required="required" placeholder="enter email">
 		<input type="submit" name="submit" value="Regi">
+		
+		<br><br><br><p><a href="login.php">Existing user login...</a></p>
 
 	</form>
 	</div>
