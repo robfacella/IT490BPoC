@@ -33,12 +33,12 @@ if ($response['isValid'] == false){
    exit();
 }
 echo "Session still valid at least...";
-
+$client2 = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
 $request = array();
 $request['type'] = "getUserProfile";
 $request['username'] = $user;
 $request['message'] = "Fetching ". $user . "'s Profile Page.";
-$response = $client->send_request($request);
+$response = $client2->send_request($request);
 
 $movies = $response['movies'];
 $friends = $response['friends'];
