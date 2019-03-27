@@ -44,15 +44,13 @@ function addMovieToUser($user, $movies, $newMovie){
         $s = "select * from movies where title = '$newMovie' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
-        
+        $response = array();	
 	if ($num==0){ //not in local movies table 
 	 //api pull	
 	 $apimovie = str_replace(' ', '_', $newMovie); //changes the newMovie to a new variable that replaces spaces with underscores
 	 $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $apimovie . "&apikey=f0530b1d"), true);
 	 print_r($movieInfo);//Outputs info on movie into console
-	 $client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
-         $request = array(); 
-	 $request['type'] = "logCase";
+	 
 	 //Checks movie info to be sure this is indeed a movie and not a TV show
 	 if($movieInfo["Response"] == "True"){
 		if ($movieInfo["Type"] == "movie") {
@@ -74,15 +72,15 @@ function addMovieToUser($user, $movies, $newMovie){
 		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster) 
 			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
 			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
-			$request['message'] = "Added '" . $mt . "' to our local movies table.";
+			$response['apilog'] = "Added '" . $mt . "' to our local movies table.";
 			}
 	        }else{
 		        print("API did not return a movie. returned a type of: ".PHP_EOL);
 		        print($movieInfo["Type"]);
-			$request['message'] = "Tried to get non-Movie from API";
+			$response['apilog'] = "Tried to get non-Movie from API";
 	 }}else{
-		$request['message'] = "API did not respond, try again later. "; 
-		print($request['message'].PHP_EOL);
+		$response['apilog'] = "API did not respond, try again later. "; 
+		print($response['apilog'].PHP_EOL);
 	 }	
 	        //Log API Call
 		$response = $client->send_request($request); //Need a running rabbitMQBroker.php & DB
@@ -92,7 +90,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	$movies = $movies . ", " . $newMovie;
 	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
-   $response = array();	
+   
    $response['message'] = "Fetched Profile.";
    
    return $response;
