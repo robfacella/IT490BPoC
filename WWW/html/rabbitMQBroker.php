@@ -74,6 +74,9 @@ function addMovieToUser($user, $movies, $newMovie){
     $msg = "Sent Message to DB...";
     logger($msg);
     logger($response['message']);
+
+	if (isset ($response['apilog']))
+		logger($response['apilog']);
     
     return $response;	
 }
