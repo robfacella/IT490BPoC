@@ -39,6 +39,48 @@ function getUserProfile($user){
    }
    return $response;
 }
+function addMovieToUser(){
+	$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+        $s = "select * from movies where title = '$newMovie' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	$num =mysqli_num_rows($t);
+        
+	if ($num==0){ //not in local movies table 
+	 //api pull	
+	 $apimovie = str_replace(' ', '_', $newMovie); //changes the newMovie to a new variable that replaces spaces with underscores
+	 $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $apimovie . "&apikey=f0530b1d"), true);
+	 print_r($movieInfo);//Outputs info on movie into console
+	
+	 //Checks movie info to be sure this is indeed a movie and not a TV show
+	 if($movieInfo["Response"] == "True"){
+		if ($movieInfo["Type"] == "movie") {
+			print("This is a movie and we can proceed".PHP_EOL);
+			//adds movie to db
+			$newMovie= $movieInfo["Title"];
+			$mt = $movieInfo["Title"];
+			$my = $movieInfo["Year"];
+			$mra = $movieInfo["Rated"];
+			$mre = $movieInfo["Released"];
+			$mg = $movieInfo["Genre"];
+			$ma = $movieInfo["Actors"];
+			$mp = $movieInfo["Poster"];
+		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster) 
+			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
+			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	        }else{
+		        print("API did not return a movie. returned a type of: ".PHP_EOL);
+		        print($movieInfo["Type"]);
+	 }}else{
+		print("API did not respond, try again later. ".PHP_EOL);
+	 }	
+	 //echo "false";
+	}
+	
+	$movies = $movies . ", " . $newMovie;
+	$s = "update users set movies = '$movies' where username = '$user' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );	
+}
+//////////////////////////////////////////////////////////////////////////////
 function moviePage($movieID){
    //this is set up to get data from a local database, needs to be changed to work with rabbit
    $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error()); 
@@ -238,6 +280,8 @@ function requestProcessor($request)
     case "getUserProfile":
         //Fetch User's Profile Page.
         return getUserProfile($request['username']);
+    case "addMovieToUser":
+	return addMovieToUser();
 		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
