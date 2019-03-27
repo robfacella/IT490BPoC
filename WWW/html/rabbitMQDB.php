@@ -102,10 +102,12 @@ function addMovieToUser($user, $movies, $newMovie){
 function addFriend($user, $friends, $newFriend){
 	$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 	
+	$newFriend = sanitize($newFriend);
 	if (is_null ($friends)){
 	   $friends = $newFriend;}
 	else{
 	$friends = $friends . ", " . $newFriend;}
+	$friends = sanitize($friends);
 	$s = "update users set friendslist = '$friends' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
