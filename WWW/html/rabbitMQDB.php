@@ -95,8 +95,8 @@ function addFriend($user, $friends, $newFriend){
 	$s = "update users set friendslist = '$friends' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
-	$response = "FRIENDS";
-	
+	$response = array();
+	$response['message'] = "FRIENDS";
 	return $response;
 }
 //////////////////////////////////////////////////////////////////////////////
