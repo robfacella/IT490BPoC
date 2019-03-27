@@ -50,7 +50,9 @@ function addMovieToUser($user, $movies, $newMovie){
 	 $apimovie = str_replace(' ', '_', $newMovie); //changes the newMovie to a new variable that replaces spaces with underscores
 	 $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $apimovie . "&apikey=f0530b1d"), true);
 	 print_r($movieInfo);//Outputs info on movie into console
-	
+	 $client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
+         $request = array(); 
+	 $request['type'] = "logCase";
 	 //Checks movie info to be sure this is indeed a movie and not a TV show
 	 if($movieInfo["Response"] == "True"){
 		if ($movieInfo["Type"] == "movie") {
@@ -71,14 +73,20 @@ function addMovieToUser($user, $movies, $newMovie){
 	                if ($num==0){ //REALLY not in local movies table 
 		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster) 
 			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
-			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );}
+			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+			$request['message'] = "Added '" . $mt . "' to our local movies table.";
+			}
 	        }else{
 		        print("API did not return a movie. returned a type of: ".PHP_EOL);
 		        print($movieInfo["Type"]);
+			$request['message'] = "Tried to get non-Movie from API";
 	 }}else{
-		print("API did not respond, try again later. ".PHP_EOL);
+		$request['message'] = "API did not respond, try again later. "; 
+		print($request['message'].PHP_EOL);
 	 }	
-	 //echo "false";
+	        //Log API Call
+		$response = $client->send_request($request); //Need a running rabbitMQBroker.php & DB
+	 
 	}
 	
 	$movies = $movies . ", " . $newMovie;
