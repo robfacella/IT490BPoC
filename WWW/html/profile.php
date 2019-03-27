@@ -97,8 +97,13 @@ if(isset($_REQUEST['msubmit_btn']))
 if(isset($_REQUEST['fsubmit_btn']))
 {
 	$newFriend =  $_POST["newFriend"];
-	$friends = $friends . ", " . $newFriend;
-	$s = "update users set friends = '$friends' where username = '$user' ";
-	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+        $request = array();
+        $request['type'] = "addFriend";
+        $request['username'] = $user;
+        $request['movies'] = $friends;
+        $request['newMovie'] = $newFriend;
+	$request['message'] = "Attempting to add friend '" . $newFriend . "' to " . $user . "'s Friend list...";
+	$response = rabbits($request);
+	//Refresh Page
 }
 ?>
