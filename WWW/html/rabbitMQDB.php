@@ -77,7 +77,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	}
 	
 	$movies = $movies . ", " . $newMovie;
-	$s = "update users set movies = '$movies' where username = '$user' ";
+	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
    $response = array();	
    $response['message'] = "Fetched Profile.";
