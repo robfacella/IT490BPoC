@@ -2,13 +2,13 @@
 //pulls the profile name from the url
 $user = $_GET["user"];
 //this is set up to get data from a local database, needs to be changed to work with rabbit
-$db = mysqli_connect("localhost", "root","", "testdb"); 
+$db = mysqli_connect("localhost", "root","", "testdb");
 if (mysqli_connect_errno())
   {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	  exit();
   }
-mysqli_select_db($db, "testdb" ); 
+mysqli_select_db($db, "testdb" );
 //error reporting
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set( 'display_errors' , 1 );
@@ -34,35 +34,34 @@ while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	<h1><?php echo $user; ?>'s Profile<h1><br>
 	<form method="post" action="">
 		Insert Profile jargon here <br>
-		
+
 		<form method="post" action"">
 		Movie list: <?php echo $movies; ?> <br>
 		Add watched movies <input type="text" name="newMovie"> <br>
 		<input type="submit" value="submit" name="msubmit_btn"> <br> <br>
 		</form>
-		
+
 		<form method="post" action"">
 		Friends list: <?php echo $friends; ?> <br>
 		Add friends <input type="text" name="newFriend"> <br>
 		<input type="submit" value="submit" name="fsubmit_btn"> <br> <br>
 		</form>
-		
+
 	</form>
 	</div>
 </body>
 
 </html>
-<?php 
+<?php
 class userProfile {
     //int
     public $userID;
     public $statNames = array('Genre', 'Director', 'Actors');
 
     //array of arrays with keys
-    //each internal array is [Name of Object, Numerical Value]
-    //For Example, [Sci-fi, .5]
-    public $weighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
-    public $unweighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    //each internal array has a key named after the genre loading a rating
+    public $weighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    public $unweighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
     public $movieCount = 0;
 
     //Array of strings
@@ -92,22 +91,22 @@ class userProfile {
       $this->movieCount++;
       //add movie to list of movies
       array_push($this->movieList, $newMovie["Title"]);
-		
+
       //looping through entry names to save space
-      foreach($this->statNames as $currentStat){
+      while($currentStat = current($this->statNames)){
         //seperate the genre of the new movie into an array
         $explodedEntry = explode(',', $newMovie[$currentStat]);
         //iterate through all genres to add
-        foreach($this->unweighedStats[$currentStat] as $oldStat){
+        while($oldStat = current($this->unweighedStats[$currentStat])){
           foreach($explodedEntry as $explodedStat){
             //check if genre already exists in user stats
             //if so, add to existing array
-            if ($oldStat[0] == $explodedStat){
-              $this->unweighedStats[$currentStat][1] = $this->unweighedStats[$currentStat][1] + $rating;
+            if (key($this->unweighedStats[$currentStat]) == $explodedStat){
+              $this->unweighedStats[$currentStat][$explodedStat] = $this->unweighedStats[$currentStat][$explodedStat] + $rating;
             }
             else{
               //genre doesn't exist in stats, add
-              array_push($this->unweighedStats[$currentStat], array($explodedStat , $rating));
+              $this->unweighedStats[$currentStat][$explodedStat] = $rating;
             }
           }
           //clear weighed stats' original array
@@ -115,13 +114,14 @@ class userProfile {
           //set weighed to unweighed
           $this->weighedStats[$currentStat] = $this->unweighedStats[$currentStat];
           //iterate through entries
-          foreach ($this->weighedStats[$currentStat] as $valueToBeWeighed) {
+          while($valueToBeWeighed = current($this->weighedStats[$currentStat])) {
             //average entries
-            $this->weighedStats[$currentStat][1] = $valueToBeWeighed[1]/$this->movieCount;
+            current($this->weighedStats[$currentStat]) = $valueToBeWeighed/$this->movieCount;
+            next($this->weighedStats[$currentStat]);
           }
-          unset($valueToBeWeighed);
+          next($this->unweighedStats[$currentStat]);
         }
-        unset($oldStat);
+        next($this->statNames);
       }
     }
   }
@@ -131,8 +131,8 @@ class userProfile {
   //the second is an array of all other users
   function recommendMovie($usersToWatch, $otherUsers){
     $statNames = array('Genre', 'Director', 'Actors');
-    $groupStatsWeighed = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
-    $groupStatsUnweighed = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
+    $groupStatsWeighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    $groupStatsUnweighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
     $maxStatName = array();
     $maxStatNumber = array(0, 0, 0);
     $matchingUsers = array();
@@ -141,7 +141,7 @@ class userProfile {
     foreach ($usersToWatch as $userAdding) {
       foreach($statNames as $currentStat){
         //iterate through all genres to add
-        foreach($groupStatsUnweighed[$currentStat] as &$oldStat){
+        foreach($groupStatsUnweighed[$currentStat] as $oldStat){
           foreach($userAdding as $userStat){
             //check if genre already exists in user stats
             //if so, add to existing array
@@ -230,7 +230,7 @@ if(isset($_REQUEST['msubmit_btn']))
 	$s = "select * from movies where title = '$newMovie' " ;
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
-    if ($num==0){ 
+    if ($num==0){
 	//not in movies db
 	//api pull
 	//changes the newMovie to a new variable that replaces spaces with underscores
@@ -253,7 +253,7 @@ if(isset($_REQUEST['msubmit_btn']))
 			$mg = $movieInfo["Genre"];
 			$ma = $movieInfo["Actors"];
 			$mp = $movieInfo["Poster"];
-		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster) 
+		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster)
 			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
 			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 			$rating = 1;
@@ -267,14 +267,14 @@ if(isset($_REQUEST['msubmit_btn']))
 	}
 	}else{
 		print("API did not respond, try again later. ".PHP_EOL);
-	}	
+	}
 		echo "false";
 	}
 	$movies = $movies . ", " . $newMovie;
 	$s = "update accounts set movies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 
-	
+
 }
 if(isset($_REQUEST['fsubmit_btn']))
 {
