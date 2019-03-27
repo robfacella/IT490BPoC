@@ -24,13 +24,13 @@ function getUserProfile($user){
    $s = "select * from users where username = '$user' " ;
    ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
    $num =mysqli_num_rows($t);
+   $response = array();
    if ($num==0){ #If the User does not exist 
 	$response['movies'] = " ";
 	$response['friends'] = " ";
 	   
         $response['message'] = "Looked up a user not in our table.";
-   }	
-   $response = array();
+   }	   
    while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	$response['movies'] = $r[ "favmovies" ];
 	$response['friends'] = $r[ "friendslist" ];
@@ -78,7 +78,11 @@ function addMovieToUser($user, $movies, $newMovie){
 	
 	$movies = $movies . ", " . $newMovie;
 	$s = "update users set movies = '$movies' where username = '$user' ";
-	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );	
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+   $response = array();	
+   $response['message'] = "Fetched Profile.";
+   
+   return $response;
 }
 //////////////////////////////////////////////////////////////////////////////
 function moviePage($movieID){
