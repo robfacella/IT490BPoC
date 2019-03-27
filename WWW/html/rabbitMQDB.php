@@ -56,14 +56,14 @@ function addMovieToUser($user, $movies, $newMovie){
 		if ($movieInfo["Type"] == "movie") {
 			print("This is a movie and we can proceed".PHP_EOL);
 			//adds movie to db
-			$newMovie= $movieInfo["Title"];
-			$mt = $movieInfo["Title"];
-			$my = $movieInfo["Year"];
-			$mra = $movieInfo["Rated"];
-			$mre = $movieInfo["Released"];
-			$mg = $movieInfo["Genre"];
-			$ma = $movieInfo["Actors"];
-			$mp = $movieInfo["Poster"];
+			$newMovie= sanitize($movieInfo["Title"]);
+			$mt = sanitize($movieInfo["Title"]);
+			$my = sanitize($movieInfo["Year"]);
+			$mra = sanitize($movieInfo["Rated"]);
+			$mre = sanitize($movieInfo["Released"]);
+			$mg = sanitize($movieInfo["Genre"]);
+			$ma = sanitize($movieInfo["Actors"]);
+			$mp = sanitize($movieInfo["Poster"]);
 			$s = "select * from movies where title = '$mt' ";
 	                ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	                $num =mysqli_num_rows($t);
