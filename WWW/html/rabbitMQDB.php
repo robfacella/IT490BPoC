@@ -91,7 +91,7 @@ function addMovieToUser($user, $movies, $newMovie){
 }
 function addFriend($user, $friends, $newFriend){
 	$friends = $friends . ", " . $newFriend;
-	$s = "update users set friends = '$friends' where username = '$user' ";
+	$s = "update users set friendslist = '$friends' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
 	$response = "FRIENDS";
