@@ -89,6 +89,11 @@ function addMovieToUser($user, $movies, $newMovie){
    
    return $response;
 }
+function addFriend($user, $friends, $newFriend){
+	$friends = $friends . ", " . $newFriend;
+	$s = "update users set friends = '$friends' where username = '$user' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+}
 //////////////////////////////////////////////////////////////////////////////
 function moviePage($movieID){
    //this is set up to get data from a local database, needs to be changed to work with rabbit
@@ -291,6 +296,8 @@ function requestProcessor($request)
         return getUserProfile($request['username']);
     case "addMovieToUser":
 	return addMovieToUser($request['username'], $request['movies'], $request['newMovie']);
+    case "addFriend":
+        return addFriend($request['username'], $request['friends'], $request['newFriend']);
 		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
