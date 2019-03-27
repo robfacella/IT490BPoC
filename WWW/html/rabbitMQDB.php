@@ -41,6 +41,7 @@ function getUserProfile($user){
 }
 function addMovieToUser($user, $movies, $newMovie){
 	$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+	$newMovie = sanitize($newMovie);
         $s = "select * from movies where title = '$newMovie' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
