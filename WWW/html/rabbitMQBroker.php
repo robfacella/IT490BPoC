@@ -153,7 +153,7 @@ function doLogin($username,$password)
     $request['type'] = "login";
     $request['username'] = $username;
     $request['password'] = $password;
-    $request['message'] = "Sending request to login user: $user to the remote database...";
+    $request['message'] = "Sending request to login user: $username to the remote database...";
     $msg = $request['message']." Sending Message to DB...";
     logger($msg);
     $response = $client->send_request($request);
