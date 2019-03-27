@@ -86,7 +86,7 @@ if(isset($_REQUEST['msubmit_btn']))
 {
 	$newMovie =  $_POST["newMovie"];
 	$request = array();
-        $request['type'] = "validate_session";
+        $request['type'] = "addMovieToUser";
         $request['username'] = $user;
         $request['movies'] = $movies;
         $request['newMovie'] = $newMovie;
