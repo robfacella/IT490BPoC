@@ -64,14 +64,14 @@ $friends = $response['friends'];
 		Insert Profile jargon here <br>
 		
 		<form method="post" action"">
-		Movie list: <?php echo $movies; ?> <br>
-		Add watched movies <input type="text" name="newMovie"> <br>
+		Movie List: <?php echo $movies; ?> <br>
+		Add Watched Movies: <input type="text" name="newMovie"> <br>
 		<input type="submit" value="submit" name="msubmit_btn"> <br> <br>
 		</form>
 		
 		<form method="post" action"">
-		Friends list: <?php echo $friends; ?> <br>
-		Add friends <input type="text" name="newFriend"> <br>
+		Friends List: <?php echo $friends; ?> <br>
+		Add friends: <input type="text" name="newFriend"> <br>
 		<input type="submit" value="submit" name="fsubmit_btn"> <br> <br>
 		</form>
 		
