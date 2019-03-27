@@ -49,6 +49,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	if ($num==0){ //not in local movies table 
 	 //api pull	
 	 $apimovie = str_replace(' ', '_', $newMovie); //changes the newMovie to a new variable that replaces spaces with underscores
+	 $apimovie = str_replace('&', 'and', $apiovie);
 	 $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $apimovie . "&apikey=f0530b1d"), true);
 	 print_r($movieInfo);//Outputs info on movie into console
 	 
