@@ -43,6 +43,23 @@ function getUserProfile($user){
     
     return $response;
 }
+function addFriend($user, $friends, $newFriend){
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "addFriend";
+    $request['username'] = $user;
+    $request['friends'] = $friends;
+    $request['newFriend'] = $newFriend;
+    $request['message'] = "Attempting to add friend '" . $newFriend . "' to " . $user . "'s Friend list...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;	
+}
 function addMovieToUser($user, $movies, $newMovie){
     $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
     $request = array();
@@ -200,6 +217,8 @@ function requestProcessor($request)
         return getUserProfile($request['username']);
     case "addMovieToUser":
 	return addMovieToUser($request['username'], $request['movies'], $request['newMovie']);
+    case "addFriend":
+        return addFriend($request['username'], $request['friends'], $request['newFriend']);
 		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
