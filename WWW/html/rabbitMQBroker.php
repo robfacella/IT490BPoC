@@ -43,6 +43,23 @@ function getUserProfile($user){
     
     return $response;
 }
+function addMovieToUser($user, $movies, $newMovie){
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "addMovieToUser";
+    $request['username'] = $user;
+    $request['movies'] = $movies;
+    $request['newMovie'] = $newMovie;
+    $request['message'] = "Attempting to add movie '" . $newMovie . "' to " . $user . "'s Movie list...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;	
+}
 function moviePage($movieID)
 {
     $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
