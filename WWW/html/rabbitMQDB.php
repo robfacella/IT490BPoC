@@ -39,7 +39,7 @@ function getUserProfile($user){
    }
    return $response;
 }
-function addMovieToUser(){
+function addMovieToUser($user, $movies, $newMovie){
 	$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
         $s = "select * from movies where title = '$newMovie' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
@@ -281,7 +281,7 @@ function requestProcessor($request)
         //Fetch User's Profile Page.
         return getUserProfile($request['username']);
     case "addMovieToUser":
-	return addMovieToUser();
+	return addMovieToUser($request['username'], $request['movies'], $request['newMovie']);
 		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
