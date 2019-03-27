@@ -198,6 +198,8 @@ function requestProcessor($request)
     case "getUserProfile":
         //Fetch User's Profile Page.
         return getUserProfile($request['username']);
+    case "addMovieToUser":
+	return addMovieToUser($request['username'], $request['movies'], $request['newMovie']);
 		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
