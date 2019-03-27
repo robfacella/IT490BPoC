@@ -260,8 +260,10 @@ if(isset($_REQUEST['msubmit_btn']))
 			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
 			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 			$rating = 1;
+      //THIS IS WHERE THE DATABASE NEEDS TO PULL THE STATS
 			$currentUser = new userProfile();
 			$currentUser->addMovie($movieInfo, $rating);
+      //THIS IS WHERE THE DATABASE NEEDS TO SAVE THE STATS
 			print_r($currentUser->weighedStats['Genre']);
 		}
 	else{
