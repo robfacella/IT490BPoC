@@ -77,8 +77,8 @@ class userProfile {
     public function setMovieList($userList){
       $movieList = $userList;
     }
-    public function setMovieCount($userCount){
-      $movieCount = $userCount;
+    public function setMovieCount(){
+      $movieCount = count($this->movieList);
     }
 
     //$newMovie is an array formatted like the API pulls
