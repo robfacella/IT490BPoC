@@ -4,6 +4,13 @@ $user = $_GET["user"];
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
+
+function rabbits($request){
+	$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
+        $response = $client->send_request($request); //Need a running rabbitMQBroker.php & DB
+	return $response;	
+}
+
 session_start();
 //if any of these Session vars are unset then we don't even need to ccheck validation because it cannot be a valid session.
 if((!isset($_SESSION['uname']))  || (!isset($_SESSION['pwo'])) || (!isset($_SESSION['uid'])))
@@ -11,7 +18,6 @@ if((!isset($_SESSION['uname']))  || (!isset($_SESSION['pwo'])) || (!isset($_SESS
     session_destroy(); //Will remove other session information if it was set somehow.
     echo "<script>location.href='login.php'</script>";
 }
-$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
 if (isset($argv[1]))
 {
    $msg = $argv[1];
@@ -25,7 +31,7 @@ $request['type'] = "validate_session";
 $request['username'] = $_SESSION['uname'];
 $request['password'] = $_SESSION['pwo'];
 $request['message'] = $msg;
-$response = $client->send_request($request); //Need a running rabbitMQBroker.php & DB
+$response = rabbits($request); //Need a running rabbitMQBroker.php & DB
 if ($response['isValid'] == false){
    //Validation Failed
    session_destroy(); //Remove Session Data from Session discovered to be invalid.
@@ -33,12 +39,10 @@ if ($response['isValid'] == false){
    exit();
 }
 echo "Session still valid at least...";
-$client2 = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
-$request = array();
 $request['type'] = "getUserProfile";
 $request['username'] = $user;
 $request['message'] = "Fetching ". $user . "'s Profile Page.";
-$response = $client2->send_request($request);
+$response = rabbits($request);
 
 $movies = $response['movies'];
 $friends = $response['friends'];
