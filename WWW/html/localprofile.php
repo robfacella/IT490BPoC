@@ -59,10 +59,9 @@ class userProfile {
     public $statNames = array('Genre', 'Director', 'Actors');
 
     //array of arrays with keys
-    //each internal array is [Name of Object, Numerical Value]
-    //For Example, [Sci-fi, .5]
-    public $weighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
-    public $unweighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    //each internal array has a key named after the genre loading a rating
+    public $weighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    public $unweighedStats = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
     public $movieCount = 0;
 
     //Array of strings
@@ -132,8 +131,8 @@ class userProfile {
   //the second is an array of all other users
   function recommendMovie($usersToWatch, $otherUsers){
     $statNames = array('Genre', 'Director', 'Actors');
-    $groupStatsWeighed = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
-    $groupStatsUnweighed = array('Genre'=> array(), 'Director'=>array(),/* 'Year'=>array(),*/ 'Actors'=>array());
+    $groupStatsWeighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    $groupStatsUnweighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
     $maxStatName = array();
     $maxStatNumber = array(0, 0, 0);
     $matchingUsers = array();
@@ -142,7 +141,7 @@ class userProfile {
     foreach ($usersToWatch as $userAdding) {
       foreach($statNames as $currentStat){
         //iterate through all genres to add
-        foreach($groupStatsUnweighed[$currentStat] as &$oldStat){
+        foreach($groupStatsUnweighed[$currentStat] as $oldStat){
           foreach($userAdding as $userStat){
             //check if genre already exists in user stats
             //if so, add to existing array
