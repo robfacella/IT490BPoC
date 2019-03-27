@@ -221,7 +221,7 @@ class userProfile {
         }
       }
     }
-
+    //ADAM!
     //Once we have a selected user(s), go through the database and pick out all movies
     //that have max genre, remove any already seen,
     //then pick one randomly
@@ -260,6 +260,7 @@ if(isset($_REQUEST['msubmit_btn']))
 			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
 			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 			$rating = 1;
+      //ADAM!
       //THIS IS WHERE THE DATABASE NEEDS TO PULL THE STATS
 			$currentUser = new userProfile();
 			$currentUser->addMovie($movieInfo, $rating);
