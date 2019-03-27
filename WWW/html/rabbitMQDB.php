@@ -78,6 +78,8 @@ function addMovieToUser($user, $movies, $newMovie){
 		        print("API did not return a movie. returned a type of: ".PHP_EOL);
 		        print($movieInfo["Type"]);
 			$response['apilog'] = "Tried to get non-Movie from API";
+			$response['message'] = "Fetched Movie.";
+   			return $response;
 	 }}else{
 		$response['apilog'] = "API did not respond, try again later. "; 
 		print($response['apilog'].PHP_EOL);
@@ -91,7 +93,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
    
-   $response['message'] = "Fetched Profile.";
+   $response['message'] = "Fetched Movie.";
    
    return $response;
 }
