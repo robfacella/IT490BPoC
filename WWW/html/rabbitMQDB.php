@@ -83,6 +83,8 @@ function addMovieToUser($user, $movies, $newMovie){
 	 }}else{
 		$response['apilog'] = "API did not respond, try again later. "; 
 		print($response['apilog'].PHP_EOL);
+		$response['message'] = "Couldn't find Movie.";
+   		return $response;
 	 }		 
 	}
 	
