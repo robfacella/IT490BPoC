@@ -100,8 +100,8 @@ if(isset($_REQUEST['fsubmit_btn']))
         $request = array();
         $request['type'] = "addFriend";
         $request['username'] = $user;
-        $request['movies'] = $friends;
-        $request['newMovie'] = $newFriend;
+        $request['friends'] = $friends;
+        $request['newFriend'] = $newFriend;
 	$request['message'] = "Attempting to add friend '" . $newFriend . "' to " . $user . "'s Friend list...";
 	$response = rabbits($request);
 	//Refresh Page
