@@ -38,7 +38,7 @@ if ($response['isValid'] == false){
    echo "<script>location.href='login.php'</script>";
    exit();
 }
-echo "Session still valid at least...";
+//echo "Session still valid at least...";
 $request['type'] = "getUserProfile";
 $request['username'] = $user;
 $request['message'] = "Fetching ". $user . "'s Profile Page.";
