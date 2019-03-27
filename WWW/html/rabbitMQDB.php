@@ -64,9 +64,14 @@ function addMovieToUser($user, $movies, $newMovie){
 			$mg = $movieInfo["Genre"];
 			$ma = $movieInfo["Actors"];
 			$mp = $movieInfo["Poster"];
+			$s = "select * from movies where title = '$mt' ";
+	                ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	                $num =mysqli_num_rows($t);
+        
+	                if ($num==0){ //REALLY not in local movies table 
 		 	$s = "INSERT INTO movies (title, year, rated, released, genre, actors, poster) 
 			VALUES('$mt','$my','$mra','$mre','$mg','$ma','$mp')";
-			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+			($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );}
 	        }else{
 		        print("API did not return a movie. returned a type of: ".PHP_EOL);
 		        print($movieInfo["Type"]);
