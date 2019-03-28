@@ -101,7 +101,7 @@ class userProfile {
           foreach($explodedEntry as $explodedStat){
             //check if genre already exists in user stats
             //if so, add to existing array
-            if (key($this->unweighedStats[$currentStat]) == $explodedStat){
+            if (array_key_exists($explodedStat, $this->unweighedStats[$currentStat])){
               $this->unweighedStats[$currentStat][$explodedStat] = $this->unweighedStats[$currentStat][$explodedStat] + $rating;
             }
             else{
@@ -145,7 +145,7 @@ class userProfile {
           while($userStat = current($userAdding)){
             //check if genre already exists in user stats
             //if so, add to existing array
-            if (key($userAdding) == key($groupStatsUnweighed[$currentStat])){
+            if (array_key_exists(key($userAdding), $groupStatsUnweighed[$currentStat])){
               current($groupStatsUnweighed[$currentStat]) = $oldStat + $userStat;
             }
             else{
