@@ -60,7 +60,7 @@ $friends = $response['friends'];
 <body>
 	<div class="container">
 	<h1><?php echo $user; ?>'s Profile<h1><br>
-	<br><a href='logout.php'><input type=button value=logout name=logout></a>
+	<br><a href='loggedIn.php'><input type=button value=Home name=Home></a>
 	<form method="post" action="">
 		Discover more Brilliant Picks of Cinema <br>
 		
