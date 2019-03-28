@@ -93,7 +93,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	    $mg = $r[ "genre" ];
           }
 	}
-	$mg = ((explode(',', $mg))[1]);
+	$mg = ((explode(',', $mg))[0]);
 	$newMovie = sanitize($newMovie);
 	if (is_null ($movies)){
 	   $movies = $newMovie;}
@@ -111,8 +111,8 @@ function addMovieToUser($user, $movies, $newMovie){
         while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	    $uid = $r[ "userid" ];
         }
-	echo $uid;
-        $s = "select * from ratings where userid = '$uid' and genre = '$mg'";
+	//echo $uid;
+        $s = "select * from ratings where userid = '$uid' and genre = '$mg' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
 	if ($num==0){
@@ -124,7 +124,7 @@ function addMovieToUser($user, $movies, $newMovie){
            }
 	$rating = ($rating + 1);
 	$s = "update ratings set rating = '$movies' where userid = '$uid' ";
-	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );}
+	}($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
    echo $s;
    return $response;
