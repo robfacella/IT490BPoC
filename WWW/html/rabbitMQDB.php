@@ -110,6 +110,7 @@ function addMovieToUser($user, $movies, $newMovie){
         while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	    $uid = $r[ "userid" ];
         }
+	echo $uid;
         $s = "select * from ratings where userid = '$uid' and genre = '$mg'";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
@@ -124,7 +125,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	$s = "update ratings set rating = '$movies' where userid = '$uid' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );}
 	
-   
+   echo $s;
    return $response;
 }
 function addFriend($user, $friends, $newFriend){
