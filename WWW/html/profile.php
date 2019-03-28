@@ -48,7 +48,7 @@ $movies = $response['movies'];
 $friends = $response['friends'];
 
 $posterURL = $response['url'];
-	
+	echo $posterURL;
 	
 ?>
 
