@@ -10,13 +10,13 @@ USE testdb;
 
 #rating table
 CREATE TABLE IF NOT EXISTS ratings (
-   ratingid INT(11)
-   ruser INT(11),
-   rmovie INT(11),
-   rating float,
-   PRIMARY KEY (ruser, rmovie)),
-   CONSTRAINT FK_user FOREIGN KEY (PersonID)
-   REFERENCES Persons(PersonID)
+    userid varchar(255) NOT NULL,
+    genre varchar(255) NOT NULL,
+    rating int(11),
+    PRIMARY KEY (userid, genre)
+    CONSTRAINT FK_user FOREIGN KEY (userid) REFERENCES users(userid), 
+    CONSTRAINT FK_genre FOREIGN KEY (genre) REFERENCES movies(genre),
+);
 
 show columns from ratings;
 EOF
