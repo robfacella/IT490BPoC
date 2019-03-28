@@ -93,6 +93,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	    $mg = $r[ "genre" ];
           }
 	}
+	$mg = ((explode(',', $mg))[1]);
 	$newMovie = sanitize($newMovie);
 	if (is_null ($movies)){
 	   $movies = $newMovie;}
