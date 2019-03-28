@@ -48,6 +48,7 @@ function getUserProfile($user){
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
 	    $response['url'] = $r[ "poster" ];
+	    $response['RecoTitle'] = $r[ "title" ];
         }
    return $response;
 }
