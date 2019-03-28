@@ -133,6 +133,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	$num =mysqli_num_rows($t);
 	
 	$randNum = rand(1, $num);
+	echo $randNum;
 	$s = "select * from movies where movieid = '$randNum' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
