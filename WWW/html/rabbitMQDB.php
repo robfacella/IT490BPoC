@@ -93,7 +93,8 @@ function addMovieToUser($user, $movies, $newMovie){
 	if (is_null ($movies)){
 	   $movies = $newMovie;}
 	else{
-	$movies = $movies . ", " . $newMovie;}
+	   $movies = sanitize($movies);
+	   $movies = $movies . ", " . $newMovie;}
 	
 	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
