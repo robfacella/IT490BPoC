@@ -65,7 +65,7 @@ $posterURL = $response['url'];
 	<br><a href='loggedIn.php'><input type=button value=Home name=Home></a>
 	<form method="post" action="">
 		Discover more Brilliant Picks<br>
-		<h2>You should check this movie out: </h2><img src="<?php echo $posterURL; ?>" alt="Recommended Movie"><br>
+		<h2>You should check this movie out: </h2><img src="<?php echo $posterURL; ?>" alt="Recommended Movie"><?php echo $posterURL; ?><br><br>
 		
 		<form method="post" action"">
 		Movie List: <?php echo $movies; ?> <br>
