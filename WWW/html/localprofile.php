@@ -126,10 +126,11 @@ class userProfile {
   //Both of these are arrays of userProfile classes
   //the first is the users who are a part of the group watching
   //the second is an array of all other users
+  /*
   function recommendMovie($usersToWatch, $otherUsers){
     $statNames = array('Genre', 'Director', 'Actors');
-    $groupStatsWeighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
-    $groupStatsUnweighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ 'Actors'=>array('Tom Cruise'=>0));
+    $groupStatsWeighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0), /* 'Year'=>array(),*/ /*'Actors'=>array('Tom Cruise'=>0));
+    $groupStatsUnweighed = array('Genre'=> array('Sci-fi'=>0), 'Director'=>array('Alfred Hitchcock'=>0),/* 'Year'=>array(),*/ /*'Actors'=>array('Tom Cruise'=>0));
     $maxStatName = array();
     $maxStatNumber = array(0, 0, 0);
     $matchingUsers = array();
@@ -161,10 +162,10 @@ class userProfile {
             current($this->groupStatsWeighed[$currentStat]) = $valueToBeWeighed/count($usersToWatch);
             next($this->groupStatsWeighed[$currentStat]);
           }
-          next($groupStatsUnweighed[$currentStat]);*/
+          next($groupStatsUnweighed[$currentStat]);
         }
       }
-    }
+    }*/
 
     //Here is where database stuff will come into play.
     $iterationCount = 0;
