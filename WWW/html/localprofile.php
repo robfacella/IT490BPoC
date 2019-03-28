@@ -156,12 +156,12 @@ class userProfile {
           //set weighed to unweighed
           $groupStatsWeighed[$currentStat] = $groupStatsUnweighed[$currentStat];
           //iterate through entries
-          while($valueToBeWeighed = current($this->groupStatsWeighed[$currentStat])) {
+          /*while($valueToBeWeighed = current($this->groupStatsWeighed[$currentStat])) {
             //average entries
             current($this->groupStatsWeighed[$currentStat]) = $valueToBeWeighed/count($usersToWatch);
             next($this->groupStatsWeighed[$currentStat]);
           }
-          next($groupStatsUnweighed[$currentStat]);
+          next($groupStatsUnweighed[$currentStat]);*/
         }
       }
     }
