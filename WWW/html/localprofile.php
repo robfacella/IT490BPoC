@@ -165,7 +165,7 @@ class userProfile {
           next($groupStatsUnweighed[$currentStat]);
         }
       }
-    }*/
+    }
 
     //Here is where database stuff will come into play.
     $iterationCount = 0;
@@ -223,7 +223,7 @@ class userProfile {
     //Once we have a selected user(s), go through the database and pick out all movies
     //that have max genre, remove any already seen,
     //then pick one randomly
-  }
+  }*/
 
 if(isset($_REQUEST['msubmit_btn']))
 {
