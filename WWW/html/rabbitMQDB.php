@@ -123,7 +123,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	     $rating = $r[ "rating" ];
            }
 	$rating = ($rating + 1);
-	$s = "update ratings set rating = '$movies' where userid = '$uid' ";
+	$s = "update ratings set rating = '$rating' where userid = '$uid' ";
 	}($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
    echo $s;
