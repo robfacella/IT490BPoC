@@ -88,6 +88,10 @@ function addMovieToUser($user, $movies, $newMovie){
 		$response['message'] = "Couldn't find Movie.";
    		return $response;
 	 }		 
+	}else{//Is in DB get Genre
+          while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	    $mg = $r[ "genre" ];
+          }
 	}
 	$newMovie = sanitize($newMovie);
 	if (is_null ($movies)){
