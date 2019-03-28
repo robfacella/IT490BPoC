@@ -99,7 +99,27 @@ function addMovieToUser($user, $movies, $newMovie){
 	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
    
-   $response['message'] = "Fetched Movie.";
+        $response['message'] = "Fetched Movie.";
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	$s = "select * from users where username = '$user' " ;
+        ($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+        while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	    $uid = $r[ "userid" ];
+        }
+        $s = "select * from ratings where userid = '$uid' and genre = '$mg'";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	$num =mysqli_num_rows($t);
+	if ($num==0){
+		$s = "INSERT INTO ratings(userid, genre, rating) VALUES('$uid','$mg', 1)";
+	}
+	else{
+	   while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	     $rating = $r[ "rating" ];
+           }
+	$rating = ($rating + 1);
+	$s = "update ratings set rating = '$movies' where userid = '$uid' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );}
+	
    
    return $response;
 }
@@ -112,7 +132,7 @@ function addFriend($user, $friends, $newFriend){
 	else{
 	$friends = $friends . ", " . $newFriend;}
 	$friends = sanitize($friends);
-	$s = "update users set friendslist = '$friends' where username = '$user' ";
+	$s = "update users set friendslist = '$friends' where username = '$user'";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
 	$response = array();
@@ -341,5 +361,6 @@ echo "dbRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
 echo "dbRabbitMQServer END".PHP_EOL;
 exit();
+
 ?>
 
