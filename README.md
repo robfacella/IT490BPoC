@@ -1,5 +1,5 @@
 # IT490BPoC
-IT490 - Big Project on Campus
+IT490 - Big Project on Campus - Midterm Commit
 
 Members: Adam Kosecki, Connor Norris, Michael Pabian, Robert Facella
 
