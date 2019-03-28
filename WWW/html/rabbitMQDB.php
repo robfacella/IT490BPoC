@@ -37,6 +37,18 @@ function getUserProfile($user){
 	   
         $response['message'] = "Fetched Profile.";
    }
+		//recommend movie
+	$s = "select * from movies";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	$num =mysqli_num_rows($t);
+	
+	$randNum = 1;//rand(1, $num);
+	echo $randNum;
+	$s = "select * from movies where movieid = '$randNum' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	    $response['url'] = $r[ "poster" ];
+        }
    return $response;
 }
 function addMovieToUser($user, $movies, $newMovie){
@@ -127,18 +139,7 @@ function addMovieToUser($user, $movies, $newMovie){
 	}($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
    //echo $s;
-	//recommend movie
-	$s = "select * from movies";
-	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
-	$num =mysqli_num_rows($t);
-	
-	$randNum = 1;//rand(1, $num);
-	echo $randNum;
-	$s = "select * from movies where movieid = '$randNum' ";
-	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
-	while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
-	    $response['url'] = $r[ "poster" ];
-        }
+
    
    return $response;
 }
