@@ -46,6 +46,8 @@ $response = rabbits($request);
 
 $movies = $response['movies'];
 $friends = $response['friends'];
+
+$posterURL = $response['url'];
 	
 	
 ?>
@@ -59,10 +61,11 @@ $friends = $response['friends'];
 
 <body>
 	<div class="container">
-	<h1><?php echo $user; ?>'s Profile<h1><br>
+	<h1><?php echo $user; ?>'s Profile</h1><br>
 	<br><a href='loggedIn.php'><input type=button value=Home name=Home></a>
 	<form method="post" action="">
 		Discover more Brilliant Picks<br>
+		<h2>You should check this movie out: </h2><img src="<?php echo $posterURL; ?>" alt="Recommended Movie"><br>
 		
 		<form method="post" action"">
 		Movie List: <?php echo $movies; ?> <br>
