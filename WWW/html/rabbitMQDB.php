@@ -41,13 +41,15 @@ function getUserProfile($user){
 }
 function addMovieToUser($user, $movies, $newMovie){
 	$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-        $s = "select * from movies where title = '$newMovie' ";
+	$sanMovie = sanitize($newMovie);
+        $s = "select * from movies where title = '$sanMovie' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
         $response = array();	
 	if ($num==0){ //not in local movies table 
 	 //api pull	
 	 $apimovie = str_replace(' ', '_', $newMovie); //changes the newMovie to a new variable that replaces spaces with underscores
+	 $apimovie = str_replace('&', '%26', $apimovie);
 	 $movieInfo = json_decode(file_get_contents("http://www.omdbapi.com/?t=" . $apimovie . "&apikey=f0530b1d"), true);
 	 print_r($movieInfo);//Outputs info on movie into console
 	 
@@ -91,8 +93,9 @@ function addMovieToUser($user, $movies, $newMovie){
 	if (is_null ($movies)){
 	   $movies = $newMovie;}
 	else{
-	$movies = $movies . ", " . $newMovie;}
-	$movies = sanitize($movies);
+	   $movies = sanitize($movies);
+	   $movies = $movies . ", " . $newMovie;}
+	
 	$s = "update users set favmovies = '$movies' where username = '$user' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
    

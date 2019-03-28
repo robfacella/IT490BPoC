@@ -61,7 +61,7 @@ $friends = $response['friends'];
 	<div class="container">
 	<h1><?php echo $user; ?>'s Profile<h1><br>
 	<form method="post" action="">
-		Insert Profile jargon here <br>
+		Discover more Brilliant Picks of Cinema <br>
 		
 		<form method="post" action"">
 		Movie List: <?php echo $movies; ?> <br>
