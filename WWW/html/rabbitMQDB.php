@@ -42,7 +42,7 @@ function getUserProfile($user){
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	$num =mysqli_num_rows($t);
 	
-	$randNum = 1;//rand(1, $num);
+	$randNum = rand(1,$num);
 	echo $randNum;
 	$s = "select * from movies where movieid = '$randNum' ";
 	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
