@@ -126,7 +126,19 @@ function addMovieToUser($user, $movies, $newMovie){
 	$s = "update ratings set rating = '$rating' where userid = '$uid' and genre = '$mg'";
 	}($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
 	
-   echo $s;
+   //echo $s;
+	//recommend movie
+	$s = "select * from movies";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	$num =mysqli_num_rows($t);
+	
+	$randNum = rand(0, $num);
+	$s = "select * from movies where movieid = '$randNum' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	    $response['url'] = $r[ "poster" ];
+        }
+   
    return $response;
 }
 function addFriend($user, $friends, $newFriend){
