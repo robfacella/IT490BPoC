@@ -97,29 +97,26 @@ class userProfile {
         //seperate the genre of the new movie into an array
         $explodedEntry = explode(',', $newMovie[$currentStat]);
         //iterate through all genres to add
-        while($oldStat = current($this->unweighedStats[$currentStat])){
-          foreach($explodedEntry as $explodedStat){
-            //check if genre already exists in user stats
-            //if so, add to existing array
-            if (array_key_exists($explodedStat, $this->unweighedStats[$currentStat])){
-              $this->unweighedStats[$currentStat][$explodedStat] = $this->unweighedStats[$currentStat][$explodedStat] + $rating;
-            }
-            else{
-              //genre doesn't exist in stats, add
-              $this->unweighedStats[$currentStat][$explodedStat] = $rating;
-            }
+        foreach($explodedEntry as $explodedStat){
+          //check if genre already exists in user stats
+          //if so, add to existing array
+          if (array_key_exists($explodedStat, $this->unweighedStats[$currentStat])){
+            $this->unweighedStats[$currentStat][$explodedStat] = $this->unweighedStats[$currentStat][$explodedStat] + $rating;
           }
-          //clear weighed stats' original array
-          unset($this->weighedStats[$currentStat]);
-          //set weighed to unweighed
-          $this->weighedStats[$currentStat] = $this->unweighedStats[$currentStat];
-          //iterate through entries
-          while($valueToBeWeighed = current($this->weighedStats[$currentStat])) {
-            //average entries
-            current($this->weighedStats[$currentStat]) = $valueToBeWeighed/$this->movieCount;
-            next($this->weighedStats[$currentStat]);
+          else{
+            //genre doesn't exist in stats, add
+            $this->unweighedStats[$currentStat][$explodedStat] = $rating;
           }
-          next($this->unweighedStats[$currentStat]);
+        }
+        //clear weighed stats' original array
+        unset($this->weighedStats[$currentStat]);
+        //set weighed to unweighed
+        $this->weighedStats[$currentStat] = $this->unweighedStats[$currentStat];
+        //iterate through entries
+        while($valueToBeWeighed = current($this->weighedStats[$currentStat])) {
+          //average entries
+          current($this->weighedStats[$currentStat]) = $valueToBeWeighed/$this->movieCount;
+          next($this->weighedStats[$currentStat]);
         }
         next($this->statNames);
       }
