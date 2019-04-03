@@ -9,12 +9,110 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
+function logger($msg){
+  $logfile = fopen("centralLog.txt", "a") or die("Unable to open Log!!");
+  if (!isset ($msg)){
+	$msg = "Public Service Announcement: This is only a test.\n";
+  }
+  #logMsg would be a timestamp + the message which the server is logging... should server or log itself generate the time stamp? may be a moot point.
+  echo "$msg".PHP_EOL;
+  $logMsg = 'Date['. date('Y-m-d') .'] Time['. date('H:i:s') .']: '."$msg"."\n";
+  fwrite($logfile, $logMsg);
+  fclose($logfile);
+}
+
+function logCase($msg)
+{
+   #Literally JUST take the $request['message'] from a client & log it.
+   logger($msg);
+   return true;
+}
+
+function getUserProfile($user){
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "getUserProfile";
+    $request['username'] = $user;
+    $request['message'] = "Fetching User Page for < $user > from the remote database...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;
+}
+function addFriend($user, $friends, $newFriend){
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "addFriend";
+    $request['username'] = $user;
+    $request['friends'] = $friends;
+    $request['newFriend'] = $newFriend;
+    $request['message'] = "Attempting to add friend '" . $newFriend . "' to " . $user . "'s Friend list...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;	
+}
+function addMovieToUser($user, $movies, $newMovie){
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "addMovieToUser";
+    $request['username'] = $user;
+    $request['movies'] = $movies;
+    $request['newMovie'] = $newMovie;
+    $request['message'] = "Attempting to add movie '" . $newMovie . "' to " . $user . "'s Movie list...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+
+	if (isset ($response['apilog']))
+		logger($response['apilog']);
+    
+    return $response;	
+}
+function moviePage($movieID)
+{
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "moviePage";
+    $request['movieID'] = $movieID;
+    $request['message'] = "Fetching Movie's Page for < $movieID > from the remote database...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;
+}
+
 function doLogout($username, $pwo)
 {
-    $lout = array();
-    $lout['message']="Logged out '$username'.";
-    echo $lout['message'].PHP_EOL;
-    return $lout;
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "logout";
+    $request['username'] = $username;
+    $request['password'] = $password;
+    $request['message'] = "Checking validation of user: $username at the remote database...";
+    $msg = $request['message']." Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;
 }
 //Auth Function from Pabianm's login.php
 function auth($user, $pass){
@@ -34,123 +132,75 @@ function sanitize($var){
     return $temp; 
 }
 function doValidate($username,$password){
-  //I think this is like McHugh's "gatekeeper" 
-  // lookup 'Logged-In' Account in database
-  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-  // check password
-  $authe = array();
-  $authe['isValid'] = false;
-  if (mysqli_connect_errno())
-  {
-     $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
-     echo $authe['msg'].PHP_EOL;
-     return $authe;
-  }
-  mysqli_select_db($db, "testdb"); 
-  error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-  ini_set( 'display_errors' , 1 );
-  //Validate Login from session provided credentials if they are in the db
-  $uname = sanitize($username);
-  $pword = sanitize($password); 
-  if (!auth ($uname,$pword)){
-     $authe['msg'] = "Invalid session credentials, please Login again.";
-     echo $authe['msg'].PHP_EOL;
-     return $authe; 
-  } 
-  //Return false by default if not valid.  (Declared earlier in function.)
-  $authe['isValid'] = true;
-  $authe['msg'] = "Session Validated.";  
-  $authe['uname'] = $uname;
-  $authe['pwo'] = $pword;
-  //$authe['sessionId'] =;//From OG doValidate case, track valid session with this instead of user&pass combo???
-  echo $authe['msg'].PHP_EOL;
-  return $authe;
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "validate_session";
+    $request['username'] = $username;
+    $request['password'] = $password;
+    $request['message'] = "Checking validation of user: $username at the remote database...";
+    $msg = $request['message']." Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['msg']);
+    return $response;
 }
 function doLogin($username,$password)
 {
-  // lookup username in database
-  $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-  // check password
-  $authe = array();
-  $authe['allow'] = false;
-  if (mysqli_connect_errno())
-  {
-     $authe['msg'] = "Failed to connect to MySQL: " . mysqli_connect_error();
-     echo $authe['msg'].PHP_EOL;
-     return $authe;
-  }
-  //print "Successfully connected to MySQL.<br><br>";
-  mysqli_select_db($db, "testdb"); 
-
-  //error reporting
-  error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-  ini_set( 'display_errors' , 1 );
-
-  //login with provide credentials if in the db
-  $uname = sanitize($username);
-  $pword = sanitize($password); 
-  if (!auth ($uname,$pword)){
-     $authe['msg'] = "Wrong login credentials, please try again.";
-     echo $authe['msg'].PHP_EOL;//Change to tried to login with
-     return $authe; 
-  } 
-  //return false by default if not valid  
-  $authe['allow'] = true;
-  $authe['msg'] = "Logging In.";  
-  $authe['uname'] = $uname;
-  $authe['pwo'] = $pword;
-  echo $authe['msg'].PHP_EOL;
-  return $authe;
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "login";
+    $request['username'] = $username;
+    $request['password'] = $password;
+    $request['message'] = "Sending request to login user: $username to the remote database...";
+    $msg = $request['message']." Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['msg']);
     
+    return $response;
 }
 
 
 function doRegister($user,$pass,$email)
 {
-    
-    $conSQL = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
-    $user=mysqli_real_escape_string($conSQL, $user);     
-    $email=mysqli_real_escape_string($conSQL, $email);
-    $pass=mysqli_real_escape_string($conSQL, $pass);
-
-    // lookup username in database
-    //If username does NOT exist in users table:
-    $squee = "select * from users where username = '$user'";
-    //echo $squee;
-    ($query = mysqli_query($conSQL,$squee))  or die (mysqli_error( $conSQL));
-    $nRows=mysqli_num_rows($query);
-    if($nRows==0){
-    //try to add to table
-    //Should hash password before storing
-    $query2="INSERT INTO users(username, email, password) VALUES('$user','$email', '$pass')";
-    echo $query2.PHP_EOL;
-    $attempt=mysqli_query($conSQL, $query2);
-      if($attempt){
-	$msg = "Registered user: $user ...";
-	echo $msg.PHP_EOL;
-        return $msg;
-      }else{
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "register";
+    $request['username'] = $user;
+    $request['password'] = $pass;
+    $request['email'] = $email;
+    $request['message'] = "Sending request to register user: $user to the remote database...";
+    $msg = "Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    if($response['attempt']){
+	$msg = $response['msg'];
+	logger($msg);
+        return $response;
+    }else{
 	$msg = "ERROR Running query, try again later...";
-	echo $msg.PHP_EOL;
-        return $msg;
-     //If username DOES already exist in users table:
+	logger($msg);
+        return $response;
+        //If username did already exist in users table OR other error with DB..
       }
-    }
-    else {
-	$msg = "Sorry, that $user is already a registered username.";
-	echo $msg.PHP_EOL;
-        return $msg;
-    }
 }
     
 function requestProcessor($request)
 {
-  echo "received request".PHP_EOL;
+  #echo "received request".PHP_EOL;
+  logger("received request");
   var_dump($request);
   if(!isset($request['type']))
   {
     $msg = "ERROR: unsupported message type";
-    echo $msg.PHP_EOL;
+    logger($msg);
+    #echo $msg.PHP_EOL;
     return $msg;
   }
   switch ($request['type']) //Log as it's own case or logging within each case? Or both?
@@ -162,6 +212,17 @@ function requestProcessor($request)
           
     case "login":
       return doLogin($request['username'],$request['password']);
+    case "moviePage":
+        //Fetch Data from OUR movie database..
+        return moviePage($request['movieID']);
+    case "getUserProfile":
+        //Fetch User's Profile Page.
+        return getUserProfile($request['username']);
+    case "addMovieToUser":
+	return addMovieToUser($request['username'], $request['movies'], $request['newMovie']);
+    case "addFriend":
+        return addFriend($request['username'], $request['friends'], $request['newFriend']);
+		  
     case "validate_session":
       //return doValidate($request['sessionId']); //doValidate method seems to be undefined.
           return doValidate($request['username'],$request['password']);
@@ -169,15 +230,19 @@ function requestProcessor($request)
           return doRegister($request['username'],$request['password'],$request['email']);
     case "logout":
 	  return doLogout($request['username'],$request['password']);
+    case "logCase":
+		  return logCase($request['message']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
 
-$server = new rabbitMQServer("testRabbitMQ.ini","testServer");
+$server = new rabbitMQServer("brokerRabbitMQ.ini","testServer");
 
-echo "testRabbitMQServer BEGIN".PHP_EOL;
+#echo "brokerRabbitMQServer BEGIN".PHP_EOL;
+logger("brokerRabbitMQServer BEGIN");
 $server->process_requests('requestProcessor');
-echo "testRabbitMQServer END".PHP_EOL;
+#echo "brokerRabbitMQServer END".PHP_EOL;
+logger("brokerRabbitMQServer END");
 exit();
 ?>
 
