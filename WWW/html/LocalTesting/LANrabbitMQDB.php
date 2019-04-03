@@ -376,7 +376,7 @@ function requestProcessor($request)
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
 
-$server = new rabbitMQServer("dbRabbitMQ.ini","testServer");
+$server = new rabbitMQServer("dbRabbitMQLAN.ini","testServer");
 
 echo "dbRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
