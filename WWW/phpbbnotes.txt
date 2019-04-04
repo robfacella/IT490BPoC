@@ -1,0 +1,5 @@
+AdminUser: djdjdj
+AdminPass: djdjdj
+
+AdminEmail: djdjdj@mailinator.com
+
