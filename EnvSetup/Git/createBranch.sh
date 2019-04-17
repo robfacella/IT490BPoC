@@ -38,9 +38,9 @@ done
 #create new branch here
 NEWBRANCH=QA$VER.$SUBVER
 echo $NEWBRANCH
-exit
 
 #creates a new branch
 git checkout -b $NEWBRANCH
 git push origin $NEWBRANCH
-
+git push --set-upstream origin $NEWBRANCH
+git pull
