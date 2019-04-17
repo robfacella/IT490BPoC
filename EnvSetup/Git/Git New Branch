@@ -1,0 +1,11 @@
+851  git checkout -b SimpleAuthentication
+852  ls
+853  nano README.md 
+854  git status
+855  git add -A
+856  git commit -m "Authentication Notes"
+857  git push
+858  git push --set-upstream origin SimpleAuthentication 
+859  git checkout master 
+860  git pull
+

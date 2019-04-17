@@ -6,7 +6,7 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 function rabbits($request){
-	$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
+	$client = new rabbitMQClient("dbRabbitMQLAN.ini","testServer");
         $response = $client->send_request($request); //Need a running rabbitMQBroker.php & DB
 	return $response;	
 }
