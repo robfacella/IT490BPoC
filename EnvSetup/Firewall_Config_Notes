@@ -35,6 +35,11 @@ Ports We Use
 #1433  - SQL (Server TCP)
 #1434  - SQL (Server Dedicated Admin TCP)
 #1434  - SQL (Server Named Instances UDP)
+
 #MySQL
+#https://www.cyberciti.biz/tips/linux-iptables-18-allow-mysql-server-incoming-request.html
+
+#Ubuntu Desktop also has UFW Built in...
+
 
 
