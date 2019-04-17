@@ -1,0 +1,16 @@
+    1  ls
+    2  git clone https://github.com/robfacella/IT490BPoC.git
+    3  service --status-all > IT490BPoC/EnvSetup/FreshServerServices.txt
+    4  cat IT490BPoC/EnvSetup/FreshServerServices.txt
+    5  cd IT490BPoC/
+    6  ls
+    7  git status
+    8  git pull
+    9  git add -A
+   10  git commit -m "Fresh Server Services List"
+   11  git config --global user.email "rob.facella@gmail.com"
+   12  git config --global user.name "Rob Facella"
+   13  git commit -m "Fresh Server Services List"
+   14  git push
+   15  ls
+   16  history > EnvSetup/Git/ServerGitConfig.txt
