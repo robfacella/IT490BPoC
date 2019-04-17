@@ -1,3 +1,40 @@
 http://doc.norang.ca/iptables.html
 
 iptables
+
+Chains:
+INPUT - packets into machine
+OUTPUT - packets out of machine
+FORWARD - Forwarding (Router)
+:END_Chains
+
+Rules Read from top to bottom, give permissions above and block bulk low in the list(s). Catch-All goes last
+
+iptables -L (List Rules)
+iptables -F (Flush Rules (Remove all))
+iptables -D (Delete a Rule)
+
+iptables -A (Add rule to bottom)
+iptables -I (Add rule to top)
+
+Example - Allow SSH over port 22: 
+iptables -A INPUT -j ACCEPT -p tcp --destination-port 22
+#iptables -A INPUT -j ACCEPT -p tcp --destination-port 22 -i interfaceName
+
+
+Example catch-all - Drop all non-specifically allowed traffic:
+iptables -A INPUT -j DROP -p tcp -i eth0
+
+
+Ports We Use
+9418  - git transport port
+22    - SSH
+80    - HTTP
+443   - HTTPS
+
+#1433  - SQL (Server TCP)
+#1434  - SQL (Server Dedicated Admin TCP)
+#1434  - SQL (Server Named Instances UDP)
+#MySQL
+
+
