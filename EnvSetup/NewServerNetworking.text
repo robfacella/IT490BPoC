@@ -1,2 +1,16 @@
 Connected to NAT by default. Need to connect to the Router VIA the Bridged Adapter and get a StaticIP Addr for each Server.
 
+Rob - For my VirtualBox, these interface names were used by default:
+enp0s3
+enp0s8
+
+enp0s3 - Is the NAT interface on VBox Network Interface 1
+enp0s8 - Is the Bridged interface on VBox Network Interface 2
+
+Need to configure the Bridged Interface to:
+-Load on Boot
+-Connect to the Router
+-Attempt to obtain a static IP Addr
+
+
+Your Mileage may vary.
