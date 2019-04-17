@@ -7,10 +7,61 @@ enp0s8
 enp0s3 - Is the NAT interface on VBox Network Interface 1
 enp0s8 - Is the Bridged interface on VBox Network Interface 2
 
+Please, for simplicity, add the bridged interface rather than turning the first NAT into it.
+
 Need to configure the Bridged Interface to:
 -Load on Boot
 -Connect to the Router
 -Attempt to obtain a static IP Addr
 
+rob01@rob-Desktop01:~/$ sudo cat /etc/NetworkManager/system-connections/Wired\ connection\ 2 
+---------------------------
+[connection]
+id=Wired connection 2
+uuid=fc81be67-cb04-3806-9de6-668c805ec48d
+type=ethernet
+autoconnect-priority=-999
+permissions=
+secondaries=
+timestamp=1553704113
+
+[ethernet]
+duplex=full
+mac-address=08:00:27:3F:30:A0
+mac-address-blacklist=
+
+[ipv4]
+address1=192.168.8.114/24,192.168.8.1
+dns=8.8.8.8;
+dns-search=
+method=manual
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+ip6-privacy=0
+method=auto
+
+---------------------------
+
+From Server:
+cd /etc
+sudo grep -r enp0s3
+
+References to working Interface are in:
+/etc/network/interfaces
+
+----------------------------
+#https://askubuntu.com/questions/1090359/how-do-you-set-up-a-static-address-using-etc-networks-interfaces
+
+You will need to sudo and add these lines to "/etc/network/interfaces":
+-----------------------------------------------------
+#Bridged Interface
+auto enp0s8
+iface enp0s8 inet static
+address 192.168.8.115 #Change This per Machine
+netmask 255.255.255.0
+gateway 192.168.8.1
+-----------------------------------------------------
 
 Your Mileage may vary.
