@@ -1,0 +1,11 @@
+Server Ubuntu should have git preinstalled.
+Steps for setting up a server install in general:
+
+Keep default settings during installation and set the NAT interface as the default network connection.
+Save some time, no real need to encrypt home directory for these prototyping machines.
+
+1) git clone https://github.com/robfacella/IT490BPoC
+2) Run "GeneralInstallSetup.sh"
+
+3) Determine a Static IP for this machine's Bridged Network Interface.
+      This will be based on the Server's Cluster and Role.
