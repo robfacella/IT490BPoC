@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#gets most recent QA branch remote
+CURRBRANCHR=$(git branch -a | grep remotes/origin/QA* | sort -rn | head -n 1 | cut -d/ -f3)
+
+#gets most recent QA branch locally
+CURRBRANCHL=$(git branch -a | grep '^QA' | sort -rn | head -n 1 |cut -d/ -f3 )
+
+echo "The current local branch is $CURRBRANCHL and the current remote branch is $CURRBRANCHR"
