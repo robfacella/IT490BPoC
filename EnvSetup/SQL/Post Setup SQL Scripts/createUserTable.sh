@@ -18,7 +18,10 @@ CREATE TABLE IF NOT EXISTS users (
 	email varchar(255) not null,
 	password varchar(255) not null,
 	friendslist varchar(255),
-	favmovies varchar(255)
+	favmovies varchar(255),
+	stats float,
+	wstats float,
+	zip int(5)
 );
 
 
