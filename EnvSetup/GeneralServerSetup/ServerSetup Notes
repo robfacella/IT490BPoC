@@ -9,3 +9,7 @@ Save some time, no real need to encrypt home directory for these prototyping mac
 
 3) Determine a Static IP for this machine's Bridged Network Interface.
       This will be based on the Server's Cluster and Role.
+4) Edit GeneralServerSetup/AddSecondInterfaceInfo.sh appropriately
+5) Run AddSecondInterface.sh to add the bridged connection to the Server.
+
+

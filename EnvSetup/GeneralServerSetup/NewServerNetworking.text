@@ -59,9 +59,13 @@ You will need to sudo and add these lines to "/etc/network/interfaces":
 #Bridged Interface
 auto enp0s8
 iface enp0s8 inet static
-address 192.168.8.115 #Change This per Machine
+address 192.168.8.115 
+#Change The IP Addr per Machine
 netmask 255.255.255.0
 gateway 192.168.8.1
 -----------------------------------------------------
+Once added networking will need to be reset before it takes effect.
+Also, NAT and the bridge do not play nicely together so will need to use <sudo ifconfig interfaceName down> on the interface you aren't using before reseting networking again.
+This will be a scripted process and we probably should just have them use the bridge by default so things may be re-written to do so and then have a toggle script to switch to NAT. (Which these servers are, in theory, never expected to use.)
 
 Your Mileage may vary.
