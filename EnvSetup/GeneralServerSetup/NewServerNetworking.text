@@ -71,6 +71,19 @@ This will be a scripted process and we probably should just have them use the br
 After some attempts at debugging, discovered that trying to load the Connected NAT interface without actually using it caused the machine to halt for 5minutes.
 Timeout should be reduced through systemctl
 HOWEVER, after booting discovered that NAT incorporated DNS resolution wheras bridged din't by dafault; added the google DNS server to the interface configuration. Shutdown the VM and physically disabled NAT interface which bypassed the 5minute timer. Upon rebooting with JUST the bridged conection loaded, and it's newly added nameserver option, git and other networking works as expected. So, you could reconfigure a lot of stuff OR just "physically" remove the NAT Interface. :^)
+
+################
+If you do wish to edit systemd to resolve, or at least reduce, the timeout on the dead NAT interface (Rather than just disabling it from Virtual Box):
+sudo vi /etc/systemd/system/network-online.targets.wants/networking.service
+
+Line 21:   TimeoutStartSec=5min
+
+change to: TimeoutStartSec=30sec
+
+Then restart the daemon:
+sudo systemctl daemon-reload
+
+################
  
 Your Mileage may vary.
 
