@@ -68,4 +68,10 @@ Once added networking will need to be reset before it takes effect.
 Also, NAT and the bridge do not play nicely together so will need to use <sudo ifconfig interfaceName down> on the interface you aren't using before reseting networking again.
 This will be a scripted process and we probably should just have them use the bridge by default so things may be re-written to do so and then have a toggle script to switch to NAT. (Which these servers are, in theory, never expected to use.)
 
+After some attempts at debugging, discovered that trying to load the Connected NAT interface without actually using it caused the machine to halt for 5minutes.
+Timeout should be reduced through systemctl
+HOWEVER, after booting discovered that NAT incorporated DNS resolution wheras bridged din't by dafault; added the google DNS server to the interface configuration. Shutdown the VM and physically disabled NAT interface which bypassed the 5minute timer. Upon rebooting with JUST the bridged conection loaded, and it's newly added nameserver option, git and other networking works as expected. So, you could reconfigure a lot of stuff OR just "physically" remove the NAT Interface. :^)
+ 
 Your Mileage may vary.
+
+sudo /etc/init.d/networking restart
