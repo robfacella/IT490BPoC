@@ -24,10 +24,12 @@ done
 while true; do	
 	read -p  "You are on sub version $SUBVER. Would you like to make a new sub version? [Y/N]" yn
 	case $yn in
-		[Yy]* ) SUBVER=$(($SUBVER+1))
-			if (($SUBVER < 9))
+		[Yy]* ) SUBVER=$((10#$SUBVER+1))
+			if ((10#$SUBVER < 10))
 			then
 				SUBVER=0$SUBVER
+			else
+				SUBVER=$SUBVER
 			fi
 			break;;
 		[Nn]* ) break;;
