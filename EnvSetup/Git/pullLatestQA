@@ -5,6 +5,6 @@ sudo git pull
 #gets most recent QA branch
 CURRBRANCH=$(git branch -a | grep remotes/origin/QA* | sort -rn | head -n 1 | cut -d/ -f3)
 
-git clone $CURRBRANCH
+git checkout $CURRBRANCH
 
 sudo git pull
