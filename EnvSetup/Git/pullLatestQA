@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd /home/mp-490/Desktop/IT490BPoc
 sudo git pull
 
 #gets most recent QA branch
