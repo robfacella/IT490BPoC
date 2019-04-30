@@ -1,0 +1,20 @@
+Dev Cluster:
+	DataBase	- 
+	WebServer	- 192.168.8.146 
+	RabbitBroker	- 192.168.8.114
+
+
+QA Cluster:
+	DataBase	-
+	WebServer	- 192.168.8.147
+	RabbitBroker	- 192.168.8.115
+
+Production Cluster:
+	DataBase	-
+	WebServer	- 192.168.8.148
+	RabbitBroker	- 192.168.8.116
+	HSDataBase	-
+	HSWebServer	- 192.168.8.149
+	HSBroker	- 192.168.8.116
+	DMZ		-
+	HSDMZ		-
