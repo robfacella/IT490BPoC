@@ -1,14 +1,25 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
+	<style type="text/css">
+h1{
+    font-family: 'Roboto Slab', serif;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+	background-color: #CCC;
+}
+</style>
 	<title>Login</title>
 </head>
 
 <body>
 	<div class="container">
-	<h1>BPoC Sign-In<h1><br>
-	<form method="post" action="">
+	  <p><img src="BPoC logo.png" width="227" height="135"></p>
+	  <h1>BPoC Sign-In
+	  </h1>
+	  <form method="post" action="">
 		<p>Username</p>
 		<input type ="text" name="user" id="user" placeholder="Username...">
 

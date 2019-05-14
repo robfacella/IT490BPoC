@@ -1,0 +1,16 @@
+ALL:
+rabbitMQclient
+ssh server
+git
+php7.0
+
+messenger:
+
+DMZ:
+
+backend:
+rabbitMQserver
+mysql
+
+frontend:
+apache2

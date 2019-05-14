@@ -1,0 +1,11 @@
+[Unit]
+Description=BPoC Installs
+After=network.target
+
+[Service]
+Type=simple
+Restart=no
+ExecStart=/home/$USER/git/
+
+[Install]
+WantedBy=multi-user.target
