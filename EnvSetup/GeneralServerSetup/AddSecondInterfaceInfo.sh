@@ -28,7 +28,7 @@ echo "auto enp0s8"
 echo "iface enp0s8 inet static"
 #############################################################################################
 echo "#Did you forget to change the static IP for this machine? Do it below."
-echo "address 192.168.8.115" # <-- Don't forget to set this.
+echo "address 192.168.8.239" # <-- Don't forget to set this.
 #######################################################################################
 echo "netmask 255.255.255.0"
 echo "gateway 192.168.8.1"
