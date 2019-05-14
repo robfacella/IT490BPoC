@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Server: MochiWeb/1.1 WebMachine/1.10.0 (never breaks eye contact)
+Date: Tue, 14 May 2019 20:14:07 GMT
+Content-Type: application/json
+Content-Length: 1535
+Cache-Control: no-cache
+
+{"management_version":"3.5.7","rates_mode":"basic","exchange_types":[{"name":"headers","description":"AMQP headers exchange, as per the AMQP specification","enabled":true},{"name":"topic","description":"AMQP topic exchange, as per the AMQP specification","enabled":true},{"name":"fanout","description":"AMQP fanout exchange, as per the AMQP specification","enabled":true},{"name":"direct","description":"AMQP direct exchange, as per the AMQP specification","enabled":true}],"rabbitmq_version":"3.5.7","cluster_name":"rabbit@rob-Desktop01","erlang_version":"18.3","erlang_full_version":"Erlang/OTP 18 [erts-7.3] [source] [64-bit] [async-threads:64] [kernel-poll:true]","message_stats":{"publish":30,"publish_details":{"rate":0.0},"ack":15,"ack_details":{"rate":0.0},"deliver_get":15,"deliver_get_details":{"rate":0.0},"deliver":15,"deliver_details":{"rate":0.0}},"queue_totals":{"messages":0,"messages_details":{"rate":0.0},"messages_ready":0,"messages_ready_details":{"rate":0.0},"messages_unacknowledged":0,"messages_unacknowledged_details":{"rate":0.0}},"object_totals":{"consumers":0,"queues":1,"exchanges":16,"connections":0,"channels":0},"statistics_db_event_queue":0,"node":"rabbit@rob-Desktop01","statistics_db_node":"rabbit@rob-Desktop01","listeners":[{"node":"rabbit@rob-Desktop01","protocol":"amqp","ip_address":"::","port":5672},{"node":"rabbit@rob-Desktop01","protocol":"clustering","ip_address":"::","port":25672}],"contexts":[{"node":"rabbit@rob-Desktop01","description":"RabbitMQ Management","path":"/","port":"15672"}]}
