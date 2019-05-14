@@ -26,12 +26,22 @@ $rating = $response['rating'];
 <html>
 <head>
 	<meta charset="utf-8">
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
 	<title>Movie</title>
+    <style type="text/css">
+h1{
+    font-family: 'Roboto Slab', serif;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+	background-color: #CCC;
+}
+</style>
 </head>
 
 <body>
 	<div class="container">
+    <p><img src="BPoC logo.png" width="227" height="135"></p>
 	<h1><?php echo $title; ?><h1><br>
 	<form method="post" action="">
 		Staring: <?php echo $actors; ?> <br>
