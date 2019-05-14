@@ -30,3 +30,12 @@ rabbitmqadmin export rabbit.definitions.json
 
 #import the configuration definitions (quietly)
 rabbitmqadmin -q import rabbit.definitions.json
+
+
+Create vhost with curl, get the vhosts, delete it again
+  curl -i -u test:test -H "content-type:application/json" -XPUT http://localhost:15672/api/vhosts/foobar
+
+  curl -i -u test:test -H "content-type:application/json" -X GET "http://localhost:15672/api/overview"
+
+  curl -i -u test:test -H "content-type:application/json" -XDELETE http://localhost:15672/api/vhosts/foobar
+
