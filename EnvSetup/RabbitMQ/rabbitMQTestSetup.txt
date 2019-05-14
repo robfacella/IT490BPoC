@@ -24,3 +24,9 @@ RabbitMQ users, vhosts, exchanges etc are ALL CASE-SensitIVE!!!!
 
 
 If you send a message through a rabbitMQ testclient, without the testServer running, the message is available and viewable from the web interface (localhost/15672), the client sending the message will hang though; opening a test server with the hanging client does resolve the message as expected. Neat?
+
+#Backup to: rabbitmq.config
+rabbitmqadmin export rabbit.definitions.json
+
+#import the configuration definitions (quietly)
+rabbitmqadmin -q import rabbit.definitions.json
