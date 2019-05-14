@@ -14,3 +14,4 @@ sudo cp amqp.ini /etc/php/7.0/cli/conf.d/amqp.ini
 sudo apt install curl -y
 
 
+sudo rabbitmq-plugins enable rabbitmq_management
