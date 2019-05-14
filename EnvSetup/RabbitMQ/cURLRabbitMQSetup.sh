@@ -13,3 +13,4 @@ curl -i -u guest:guest -H "content-type:application/json" -XPUT -d'{"auto_delete
 ############
 rabbitmqctl set_permissions -p TESTHOST test ".*" ".*" ".*"
 ############
+curl -i -u guest:guest -H "content-type:application/json" -XPUT -d'{"routing_key":"*", "arguments":{}}' http://localhost:15672/api/bindings/TESTHOST/e/TESTEXCHANGE/q/TESTQUEUE
