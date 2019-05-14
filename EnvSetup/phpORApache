@@ -1,0 +1,11 @@
+##Found within root history - rob
+
+#    nano php7.0-fpm.conf 
+#    a2enmod php7
+#    apt-get install libapache2-mod-php7.0
+#    apt-get install libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-json 
+#    nano mods-enabled/php7.0.load
+#    nano mods-enabled/php7.0.conf
+#    a2enmod php7.0
+#    nano /etc/php/php.ini
+#
