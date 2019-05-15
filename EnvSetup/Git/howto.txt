@@ -1,0 +1,9 @@
+From dev, run createQA by typing in
+./createQA
+This will create a new QA branch
+
+In the QA server, the branch will be picked up automatically by fetchQA and applied. Type in
+./createPR
+To create a production branch
+
+In the Production server, the new branch will be picked up automatically by fetchPR

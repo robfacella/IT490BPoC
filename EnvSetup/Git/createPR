@@ -1,0 +1,53 @@
+#!/bin/bash
+
+
+
+sudo git pull
+
+#gets most recent PR branch
+CURRPR=$(git branch -a | grep remotes/origin/PR* | sort -rn | head -n 1 | cut -d/ -f3)
+
+#gets most recent QA branch
+CURRQA=$(git branch -a | grep remotes/origin/QA* | sort -rn | head -n 1 | cut -d/ -f3)
+
+echo The current production branch is $CURRPR
+SUBVER=$(echo "$CURRPR" | cut -c 5-)
+VER=$(echo "$CURRPR" | cut -c 3- | sed 's/.\{3\}$//')
+while true; do	
+	read -p  "You are on version $VER. Is this a major revision?[Y/N]" yn
+	case $yn in
+		[Yy]* ) VER=$(($VER+1))
+			SUBVER=0
+			break;;
+		[Nn]* ) break;;
+		* ) echo "please answer y or n";;
+	esac
+done
+
+while true; do	
+	read -p  "You are on sub version $SUBVER. Would you like to make a new sub version? [Y/N]" yn
+	case $yn in
+		[Yy]* ) SUBVER=$((10#$SUBVER+1))
+			if ((10#$SUBVER < 10))
+			then
+				SUBVER=0$SUBVER
+			else
+				SUBVER=$SUBVER
+			fi
+			break;;
+		[Nn]* ) break;;
+		* ) echo "please answer y or n";;
+	esac
+done
+
+#create new branch here
+NEWBRANCH=QA$VER.$SUBVER
+echo $NEWBRANCH
+
+#creates a new branch
+git checkout -b $NEWBRANCH
+git push origin $NEWBRANCH
+git push --set-upstream origin $NEWBRANCH
+sudo git pull
+
+git checkout $CURRQA
