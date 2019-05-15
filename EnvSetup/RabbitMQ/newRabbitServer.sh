@@ -3,7 +3,7 @@
 
 #Get RabbitMQ Server started for testing.
 sudo apt install rabbitmq-server -y
-sudo ./importRabbitMQ.sh
+sudo ./$HOME/IT490BPoC/EnvSetup/RabbitMQ/importRabbitMQ.sh
 
 sudo apt-get install php -y
 sudo apt-get install php-amqp -y
@@ -14,7 +14,7 @@ sudo cp amqp.ini /etc/php/7.0/cli/conf.d/amqp.ini
 #sudo apt install curl -y
 
 sudo rabbitmq-plugins enable rabbitmq_management
-sudo ./cURLRabbitMQSetup.sh
+sudo ./$HOME/IT490BPoC/EnvSetup/RabbitMQ/cURLRabbitMQSetup.sh
 echo "Now connect to the web interface for the RabbitMQ server"
 echo "Create the following: "
 echo "TESTHOST"
