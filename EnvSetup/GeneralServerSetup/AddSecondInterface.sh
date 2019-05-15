@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo "Hope you didn't forget to change the Static IP before running this. LMAO"
-bash AddSecondInterfaceInfo.sh > /etc/network/interfaces
+bash $HOME/IT490BPoC/EnvSetup/GeneralServerSetup/AddSecondInterfaceInfo.sh > /etc/network/interfaces
