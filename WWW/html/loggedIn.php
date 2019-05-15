@@ -49,3 +49,26 @@ require_once('rabbitMQLib.inc');
     echo "<br><h2>Return from whence ye came!</h2><br>";
   }
 ?>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
+	<title>Logged In!</title>
+    <style type="text/css">
+h1{
+    font-family: 'Roboto Slab', serif;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+	background-color: #CCC;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+    <p><img src="BPoC logo.png" width="227" height="135"></p>
+	</div>
+</body>
+
+</html>
