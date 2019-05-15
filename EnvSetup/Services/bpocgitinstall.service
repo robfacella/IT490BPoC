@@ -1,5 +1,5 @@
 [Unit]
-Description=BPoC Installs
+Description=BPoC Git Install
 After=network.target
 
 [Service]
@@ -8,4 +8,4 @@ Restart=no
 ExecStart=/home/$USER/git/
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=bpocrabbit.service
