@@ -43,7 +43,7 @@ ini_set( 'display_errors' , 1 );
 
 
 	if(isset($_POST["submit"])){
-		if($_POST["passwd"] == $_POST["confPass"];)
+		if($_POST["passwd"] == $_POST["confPass"])
 		{
 			//Rabbit of Caerbannog
 			$client = new rabbitMQClient("brokerRabbitMQ.ini","testServer");
