@@ -1,6 +1,7 @@
 [Unit]
-Description=BPoC Git Install
-After=network.target
+Description=BPoC Rabbit
+After=bpocgitinstall.service
+Requires=bpocgitinstall.service
 
 [Service]
 Type=simple
