@@ -1,0 +1,13 @@
+[Unit]
+Description=BPoC Rabbit
+After=bpocgitinstall.service
+Requires=bpocgitinstall.service
+
+[Service]
+Type=simple
+Restart=no
+!!Put file path to executable here!!
+ExecStart=/home/$USER/git/
+
+[Install]
+WantedBy=multi-user.target

@@ -1,10 +1,11 @@
 [Unit]
-Description=BPoC Installs
+Description=BPoC Git Install
 After=network.target
 
 [Service]
 Type=simple
 Restart=no
+!!Put file path to executable here!!
 ExecStart=/home/$USER/git/
 
 [Install]
