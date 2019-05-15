@@ -10,7 +10,8 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
 function logger($msg){
-  $logfile = fopen("centralLog.txt", "a") or die("Unable to open Log!!");
+  $file = $_SERVER['HOME']."/IT490BPoC/LogFile/centralLog.txt";
+  $logfile = fopen("$file", "a") or die("Unable to open Log!!");
   if (!isset ($msg)){
 	$msg = "Public Service Announcement: This is only a test.\n";
   }
