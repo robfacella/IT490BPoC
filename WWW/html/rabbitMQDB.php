@@ -5,7 +5,7 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include("dbAccount.php");
 //RabbitMQ Server Run by the Database Server which will take in requests from the Broker.
- $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+$db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
