@@ -1,0 +1,14 @@
+Put the edited service files here: /etc/systemd/system
+
+Then, enter the following commands:
+
+systemctl daemon-reload
+systemctl enable bpocgitinstall.service
+systemctl start bpocgitinstall.service
+
+for the Rabbit service, also add:
+
+systemctl enable bpocrabbit.service
+systemctl start bpocrabbit.service
+
+use (systemctl status bpocgitinstall.service) and/or (systemctl status bpocrabbit.service) to make sure they're running.
