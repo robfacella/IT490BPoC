@@ -1,0 +1,11 @@
+[Unit]
+Description=BPoC Rabbit Broker Production Start
+After=network.target
+
+[Service]
+Type=simple
+Restart=no
+ExecStart=$HOME/IT490BPoC/WWW/html/rabbitMQBroker.php
+
+[Install]
+WantedBy=multi-user.target
