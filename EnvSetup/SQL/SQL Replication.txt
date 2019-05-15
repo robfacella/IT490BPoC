@@ -1,0 +1,53 @@
+Python Script for Backup
+https://tecadmin.net/python-script-for-mysql-database-backup/
+
+Cron Jobs for SQL Backup
+https://help.dreamhost.com/hc/en-us/articles/217117947-How-do-I-use-a-mysqldump-script-to-back-up-my-database-
+
+SQL Master-Slave Replication
+https://dev.mysql.com/doc/refman/5.7/en/replication-setup-slaves.html
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-in-mysql
+
+
+https://www.youtube.com/watch?v=JXDuVypcHNA
+
+
+/etc/mysql/msql.conf.d/mysqld.cnf
+edit	bind address
+	server ID
+
+
+MYSQL
+create user for replication
+	CREATE USER 'sec'@'%' IDENTIFIED BY '1234';
+	grant replication slave on *.* to 'sec'@'%';
+	exit
+
+mysqldump -uroot --all-databases --master-data > masterdump.sql
+grep CHANGE *sql | head -1			
+scp masterdump.sql 192.168.8.159(SLAVE IP):
+
+
+
+SLAVE1
+install mysql server, set up empty database with name 'testdb'
+
+edit /etc/mysql/mariadb.conf.d/50-server.cnf
+	bind address to server IP
+	increment server ID (unique)
+restart mysql
+
+	mysql>change master to
+	Master_host = '',
+	Master_USER ='sec',
+	Master_password='1234';
+
+Restore the snapshot:
+	mysql -uroot < masterdump.sql
+Start the slave:
+
+mysql -u root
+start slave;
+show slave status\G;
+
