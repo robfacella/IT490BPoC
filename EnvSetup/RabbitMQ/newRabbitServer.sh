@@ -15,6 +15,7 @@ sudo cp amqp.ini /etc/php/7.0/cli/conf.d/amqp.ini
 
 sudo rabbitmq-plugins enable rabbitmq_management
 sudo ./$HOME/IT490BPoC/EnvSetup/RabbitMQ/cURLRabbitMQSetup.sh
+sudo ./$HOME/IT490BPoC/EnvSetup/RabbitMQ/rabbitTestInit.sh
 echo "Now connect to the web interface for the RabbitMQ server"
 echo "Create the following: "
 echo "TESTHOST"
