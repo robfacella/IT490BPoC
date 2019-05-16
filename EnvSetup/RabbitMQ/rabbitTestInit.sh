@@ -15,3 +15,5 @@ rabbitmqctl set_permissions -p TESTHOST test ".*" ".*" ".*"
 ./rabbitmqadmin declare exchange name=TESTEXCHANGE type=topic [durable=false]
 ###add queue: "TESTQUEUE" {Durable No} {Bindings: [FROM: TESTEXCHANGE, RKey: *]}
 ./rabbitmqadmin declare queue name=TESTQUEUE [durable=false]
+
+sudo apt-get install libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-json
