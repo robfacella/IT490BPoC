@@ -37,15 +37,33 @@ if ($response['isValid'] == false){
    exit();
 }
 //echo "Session still valid at least...";
-$request['type'] = "getUserProfile";
+$request['type'] = "getMovie";
 $request['username'] = $user;
-$request['message'] = "Fetching ". $user . "'s Profile Page.";
+$request['message'] = "Fetching movie 1 for ". $user . "'s Party.";
 $response = rabbits($request);
-$movies = $response['movies'];
-$friends = $response['friends'];
 $RecoTitle = $response['RecoTitle'];
 $posterURL = $response['url'];
-	
+//////////////////////////////////
+$request['message'] = "Fetching movie 2 for ". $user . "'s Party.";
+$response = rabbits($request);
+$RecoTitle2 = $response['RecoTitle'];
+$posterURL2 = $response['url'];
+///////////////////////////////////
+$request['message'] = "Fetching movie 3 for ". $user . "'s Party.";
+$response = rabbits($request);
+$RecoTitle3 = $response['RecoTitle'];
+$posterURL3 = $response['url'];
+////////////////////////////////////
+$request['message'] = "Fetching movie 4 for ". $user . "'s Party.";
+$response = rabbits($request);
+$RecoTitle4 = $response['RecoTitle'];
+$posterURL4 = $response['url'];
+////////////////////////////////////
+$request['message'] = "Fetching movie 5 for ". $user . "'s Party.";
+$response = rabbits($request);
+$RecoTitle5 = $response['RecoTitle'];
+$posterURL5 = $response['url'];
+
 ?>
 
 <html>
