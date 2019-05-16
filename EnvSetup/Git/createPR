@@ -41,7 +41,7 @@ while true; do
 done
 
 #create new branch here
-NEWBRANCH=QA$VER.$SUBVER
+NEWBRANCH=PR$VER.$SUBVER
 echo $NEWBRANCH
 
 #creates a new branch
