@@ -385,6 +385,8 @@ function requestProcessor($request)
     case "moviePage":
         //Fetch Data from OUR movie database..
         return moviePage($request['movieID']);
+    case "getMovie":
+	return getMovie($request['user']);
     case "getUserProfile":
         //Fetch User's Profile Page.
         return getUserProfile($request['username']);
