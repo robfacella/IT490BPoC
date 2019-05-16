@@ -9,6 +9,34 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
+function getAMovie(){
+   $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
+   if (mysqli_connect_errno())
+   {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  exit();
+   }
+   mysqli_select_db($db, "testdb" ); 
+   //error reporting
+   error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+   ini_set( 'display_errors' , 1 );
+	$response = array();
+	//recommend movie
+	$s = "select * from movies";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	$num =mysqli_num_rows($t);
+	
+	$randNum = rand(1,$num);
+	echo $randNum;
+	$s = "select * from movies where movieid = '$randNum' ";
+	($t = mysqli_query($db, $s) ) or die ( mysqli_error( $db ) );
+	while ( $r = mysqli_fetch_array ( $t, MYSQLI_ASSOC) ) {
+	    $response['url'] = $r[ "poster" ];
+	    $response['RecoTitle'] = $r[ "title" ];
+        }
+   return $response;
+}
+
 function getUserProfile($user){
    $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
    if (mysqli_connect_errno())
