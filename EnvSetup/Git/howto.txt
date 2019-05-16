@@ -7,3 +7,14 @@ In the QA server, the branch will be picked up automatically by fetchQA and appl
 To create a production branch
 
 In the Production server, the new branch will be picked up automatically by fetchPR
+
+Note: In order to automate fetchPR and fetchQA you need to create a cron job in each instance. 
+In QA,
+type in "crontab -e"
+then add this line to the bottom with out quotes
+"* * * * * bash $HOME/IT490BPoC/EnvSetup/Git/fetchQA >> $HOME/cronlog.txt 2>&1"
+
+In PR,
+type in "crontab -e"
+then add this line to the bottom with out quotes
+"* * * * * bash $HOME/IT490BPoC/EnvSetup/Git/fetchPR >> $HOME/cronlog.txt 2>&1"
