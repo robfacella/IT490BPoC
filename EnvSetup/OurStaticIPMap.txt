@@ -10,7 +10,7 @@ QA Cluster:
 	RabbitBroker	- 192.168.8.115
 
 Production Cluster:
-	DataBase	- 192.168.8.236
+	DataBase	- 192.168.8.238
 	Slav Database   - 192.168.8.164
 	WebServer	- 192.168.8.148
 	RabbitBroker	- 192.168.8.116
