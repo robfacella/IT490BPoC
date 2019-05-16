@@ -79,61 +79,34 @@ body {
 	background-color: #CCC;
 }
 </style>
-	<title>Profile</title>
+	<title>Party Picks!!</title>
 </head>
 
 <body>
 	<div class="container">
 	<p><img src="BPoC logo.png" width="227" height="135"></p>
-    <h1><?php echo $user; ?>'s Profile</h1><br>
+    <h1><?php echo $user; ?>'s Party Recomendations this Evening</h1><br>
 	<br><a href='loggedIn.php'><input type=button value=Home name=Home></a>
 	<form method="post" action="">
-		Discover more Brilliant Picks<br>
-		<h2>You should check this movie out: <?php echo $RecoTitle; ?></h2><br><br>
-		
-		<form method="post" action"">
-		Movie List: <?php echo $movies; ?> <br>
-		Add Watched Movies: <input type="text" name="newMovie"> <br>
-		<input type="submit" value="submit" name="msubmit_btn"> <br> <br>
-		</form>
-		
-		<form method="post" action"">
-		Friends List: <?php echo $friends; ?> <br>
-		Add friends: <input type="text" name="newFriend"> <br>
-		<input type="submit" value="submit" name="fsubmit_btn"> <br> <br>
-		</form>
+		Discover more Brilliant Picks with us.<br>
+		<h2>This is your top pick: <?php echo $RecoTitle; ?></h2><br><br>
+		<img src="<?php echo $posterURL; ?>" alt="Recommended Movie">
+		<br>
+		<h2>You might also enjoy: <?php echo $RecoTitle2; ?></h2><br><br>
+		<img src="<?php echo $posterURL2; ?>" alt="Recommended Movie">
+		<h2>Leroy's Listing is: <?php echo $RecoTitle4; ?></h2><br>
+		<img src="<?php echo $posterURL4; ?>" alt="Recommended Movie">
+		<br>
+		<h2>Our sleeper choice is: <?php echo $RecoTitle3; ?></h2><br>
+		<img src="<?php echo $posterURL3; ?>" alt="Recommended Movie">
+		<h2>Our users liked: <?php echo $RecoTitle5; ?> ---this week.</h2><br>
+		<img src="<?php echo $posterURL5; ?>" alt="Recommended Movie">
 		
 	</form>
 		<br><a href='logout.php'><input type=button value=logout name=logout></a>
-		<img src="<?php echo $posterURL; ?>" alt="Recommended Movie">
+		
 	</div>
 </body>
 
 </html>
 
-<?php 
-if(isset($_REQUEST['msubmit_btn']))
-{
-	$newMovie =  $_POST["newMovie"];
-	$request = array();
-        $request['type'] = "addMovieToUser";
-        $request['username'] = $user;
-        $request['movies'] = $movies;
-        $request['newMovie'] = $newMovie;
-	$request['message'] = "Attempting to add movie '" . $newMovie . "' to " . $user . "'s Movie list...";
-	$response = rabbits($request);
-	//Refresh Page
-}
-if(isset($_REQUEST['fsubmit_btn']))
-{
-	$newFriend =  $_POST["newFriend"];
-        $request = array();
-        $request['type'] = "addFriend";
-        $request['username'] = $user;
-        $request['friends'] = $friends;
-        $request['newFriend'] = $newFriend;
-	$request['message'] = "Attempting to add friend '" . $newFriend . "' to " . $user . "'s Friend list...";
-	$response = rabbits($request);
-	//Refresh Page
-}
-?>
