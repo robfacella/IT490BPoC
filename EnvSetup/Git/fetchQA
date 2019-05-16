@@ -3,9 +3,19 @@ cd IT490BPoC
 pwd
 git pull
 
-#gets most recent QA branch
-CURRBRANCH=$(git branch -a | grep remotes/origin/QA* | sort -rn | head -n 1 | cut -d/ -f3)
+#gets current branch
+CURRBRANCH=$(git branch | grep \* | cut -d ' ' -f2)
 
-git checkout $CURRBRANCH
+#gets most recent QA branch
+TOPBRANCH=$(git branch -a | grep remotes/origin/QA* | sort -rn | head -n 1 | cut -d/ -f3)
+
+if [ "$CURRBRANCH" != "$TOPBRANCH" ];
+then
+	echo not equal, checking out
+	git checkout $TOPBRANCH
+else
+	echo equal, not checking out
+fi
+
 
 git pull
