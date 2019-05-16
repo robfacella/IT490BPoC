@@ -10,3 +10,8 @@ The function of our project is to allow users to create a profile keeping track 
 Brilliant Picks of Cinema attempts to find users with similar tastes in movies to what you have, and using the movies they've seen, suggest new movies close to what you enjoy.
 
 Users should be able to register their own account, enter the movies they've seen, and then get a suggestion for the new movie to watch. Each movie has its own page, with a section for forum discussion inside them.
+
+The service also offers an assorted multi-movie selection for parties, with the choices sourced from our own user-base.
+The webserver offers an experience compatible with many mobile devices.
+
+Fandango ticket integration pending.  
