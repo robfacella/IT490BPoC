@@ -41,7 +41,7 @@ require_once('rabbitMQLib.inc');
     //echo "<br><h2>UserID: ".$_SESSION['uid']."</h2><br>";
     $url = ("profile.php?user=" . $_SESSION['uname']);
     echo "<br><p><a href=" . $url . ">".$_SESSION['uname']."'s Profile</a></p>";
-    $url = ("groupReco.php?user=" . $_SESSION['uname'];
+    $url = ("groupReco.php?user=" . $_SESSION['uname']);
     echo "<br><p><a href=" . $url . ">".$_SESSION['uname']."'s Party Picks</a></p>";
     echo "<br><a href='logout.php'><input type=button value=logout name=logout></a>";
     
