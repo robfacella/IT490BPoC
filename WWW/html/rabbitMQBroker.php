@@ -21,6 +21,22 @@ function logger($msg){
   fwrite($logfile, $logMsg);
   fclose($logfile);
 }
+function getMovie($user)
+{
+    $client = new rabbitMQClient("dbRabbitMQ.ini","testServer");
+    $request = array();
+    $request['type'] = "getMovie";
+    $request['username'] = $user;
+    $request['message'] = "Fetching a movie recomendation for < $user > from the remote database...";
+    $msg = $request['message']." - Sending Message to DB...";
+    logger($msg);
+    $response = $client->send_request($request);
+    $msg = "Sent Message to DB...";
+    logger($msg);
+    logger($response['message']);
+    
+    return $response;
+}
 
 function logCase($msg)
 {
@@ -216,6 +232,8 @@ function requestProcessor($request)
     case "moviePage":
         //Fetch Data from OUR movie database..
         return moviePage($request['movieID']);
+    case "getMovie":
+	return getMovie($request['user']);
     case "getUserProfile":
         //Fetch User's Profile Page.
         return getUserProfile($request['username']);
