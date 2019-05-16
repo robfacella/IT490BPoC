@@ -11,7 +11,7 @@ QA Cluster:
 
 Production Cluster:
 	DataBase	- 192.168.8.238
-	Slav Database   - 192.168.8.164
+	Slav Database   - 192.168.8.201
 	WebServer	- 192.168.8.148
 	RabbitBroker	- 192.168.8.116
 	HSDataBase	- 192.168.8.239
