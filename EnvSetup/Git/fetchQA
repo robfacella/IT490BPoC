@@ -1,10 +1,11 @@
 #!/bin/bash
-cd /home/mp-490/Desktop/IT490BPoc
-sudo git pull
+cd IT490BPoC
+pwd
+git pull
 
 #gets most recent QA branch
 CURRBRANCH=$(git branch -a | grep remotes/origin/QA* | sort -rn | head -n 1 | cut -d/ -f3)
 
 git checkout $CURRBRANCH
 
-sudo git pull
+git pull
