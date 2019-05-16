@@ -9,7 +9,7 @@ $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysq
 //Need to add AMQP extension to /etc/php/7.0/apache2/php.ini
 //also possibly /etc/php/7.0/cli/php.ini
 //extension=amqp.so
-function getAMovie(){
+function getMovie(){
    $db = mysqli_connect("localhost", "testuser", "password", "testdb") or die (mysqli_error());
    if (mysqli_connect_errno())
    {
