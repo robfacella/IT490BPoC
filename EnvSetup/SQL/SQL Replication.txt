@@ -6,10 +6,11 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-repl
 
 https://www.youtube.com/watch?v=JXDuVypcHNA
 
-MASTER
+
 /etc/mysql/msql.conf.d/mysqld.cnf
-edit	bind address='SLAVE IP'
-	server ID = 1
+edit	bind address = local IP address
+	server ID
+
 
 MYSQL
 create user for replication
@@ -19,18 +20,18 @@ create user for replication
 
 mysqldump -uroot --all-databases --master-data > masterdump.sql
 grep CHANGE *sql | head -1			
-scp masterdump.sql 192.168.8.159(SLAVE IP):
+scp masterdump.sql 192.168.8.162(SLAVE IP):
 
 
-SLAVE
-install mysql/mariadb-server, set up empty database with name 'testdb'
+
+SLAVE1
+install mysql server, set up empty database with name 'testdb'
 
 edit /etc/mysql/mariadb.conf.d/50-server.cnf
-	bind address to server IP
+	bind address to local ip
 	increment server ID (unique)
 restart mysql
 
-MYSQL
 	mysql>change master to
 	Master_host = '',
 	Master_USER ='sec',
@@ -44,3 +45,6 @@ mysql -u root
 start slave;
 show slave status\G;
 
+SQL STOP/START/STATUS
+Sudo service mysql stop
+Sudo systemctl status mysql 
